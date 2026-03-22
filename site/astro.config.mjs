@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://johnnysharkhead.github.io',
-  base: '/threatlens-ai',
+  base: '/threatlens-ai/',
   vite: {
     plugins: [tailwindcss()]
   }
