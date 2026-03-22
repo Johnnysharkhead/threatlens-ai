@@ -91,7 +91,14 @@ function classifyRecommendation(rec: string): GapRow {
   };
 }
 
-const gapRows = recommendations.map(classifyRecommendation);
+// Deduplicate by solution category — keep the first match per category
+const allRows = recommendations.map(classifyRecommendation);
+const seen = new Set<string>();
+const gapRows = allRows.filter(row => {
+  if (seen.has(row.solution)) return false;
+  seen.add(row.solution);
+  return true;
+});
 
 // Coverage indicator helpers
 function getCoverageLabel(c: string): string {
