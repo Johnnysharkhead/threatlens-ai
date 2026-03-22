@@ -1,0 +1,263 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AttackChain from '../../components/AttackChain.astro';
+import DefenseGap from '../../components/DefenseGap.astro';
+import { getAllEvents, getCategoryLabel } from '../../lib/events';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths: GetStaticPaths = () => {
+  const events = getAllEvents();
+  return events.map(event => ({
+    params: { id: event.id },
+    props: { event },
+  }));
+};
+
+const { event } = Astro.props;
+const dateStr = event.collected_at.split('T')[0];
+const categoryLabel = getCategoryLabel(event.category);
+
+const sophisticationMap: Record<string, string> = {
+  low: '低', medium: '中', high: '高', advanced: '高级'
+};
+
+// Build TOC sections
+const sections = [];
+if (event.overview) sections.push({ id: 'overview', label: '攻击概况' });
+if (event.technique) sections.push({ id: 'technique', label: '攻击手法' });
+if (event.attack_chain) sections.push({ id: 'attack-chain', label: '攻击链分析' });
+if (event.lessons) sections.push({ id: 'defense', label: '启示与防御' });
+if (event.sources?.length) sections.push({ id: 'sources', label: '信息来源' });
+---
+
+<Layout title={`${event.title} — ThreatLens AI`}>
+
+  <!-- Back nav -->
+  <a href={import.meta.env.BASE_URL} class="inline-flex items-center gap-1 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] no-underline mb-8 transition-colors">
+    ← 返回
+  </a>
+
+  <!-- Two-column: sticky TOC + report -->
+  <div class="flex gap-10">
+
+    <!-- Sticky sidebar TOC (desktop only) -->
+    <aside class="hidden lg:block w-44 shrink-0">
+      <nav class="sticky top-20">
+        <div class="text-xs font-medium text-[var(--color-text-tertiary)] uppercase tracking-widest mb-3">目录</div>
+        <ul class="space-y-1 list-none p-0 m-0">
+          {sections.map(s => (
+            <li>
+              <a href={`#${s.id}`}
+                 class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors"
+                 data-section={s.id}>
+                {s.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main report content -->
+    <article class="flex-1 min-w-0">
+
+      <!-- Header -->
+      <header class="mb-10 pb-8 border-b border-[var(--color-border-default)]">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2 py-0.5 rounded-sm font-medium">
+            {categoryLabel}
+          </span>
+          <time class="text-xs text-[var(--color-text-tertiary)]">{dateStr}</time>
+          {event.technique?.sophistication && (
+            <span class="text-xs text-[var(--color-text-tertiary)]">
+              复杂度: {sophisticationMap[event.technique.sophistication] || event.technique.sophistication}
+            </span>
+          )}
+        </div>
+        <h1 class="text-2xl md:text-[28px] font-bold leading-tight mb-4">{event.title}</h1>
+        <p class="text-[var(--color-text-secondary)] text-[15px] leading-relaxed">{event.summary}</p>
+      </header>
+
+      {event.status === 'stub' ? (
+        <div class="py-16 text-center">
+          <p class="text-[var(--color-text-secondary)]">此事件尚未深度分析</p>
+          <p class="text-sm text-[var(--color-text-tertiary)] mt-1">
+            运行 <code>/analyze {event.id}</code> 进行分析
+          </p>
+        </div>
+      ) : (
+        <div class="space-y-12">
+
+          <!-- Section: 攻击概况 -->
+          {event.overview && (
+            <section id="overview">
+              <h2 class="text-lg font-semibold mb-5">攻击概况</h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-[var(--color-border-default)] border border-[var(--color-border-default)] rounded-md overflow-hidden">
+                <div class="bg-[var(--color-bg-primary)] p-4">
+                  <div class="text-xs text-[var(--color-text-tertiary)] mb-1">攻击方</div>
+                  <div class="text-sm font-medium leading-snug">{event.overview.attacker}</div>
+                </div>
+                <div class="bg-[var(--color-bg-primary)] p-4">
+                  <div class="text-xs text-[var(--color-text-tertiary)] mb-1">攻击目标</div>
+                  <div class="text-sm font-medium leading-snug">{event.overview.target}</div>
+                </div>
+                <div class="bg-[var(--color-bg-primary)] p-4">
+                  <div class="text-xs text-[var(--color-text-tertiary)] mb-1">经济损失</div>
+                  <div class="text-sm font-medium">{event.overview.economic_loss}</div>
+                </div>
+                <div class="bg-[var(--color-bg-primary)] p-4">
+                  <div class="text-xs text-[var(--color-text-tertiary)] mb-1">事件状态</div>
+                  <div class="text-sm font-medium">{event.overview.status}</div>
+                </div>
+              </div>
+              {event.overview.timeline && (
+                <div class="mt-4 border border-[var(--color-border-default)] rounded-md p-4">
+                  <div class="text-xs text-[var(--color-text-tertiary)] mb-1">事件时间线</div>
+                  <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">{event.overview.timeline}</div>
+                </div>
+              )}
+              {event.lessons?.industry_impact && (
+                <div class="mt-4 border border-[var(--color-border-default)] rounded-md p-4">
+                  <div class="text-xs text-[var(--color-text-tertiary)] mb-1">行业影响</div>
+                  <div class="text-sm text-[var(--color-text-secondary)] leading-[1.7]">{event.lessons.industry_impact}</div>
+                </div>
+              )}
+            </section>
+          )}
+
+          <!-- Section: 攻击手法 -->
+          {event.technique && (
+            <section id="technique">
+              <h2 class="text-lg font-semibold mb-5">攻击手法</h2>
+
+              <div class="border border-[var(--color-border-default)] rounded-md p-5 mb-4">
+                <div class="text-sm leading-[1.7] text-[var(--color-text-primary)]">
+                  {event.technique.method}
+                </div>
+              </div>
+
+              <div class="flex flex-wrap gap-2 mb-4">
+                {event.technique.owasp_classification && event.technique.owasp_classification !== 'N/A' && (
+                  <span class="text-xs bg-[var(--color-accent-surface)] text-[var(--color-accent)] px-2.5 py-1 rounded-sm font-medium">
+                    {event.technique.owasp_classification}
+                  </span>
+                )}
+                {event.technique.tools_used.map(t => (
+                  <span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">{t}</span>
+                ))}
+              </div>
+
+              {event.technique.vulnerabilities.length > 0 && (
+                <div>
+                  <div class="text-xs text-[var(--color-text-tertiary)] mb-2 font-medium">利用的脆弱性</div>
+                  <ul class="list-none p-0 m-0 space-y-1.5">
+                    {event.technique.vulnerabilities.map(v => (
+                      <li class="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]">
+                        <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-text-tertiary)] shrink-0"></span>
+                        {v}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </section>
+          )}
+
+          <!-- Section: 攻击链分析 (Interactive) -->
+          {event.attack_chain && (
+            <section id="attack-chain">
+              <h2 class="text-lg font-semibold mb-2">攻击链分析</h2>
+              {event.attack_chain.description && (
+                <p class="text-sm text-[var(--color-text-secondary)] mb-6 leading-relaxed">{event.attack_chain.description}</p>
+              )}
+              <AttackChain
+                steps={event.attack_chain.steps}
+                mermaidCode={event.attack_chain.mermaid}
+                eventId={event.id}
+              />
+            </section>
+          )}
+
+          <!-- Section: 启示与防御 + GAP Analysis -->
+          {event.lessons && (
+            <section id="defense">
+              <h2 class="text-lg font-semibold mb-5">启示与防御</h2>
+
+              <!-- AI Role -->
+              {event.lessons.ai_role && (
+                <div class="border-l-2 border-[var(--color-accent)] pl-4 mb-6">
+                  <div class="text-xs text-[var(--color-accent)] font-medium mb-1.5">AI在攻击中的角色</div>
+                  <div class="text-sm text-[var(--color-text-secondary)] leading-[1.7]">{event.lessons.ai_role}</div>
+                </div>
+              )}
+
+              <!-- AI Vulnerabilities -->
+              {event.lessons.ai_vulnerabilities.length > 0 && (
+                <div class="mb-6">
+                  <div class="text-xs text-[var(--color-text-tertiary)] font-medium mb-2.5">AI特有脆弱性</div>
+                  <ul class="list-none p-0 m-0 space-y-2">
+                    {event.lessons.ai_vulnerabilities.map(v => (
+                      <li class="flex items-start gap-2.5 text-sm text-[var(--color-text-secondary)] leading-relaxed">
+                        <span class="mt-1.5 w-1.5 h-1.5 bg-[var(--color-text-tertiary)] shrink-0" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"></span>
+                        {v}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              <!-- Defense GAP Analysis -->
+              <DefenseGap recommendations={event.lessons.defense_recommendations} />
+            </section>
+          )}
+
+          <!-- Section: Sources -->
+          {event.sources.length > 0 && (
+            <section id="sources" class="pt-8 border-t border-[var(--color-border-default)]">
+              <div class="text-xs text-[var(--color-text-tertiary)] font-medium uppercase tracking-widest mb-3">信息来源</div>
+              <ul class="list-none p-0 m-0 space-y-2">
+                {event.sources.map(source => (
+                  <li>
+                    <a href={source.url} target="_blank" rel="noopener noreferrer"
+                       class="text-sm text-[var(--color-accent)] hover:underline no-underline">
+                      {source.title}
+                    </a>
+                    {source.published && (
+                      <span class="text-xs text-[var(--color-text-tertiary)] ml-2">{source.published}</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </div>
+      )}
+    </article>
+  </div>
+
+  <!-- TOC scroll-spy -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function() {
+      const links = document.querySelectorAll('.toc-link');
+      if (!links.length) return;
+      const sectionIds = Array.from(links).map(l => l.getAttribute('data-section'));
+
+      function updateActive() {
+        let current = sectionIds[0];
+        for (const id of sectionIds) {
+          const el = document.getElementById(id);
+          if (el && el.getBoundingClientRect().top <= 100) current = id;
+        }
+        links.forEach(l => {
+          const isActive = l.getAttribute('data-section') === current;
+          l.style.borderColor = isActive ? '#2563EB' : 'transparent';
+          l.style.color = isActive ? '#111827' : '';
+          l.style.fontWeight = isActive ? '500' : '';
+        });
+      }
+
+      window.addEventListener('scroll', updateActive, { passive: true });
+      updateActive();
+    });
+  </script>
+</Layout>

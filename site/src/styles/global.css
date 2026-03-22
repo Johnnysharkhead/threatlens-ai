@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "SF Pro Display", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Geist Mono", ui-monospace, monospace;
+
+  /* Base Neutrals */
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F9FAFB;
+  --color-bg-tertiary: #F3F4F6;
+  --color-border-default: #E5E7EB;
+  --color-border-strong: #D1D5DB;
+
+  /* Typography */
+  --color-text-primary: #111827;
+  --color-text-secondary: #6B7280;
+  --color-text-tertiary: #9CA3AF;
+
+  /* Accent Blue */
+  --color-accent: #2563EB;
+  --color-accent-hover: #1D4ED8;
+  --color-accent-surface: #EFF6FF;
+  --color-accent-muted: #DBEAFE;
+}
+
+/* Tight heading tracking */
+h1, h2, h3, h4 {
+  letter-spacing: -0.02em;
+}
+
+/* Code/monospace inline */
+code:not(.mermaid code) {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Mermaid overrides — force monochrome + blue */
+.mermaid-container svg {
+  max-width: 100%;
+}
+.mermaid-container .node rect,
+.mermaid-container .node polygon,
+.mermaid-container .node circle {
+  stroke: var(--color-border-strong) !important;
+  stroke-width: 1px !important;
+}
+.mermaid-container .node.active rect,
+.mermaid-container .node.active polygon {
+  fill: var(--color-accent) !important;
+  stroke: var(--color-accent) !important;
+}
+.mermaid-container .node.active .nodeLabel {
+  color: #fff !important;
+}
+.mermaid-container .edgePath .path {
+  stroke: var(--color-border-strong) !important;
+  stroke-width: 1.5px !important;
+}
+.mermaid-container marker path {
+  fill: var(--color-border-strong) !important;
+}
+
+/* Smooth transitions */
+.zone-transition {
+  transition: opacity 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Step card animation */
+.step-card {
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}

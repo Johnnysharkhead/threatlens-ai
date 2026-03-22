@@ -1,0 +1,194 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getAllEvents } from '../lib/events';
+
+const allEvents = getAllEvents();
+const attackOnAI = allEvents.filter(e => e.category === 'attack_on_ai');
+const aiPowered = allEvents.filter(e => e.category === 'ai_powered_attack');
+---
+
+<Layout title="ThreatLens AI — AI网络攻击威胁情报" fullWidth={true}>
+
+  <!-- Portal Split View -->
+  <div class="min-h-screen flex flex-col" id="portal">
+
+    <!-- Top bar with prominent branding -->
+    <header class="border-b border-[var(--color-border-default)] bg-[var(--color-bg-primary)]">
+      <div class="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
+        <div class="flex items-baseline gap-2">
+          <span class="text-lg font-bold tracking-tight text-[var(--color-text-primary)]">ThreatLens</span>
+          <span class="text-lg font-semibold text-[var(--color-accent)] tracking-wide">AI</span>
+        </div>
+        <span class="text-xs text-[var(--color-text-tertiary)]">{allEvents.length} 起事件收录</span>
+      </div>
+    </header>
+
+    <!-- 50/50 Split Zones -->
+    <div class="flex-1 flex flex-col md:flex-row" id="split-zones">
+
+      <!-- Left Zone: Attacks Against AI -->
+      <a href="#attack-on-ai"
+         class="zone-transition flex-1 flex flex-col justify-center items-center p-10 md:p-16 border-b md:border-b-0 md:border-r border-[var(--color-border-default)] cursor-pointer no-underline group"
+         id="zone-left"
+         data-zone="left">
+        <div class="max-w-md text-center md:text-left">
+          <div class="text-xs font-medium text-[var(--color-text-tertiary)] uppercase tracking-widest mb-4">
+            {attackOnAI.length} 起事件
+          </div>
+          <h1 class="text-3xl md:text-4xl font-bold text-[var(--color-text-primary)] mb-4 leading-tight">
+            针对AI系统的攻击
+          </h1>
+          <p class="text-[var(--color-text-secondary)] text-[15px] leading-relaxed mb-6">
+            Prompt注入、模型投毒、越狱攻击、数据泄露、对抗样本 — 当AI系统本身成为攻击目标
+          </p>
+          <span class="inline-flex items-center gap-1.5 text-sm text-[var(--color-accent)] font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+            查看事件 <span class="text-lg">→</span>
+          </span>
+        </div>
+      </a>
+
+      <!-- Right Zone: Attacks Using AI -->
+      <a href="#ai-powered"
+         class="zone-transition flex-1 flex flex-col justify-center items-center p-10 md:p-16 cursor-pointer no-underline group"
+         id="zone-right"
+         data-zone="right">
+        <div class="max-w-md text-center md:text-left">
+          <div class="text-xs font-medium text-[var(--color-text-tertiary)] uppercase tracking-widest mb-4">
+            {aiPowered.length} 起事件
+          </div>
+          <h1 class="text-3xl md:text-4xl font-bold text-[var(--color-text-primary)] mb-4 leading-tight">
+            利用AI的攻击
+          </h1>
+          <p class="text-[var(--color-text-secondary)] text-[15px] leading-relaxed mb-6">
+            AI生成钓鱼邮件、深度伪造、AI自主渗透、LLM驱动恶意软件 — 当AI成为攻击者的武器
+          </p>
+          <span class="inline-flex items-center gap-1.5 text-sm text-[var(--color-accent)] font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+            查看事件 <span class="text-lg">→</span>
+          </span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Event Lists (below the split) -->
+    <div class="border-t border-[var(--color-border-default)]">
+
+      <!-- Attack on AI Section -->
+      <section id="attack-on-ai" class="max-w-[896px] mx-auto px-6 py-12">
+        <div class="mb-8">
+          <h2 class="text-xl font-semibold mb-1">针对AI系统的攻击</h2>
+          <p class="text-sm text-[var(--color-text-secondary)]">{attackOnAI.length} 起事件</p>
+        </div>
+        <div class="space-y-px border border-[var(--color-border-default)] rounded-md overflow-hidden">
+          {attackOnAI.map(event => {
+            const dateStr = event.collected_at.split('T')[0];
+            return (
+              <a href={`${import.meta.env.BASE_URL}event/${event.id}`}
+                 class="flex items-start gap-4 p-4 bg-[var(--color-bg-primary)] hover:bg-[var(--color-bg-secondary)] transition-colors no-underline border-b border-[var(--color-border-default)] last:border-b-0">
+                <div class="flex-1 min-w-0">
+                  <div class="text-[15px] font-medium text-[var(--color-text-primary)] leading-snug mb-1">
+                    {event.title}
+                  </div>
+                  <div class="text-sm text-[var(--color-text-secondary)] line-clamp-1">
+                    {event.summary}
+                  </div>
+                </div>
+                <div class="shrink-0 flex flex-col items-end gap-1.5">
+                  <time class="text-xs text-[var(--color-text-tertiary)]">{dateStr}</time>
+                  {event.technique?.owasp_classification && event.technique.owasp_classification !== 'N/A' && (
+                    <span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2 py-0.5 rounded-sm">
+                      {event.technique.owasp_classification.split(' - ')[0]}
+                    </span>
+                  )}
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+
+      <!-- AI Powered Section -->
+      <section id="ai-powered" class="max-w-[896px] mx-auto px-6 py-12 border-t border-[var(--color-border-default)]">
+        <div class="mb-8">
+          <h2 class="text-xl font-semibold mb-1">利用AI的攻击</h2>
+          <p class="text-sm text-[var(--color-text-secondary)]">{aiPowered.length} 起事件</p>
+        </div>
+        <div class="space-y-px border border-[var(--color-border-default)] rounded-md overflow-hidden">
+          {aiPowered.map(event => {
+            const dateStr = event.collected_at.split('T')[0];
+            return (
+              <a href={`${import.meta.env.BASE_URL}event/${event.id}`}
+                 class="flex items-start gap-4 p-4 bg-[var(--color-bg-primary)] hover:bg-[var(--color-bg-secondary)] transition-colors no-underline border-b border-[var(--color-border-default)] last:border-b-0">
+                <div class="flex-1 min-w-0">
+                  <div class="text-[15px] font-medium text-[var(--color-text-primary)] leading-snug mb-1">
+                    {event.title}
+                  </div>
+                  <div class="text-sm text-[var(--color-text-secondary)] line-clamp-1">
+                    {event.summary}
+                  </div>
+                </div>
+                <div class="shrink-0 flex flex-col items-end gap-1.5">
+                  <time class="text-xs text-[var(--color-text-tertiary)]">{dateStr}</time>
+                  {event.technique?.sophistication && (
+                    <span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2 py-0.5 rounded-sm">
+                      {event.technique.sophistication}
+                    </span>
+                  )}
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Footer with author attribution -->
+    <footer class="border-t border-[var(--color-border-default)] py-8">
+      <div class="max-w-[896px] mx-auto px-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-baseline gap-2 mb-1">
+            <span class="text-sm font-bold tracking-tight text-[var(--color-text-primary)]">ThreatLens</span>
+            <span class="text-sm font-semibold text-[var(--color-accent)]">AI</span>
+          </div>
+          <div class="text-xs text-[var(--color-text-tertiary)]">
+            AI网络攻击威胁情报 — 每日采集与分析
+          </div>
+        </div>
+        <div class="text-right">
+          <div class="text-xs text-[var(--color-text-secondary)]">
+            Created by <span class="font-medium text-[var(--color-text-primary)]">Jerry</span>
+          </div>
+          <div class="text-xs text-[var(--color-text-tertiary)] mt-0.5">
+            Focus on AI Security · CISSP · CCSP
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Portal hover interaction -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function() {
+      const left = document.getElementById('zone-left');
+      const right = document.getElementById('zone-right');
+      if (!left || !right) return;
+
+      left.addEventListener('mouseenter', function() {
+        right.style.opacity = '0.4';
+        left.style.backgroundColor = 'var(--color-bg-secondary)';
+      });
+      left.addEventListener('mouseleave', function() {
+        right.style.opacity = '1';
+        left.style.backgroundColor = '';
+      });
+      right.addEventListener('mouseenter', function() {
+        left.style.opacity = '0.4';
+        right.style.backgroundColor = 'var(--color-bg-secondary)';
+      });
+      right.addEventListener('mouseleave', function() {
+        left.style.opacity = '1';
+        right.style.backgroundColor = '';
+      });
+    });
+  </script>
+</Layout>

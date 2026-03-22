@@ -1,0 +1,159 @@
+---
+import type { AttackStep } from '../lib/events';
+
+interface Props {
+  steps: AttackStep[];
+  mermaidCode: string;
+  eventId: string;
+}
+
+const { steps, mermaidCode, eventId } = Astro.props;
+
+// Generate node IDs from mermaid code for highlight syncing
+// We assume nodes are named A, B, C, D, E... in order matching steps
+const nodeLetters = steps.map((_, i) => String.fromCharCode(65 + i));
+---
+
+<div class="flex flex-col lg:flex-row gap-6" id={`chain-${eventId}`}>
+
+  <!-- Left Panel: Interactive Timeline / Step Cards -->
+  <div class="lg:w-[340px] shrink-0 space-y-2" id={`steps-${eventId}`}>
+    {steps.map((step, i) => (
+      <button
+        class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]"
+        data-step-index={i}
+        data-chain={eventId}
+        data-node={nodeLetters[i]}
+        type="button"
+      >
+        <div class="flex items-start gap-3">
+          <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number">
+            {i + 1}
+          </span>
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">{step.phase}</div>
+            <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden">
+              {step.detail}
+            </div>
+          </div>
+        </div>
+      </button>
+    ))}
+  </div>
+
+  <!-- Right Panel: Mermaid Graph (Sticky) -->
+  <div class="flex-1 min-w-0 lg:sticky lg:top-20 lg:self-start">
+    <div class="mermaid-container border border-[var(--color-border-default)] rounded-md bg-[var(--color-bg-primary)] p-6 overflow-x-auto">
+      <pre class="mermaid" id={`mermaid-${eventId}`}>{mermaidCode}</pre>
+    </div>
+  </div>
+
+</div>
+
+<!-- Attack Chain interaction script -->
+<script is:inline define:vars={{ eventId, nodeCount: steps.length }}>
+  document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('steps-' + eventId);
+    if (!container) return;
+
+    const cards = container.querySelectorAll('.step-card');
+    let activeIndex = 0;
+
+    function activateStep(index) {
+      activeIndex = index;
+
+      cards.forEach(function(card, i) {
+        const isActive = i === index;
+        const detail = card.querySelector('.step-detail');
+        const number = card.querySelector('.step-number');
+
+        // Card styling
+        card.style.borderColor = isActive ? '#2563EB' : '';
+        card.style.borderLeftWidth = isActive ? '3px' : '';
+        card.style.backgroundColor = isActive ? '#EFF6FF' : '';
+
+        // Number badge
+        if (number) {
+          number.style.backgroundColor = isActive ? '#2563EB' : '';
+          number.style.color = isActive ? '#FFFFFF' : '';
+        }
+
+        // Progressive disclosure: show/hide detail
+        if (detail) {
+          if (isActive) {
+            detail.classList.remove('hidden');
+          } else {
+            detail.classList.add('hidden');
+          }
+        }
+      });
+
+      // Highlight active Mermaid node
+      highlightMermaidNode(index);
+    }
+
+    function highlightMermaidNode(index) {
+      const mermaidContainer = document.querySelector('#chain-' + eventId + ' .mermaid-container');
+      if (!mermaidContainer) return;
+
+      // Reset all nodes
+      var allNodes = mermaidContainer.querySelectorAll('.node');
+      allNodes.forEach(function(node) {
+        var rect = node.querySelector('rect') || node.querySelector('polygon');
+        var label = node.querySelector('.nodeLabel');
+        if (rect) {
+          rect.style.fill = '#FFFFFF';
+          rect.style.stroke = '#D1D5DB';
+          rect.style.strokeWidth = '1px';
+        }
+        if (label) {
+          label.style.color = '#111827';
+        }
+      });
+
+      // Highlight the active node (nodes are in DOM order matching steps)
+      if (allNodes[index]) {
+        var rect = allNodes[index].querySelector('rect') || allNodes[index].querySelector('polygon');
+        var label = allNodes[index].querySelector('.nodeLabel');
+        if (rect) {
+          rect.style.fill = '#2563EB';
+          rect.style.stroke = '#2563EB';
+          rect.style.strokeWidth = '2px';
+        }
+        if (label) {
+          label.style.color = '#FFFFFF';
+        }
+      }
+    }
+
+    // Click handlers
+    cards.forEach(function(card, i) {
+      card.addEventListener('click', function() {
+        activateStep(i);
+      });
+    });
+
+    // Activate first step after Mermaid renders
+    // Use MutationObserver to detect when SVG appears
+    var mermaidEl = document.getElementById('mermaid-' + eventId);
+    if (mermaidEl) {
+      var observer = new MutationObserver(function(mutations) {
+        for (var m = 0; m < mutations.length; m++) {
+          if (mutations[m].addedNodes.length) {
+            for (var n = 0; n < mutations[m].addedNodes.length; n++) {
+              if (mutations[m].addedNodes[n].tagName === 'svg') {
+                setTimeout(function() { activateStep(0); }, 100);
+                observer.disconnect();
+                return;
+              }
+            }
+          }
+        }
+      });
+      observer.observe(mermaidEl.parentElement, { childList: true, subtree: true });
+    }
+
+    // Fallback: activate first step after a delay
+    setTimeout(function() { activateStep(0); }, 1500);
+  });
+</script>

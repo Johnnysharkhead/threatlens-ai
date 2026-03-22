@@ -1,0 +1,23 @@
+---
+import type { AttackEvent } from '../lib/events';
+
+interface Props {
+  event: AttackEvent;
+}
+
+const { event } = Astro.props;
+const dateStr = event.collected_at.split('T')[0];
+---
+
+<a href={`${import.meta.env.BASE_URL}event/${event.id}`}
+   class="flex items-start gap-4 p-4 bg-[var(--color-bg-primary)] hover:bg-[var(--color-bg-secondary)] transition-colors no-underline border-b border-[var(--color-border-default)] last:border-b-0">
+  <div class="flex-1 min-w-0">
+    <div class="text-[15px] font-medium text-[var(--color-text-primary)] leading-snug mb-1">
+      {event.title}
+    </div>
+    <div class="text-sm text-[var(--color-text-secondary)] line-clamp-1">
+      {event.summary}
+    </div>
+  </div>
+  <time class="text-xs text-[var(--color-text-tertiary)] shrink-0">{dateStr}</time>
+</a>

@@ -1,0 +1,59 @@
+{
+  "id": "2026-03-22-004",
+  "collected_at": "2026-03-22T15:00:00Z",
+  "category": "attack_on_ai",
+  "title": "AI代码编辑器大规模漏洞：GitHub Copilot、Cursor等30+CVE允许通过提示注入远程执行代码",
+  "summary": "安全研究人员在GitHub Copilot、Cursor、Windsurf等10余款主流AI编程工具中发现超过30个安全漏洞，攻击者可通过在代码注释、GitHub Issues或网页中注入恶意提示，操控AI修改编辑器配置启用'YOLO模式'，最终实现远程代码执行，攻击成功率高达84%。",
+  "sources": [
+    { "url": "https://embracethered.com/blog/posts/2025/github-copilot-remote-code-execution-via-prompt-injection/", "title": "Embrace The Red: GitHub Copilot RCE via Prompt Injection (CVE-2025-53773)", "published": "2025-08-12" },
+    { "url": "https://thehackernews.com/2025/12/researchers-uncover-30-flaws-in-ai.html", "title": "The Hacker News: 30+ Flaws in AI Coding Tools", "published": "2025-12-15" },
+    { "url": "https://www.pillar.security/blog/new-vulnerability-in-github-copilot-and-cursor-how-hackers-can-weaponize-code-agents", "title": "Pillar Security: How Hackers Can Weaponize Code Agents", "published": "2025-09-10" }
+  ],
+  "status": "analyzed",
+  "overview": {
+    "attacker": "安全研究人员（wunderwuzzi、Markus Vervier等）发现并负责任披露，暂未发现大规模野外利用",
+    "target": "GitHub Copilot、Cursor、Windsurf、Kiro.dev、Zed.dev、Roo Code、JetBrains Junie、Cline、Gemini CLI、Claude Code等10+款AI编程工具及其数百万用户",
+    "economic_loss": "潜在影响数百万开发者，可导致源代码窃取、供应链投毒和企业系统入侵",
+    "timeline": "2025年6月29日报告CVE-2025-53773 → 2025年8月微软补丁修复 → 2025年12月研究人员公布30+ CVE全景",
+    "status": "已解决（主要漏洞已修补）"
+  },
+  "technique": {
+    "vulnerabilities": [
+      "间接提示注入导致配置文件篡改",
+      "AI代码代理可直接写入磁盘文件无需用户确认",
+      "YOLO模式（autoApprove）允许跳过所有用户审批",
+      "MCP服务器自动启动导致代码执行（CVE-2025-54135）"
+    ],
+    "method": "攻击者在公开的代码仓库注释、GitHub Issues或网页中嵌入恶意提示注入指令。当开发者打开包含恶意内容的项目或浏览相关页面时，AI编程助手读取到恶意指令后，被操控修改.vscode/settings.json文件，添加'chat.tools.autoApprove': true配置项，使编辑器进入所谓的'YOLO模式'——此模式下AI助手可以在无需用户确认的情况下执行终端命令、浏览网页等操作。攻击者随后通过条件化提示注入针对特定操作系统执行任意命令，实现远程代码执行。在Cursor中，类似攻击通过MCP服务器自动启动配置实现。",
+    "owasp_classification": "LLM01 - Prompt Injection（提示注入）",
+    "tools_used": ["代码注释注入", "GitHub Issues注入", "网页内容注入", ".vscode/settings.json篡改", "MCP配置注入"],
+    "sophistication": "high"
+  },
+  "attack_chain": {
+    "description": "通过在公开代码或内容中植入恶意提示，操控AI编程助手修改安全配置，最终利用被授权的AI代理在开发者机器上执行任意代码。",
+    "mermaid": "graph TD\n  A[\"💉 注入恶意提示<br/>在代码注释/Issues/网页<br/>中嵌入隐藏指令\"] --> B[\"🤖 AI读取内容<br/>Copilot/Cursor加载<br/>包含恶意提示的内容\"]\n  B --> C[\"📝 配置篡改<br/>AI修改settings.json<br/>启用autoApprove\"]\n  C --> D[\"🔓 YOLO模式激活<br/>所有操作跳过<br/>用户确认\"]\n  D --> E[\"💻 远程代码执行<br/>AI执行攻击者指定的<br/>系统命令\"]\n  style A fill:#fff3e0\n  style B fill:#e1f5fe\n  style C fill:#fce4ec\n  style D fill:#f3e5f5\n  style E fill:#ffebee",
+    "steps": [
+      { "phase": "恶意提示植入", "detail": "攻击者在公开代码仓库的注释、GitHub Issues、或网页中嵌入精心构造的提示注入指令" },
+      { "phase": "AI内容加载", "detail": "开发者使用AI编程工具打开仓库或浏览页面时，AI助手自动读取并处理恶意内容" },
+      { "phase": "配置文件篡改", "detail": "AI被操控创建或修改.vscode/settings.json，添加autoApprove配置，无需用户审批即可写入磁盘" },
+      { "phase": "YOLO模式激活", "detail": "编辑器进入自动批准模式，后续所有AI操作不再需要用户确认" },
+      { "phase": "任意代码执行", "detail": "攻击者通过后续提示注入指导AI执行系统命令，实现完整的远程代码执行" }
+    ]
+  },
+  "lessons": {
+    "ai_vulnerabilities": [
+      "AI编程助手可以直接写入文件系统是一个根本性的安全隐患——文件写入应默认受限",
+      "提示注入在AI编程工具中的攻击面极大，任何AI读取的内容都可能包含恶意指令",
+      "自动批准模式（YOLO mode）的存在为攻击者提供了完美的权限升级路径"
+    ],
+    "ai_role": "AI编程助手在此类攻击中既是攻击目标也是攻击媒介——攻击者不直接攻击开发者的机器，而是通过操控AI助手间接实现攻击。AI的代码生成和系统操作能力被武器化为攻击能力。",
+    "defense_recommendations": [
+      "AI工具对安全相关配置文件的修改必须强制要求用户确认",
+      "实施内容净化机制，过滤AI读取内容中的潜在提示注入",
+      "限制AI代理对系统配置文件的写入权限",
+      "开发者应定期检查.vscode/settings.json等配置文件的变更",
+      "IDE厂商应实施提示注入检测和防护机制"
+    ],
+    "industry_impact": "此系列漏洞影响了全球最主流的AI编程工具生态，揭示了'AI辅助开发'模式中普遍存在的安全隐患。84%的攻击成功率表明当前AI编程工具的安全架构存在系统性缺陷，迫使整个行业重新审视AI代理的权限模型。"
+  }
+}

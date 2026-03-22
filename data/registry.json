@@ -1,0 +1,39 @@
+{
+  "events": {
+    "anthropic-claude-ai-espionage-gtg1002": {
+      "id": "2026-03-22-001",
+      "title": "首例AI自主编排的网络间谍行动：中国国家支持黑客利用Claude实施大规模攻击",
+      "first_seen": "2026-03-22"
+    },
+    "arup-deepfake-25m-video-call-fraud": {
+      "id": "2026-03-22-002",
+      "title": "Arup深度伪造视频会议诈骗：AI生成的CFO形象骗走2500万美元",
+      "first_seen": "2026-03-22"
+    },
+    "openclaw-clawhub-malicious-skills": {
+      "id": "2026-03-22-003",
+      "title": "OpenClaw AI代理框架安全危机：ClawHub市场20%技能包含恶意代码",
+      "first_seen": "2026-03-22"
+    },
+    "ai-code-editors-30-cves-prompt-injection": {
+      "id": "2026-03-22-004",
+      "title": "AI代码编辑器大规模漏洞：GitHub Copilot、Cursor等30+CVE允许通过提示注入远程执行代码",
+      "first_seen": "2026-03-22"
+    },
+    "deepseek-ddos-botnet-attack": {
+      "id": "2026-03-22-005",
+      "title": "DeepSeek遭受大规模DDoS攻击：僵尸网络协同攻击致服务瘫痪",
+      "first_seen": "2026-03-22"
+    },
+    "apt28-promptsteal-ai-malware-ukraine": {
+      "id": "2026-03-22-006",
+      "title": "俄罗斯APT28使用PROMPTSTEAL恶意软件：利用大模型生成攻击指令窃取乌克兰数据",
+      "first_seen": "2026-03-22"
+    },
+    "paloalto-indirect-prompt-injection-wild": {
+      "id": "2026-03-22-007",
+      "title": "Palo Alto发现真实环境中的间接提示注入：AI广告审核系统被绕过",
+      "first_seen": "2026-03-22"
+    }
+  }
+}

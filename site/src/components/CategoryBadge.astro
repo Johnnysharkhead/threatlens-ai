@@ -1,0 +1,12 @@
+---
+interface Props {
+  category: string;
+}
+
+const { category } = Astro.props;
+const label = category === 'ai_powered_attack' ? '利用AI的攻击' : '针对AI的攻击';
+---
+
+<span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2 py-0.5 rounded-sm font-medium">
+  {label}
+</span>

@@ -1,0 +1,59 @@
+{
+  "id": "2026-03-22-005",
+  "collected_at": "2026-03-22T15:00:00Z",
+  "category": "attack_on_ai",
+  "title": "DeepSeek遭受大规模DDoS攻击：僵尸网络协同攻击致服务瘫痪",
+  "summary": "中国AI平台DeepSeek在2025年1月遭受大规模、多维度的网络攻击，包括持续DDoS攻击（指令激增100倍）、ClickHouse数据库暴露导致百万日志泄露、以及PyPI供应链投毒，攻击导致平台暂停新用户注册并引发全球股市波动。",
+  "sources": [
+    { "url": "https://www.cm-alliance.com/cybersecurity-blog/deepseek-cyber-attack-timeline-impact-and-lessons-learned", "title": "CM-Alliance: DeepSeek Cyber Attack Timeline and Lessons", "published": "2025-02-05" },
+    { "url": "https://nsfocusglobal.com/the-undercurrent-behind-the-rise-of-deepseek-ddos-attacks-in-the-global-ai-technology-game/", "title": "NSFocus: DDoS Attacks in the Global AI Technology Game", "published": "2025-01-30" },
+    { "url": "https://www.globaltimes.cn/page/202501/1327697.shtml", "title": "Global Times: Cyberattacks against DeepSeek escalate", "published": "2025-01-28" }
+  ],
+  "status": "analyzed",
+  "overview": {
+    "attacker": "攻击IP来源追溯至美国、新加坡、荷兰、德国和中国，使用HailBot和RapperBot两个专业DDoS僵尸网络",
+    "target": "DeepSeek AI平台（API接口和Web聊天界面）",
+    "economic_loss": "直接损失未公开，但间接导致美国股市大规模抛售（AI竞赛相关股票），意大利实施禁令（Garante调查），品牌信誉受损",
+    "timeline": "2025年1月3-4日起持续DDoS攻击 → 1月27日攻击升级，暂停新用户注册 → Wiz发现数据库暴露 → 恶意PyPI包被发现",
+    "status": "已解决"
+  },
+  "technique": {
+    "vulnerabilities": [
+      "ClickHouse数据库暴露在公网且无身份认证",
+      "敏感信息（API密钥、聊天记录）明文存储在日志中",
+      "DDoS防护基础设施不足",
+      "PyPI软件包生态的供应链信任机制"
+    ],
+    "method": "这是一次多向量协同攻击：(1) DDoS攻击：至少两个僵尸网络（HailBot和RapperBot）对DeepSeek的API和Web聊天接口发起分布式拒绝服务攻击，攻击指令在升级阶段激增100倍；(2) 数据泄露：Wiz安全研究团队发现两个未设认证的ClickHouse数据库实例暴露在互联网上，包含超过100万条运营日志，涉及明文用户聊天记录、API密钥和后端系统细节；(3) 供应链投毒：攻击者利用DeepSeek的知名度在PyPI上传名为'deepseek'和'deepseekai'的恶意Python包，安装后会窃取开发者凭证。",
+    "owasp_classification": "LLM04 - Model Denial of Service（模型拒绝服务）",
+    "tools_used": ["HailBot僵尸网络", "RapperBot僵尸网络", "恶意PyPI包", "公网扫描工具"],
+    "sophistication": "high"
+  },
+  "attack_chain": {
+    "description": "一次多维度协同攻击，同时利用DDoS瘫痪服务、暴露数据库窃取数据、以及供应链投毒扩大影响面，三条攻击线路并行推进。",
+    "mermaid": "graph TD\n  A[\"🎯 目标选定<br/>DeepSeek快速崛起<br/>引发攻击者关注\"] --> B[\"⚡ DDoS攻击<br/>HailBot + RapperBot<br/>指令激增100倍\"]\n  A --> C[\"🔍 数据库暴露<br/>ClickHouse无认证<br/>100万+日志泄露\"]\n  A --> D[\"📦 供应链投毒<br/>PyPI恶意包<br/>deepseek/deepseekai\"]\n  B --> E[\"🚫 服务瘫痪<br/>暂停新用户注册<br/>API响应降级\"]\n  C --> F[\"🔑 数据泄露<br/>聊天记录、API密钥<br/>后端信息外泄\"]\n  D --> G[\"💻 开发者感染<br/>凭证被窃取<br/>环境被入侵\"]\n  style A fill:#e1f5fe\n  style B fill:#ffebee\n  style C fill:#fff3e0\n  style D fill:#fce4ec\n  style E fill:#ffcdd2\n  style F fill:#ffe0b2\n  style G fill:#f8bbd0",
+    "steps": [
+      { "phase": "目标识别", "detail": "DeepSeek因快速崛起和AI竞赛热度引发攻击者关注" },
+      { "phase": "DDoS攻击", "detail": "HailBot和RapperBot两个僵尸网络对API和Web界面发起持续DDoS攻击，指令量激增100倍" },
+      { "phase": "数据库暴露利用", "detail": "两个未设认证的ClickHouse数据库被发现，包含百万级日志和敏感信息" },
+      { "phase": "供应链投毒", "detail": "在PyPI上发布冒名恶意包，利用DeepSeek知名度诱导开发者安装" },
+      { "phase": "多重影响", "detail": "服务瘫痪、数据泄露、开发者凭证被盗，并引发全球股市波动和监管审查" }
+    ]
+  },
+  "lessons": {
+    "ai_vulnerabilities": [
+      "AI平台的快速增长往往超过安全建设的速度，88.9%的Ollama框架服务器直接暴露在互联网上",
+      "AI平台存储的大量用户对话数据使其成为高价值攻击目标",
+      "AI公司品牌在开源生态中的知名度可被供应链攻击利用"
+    ],
+    "ai_role": "在此事件中AI本身不是攻击工具，而是攻击目标。DeepSeek作为AI平台的特殊性在于：(1)其存储的海量用户对话数据具有极高敏感性；(2)作为AI竞赛中的关键参与者，其服务中断具有地缘政治影响；(3)AI平台的快速扩张导致安全防护跟不上增长速度。",
+    "defense_recommendations": [
+      "AI平台必须在上线前完成全面的安全审计，尤其是数据库访问控制",
+      "实施纵深防御的DDoS防护策略，包括CDN、WAF和流量清洗",
+      "敏感信息（API密钥、用户数据）不应明文存储在运营日志中",
+      "在主流包管理器上预注册品牌相关名称，防止名称抢注",
+      "制定应急响应预案，应对服务降级时的用户沟通和数据保护"
+    ],
+    "industry_impact": "DeepSeek事件揭示了AI平台作为关键基础设施面临的多维度安全挑战。快速增长的AI公司在安全建设上的滞后是整个行业的通病。此事件也展示了AI竞赛中的地缘政治因素如何使AI平台成为网络攻击的优先目标。"
+  }
+}

@@ -1,0 +1,44 @@
+name: Daily AI Attack Collection
+
+on:
+  schedule:
+    - cron: '17 1 * * *' # 北京时间每天9:17 (UTC 1:17)
+  workflow_dispatch: {} # 支持手动触发
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  collect-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Collect and Analyze Events
+        uses: anthropics/claude-code-action@v1
+        with:
+          prompt: |
+            执行以下任务：
+            1. 运行 /collect 采集今日AI攻击事件
+            2. 对所有status为"stub"的事件运行 /analyze 进行深度分析
+            3. 提交所有新增和修改的数据文件到git
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build Site
+        run: |
+          cd site
+          npm ci
+          npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site/dist

@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git init:*)",
+      "Bash(npm create:*)",
+      "Bash(npm install:*)",
+      "Bash(npx astro:*)",
+      "Bash(npm run:*)",
+      "WebSearch",
+      "WebFetch(domain:www.anthropic.com)",
+      "WebFetch(domain:purplesec.us)",
+      "WebFetch(domain:thehackernews.com)",
+      "WebFetch(domain:embracethered.com)",
+      "WebFetch(domain:www.cm-alliance.com)",
+      "WebFetch(domain:unit42.paloaltonetworks.com)",
+      "Bash(curl -s http://localhost:4321)",
+      "Bash(curl -s http://localhost:4321/event/2026-03-22-001/)"
+    ]
+  }
+}

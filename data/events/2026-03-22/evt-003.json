@@ -1,0 +1,60 @@
+{
+  "id": "2026-03-22-003",
+  "collected_at": "2026-03-22T15:00:00Z",
+  "category": "attack_on_ai",
+  "title": "OpenClaw AI代理框架安全危机：ClawHub市场20%技能包含恶意代码",
+  "summary": "开源AI代理框架OpenClaw爆发严重安全危机，其技能市场ClawHub中发现1184个恶意技能（占比约20%），通过SKILL.md文件注入恶意指令分发Atomic macOS窃密木马，攻击者利用AI代理作为可信中间人欺骗用户安装恶意软件。",
+  "sources": [
+    { "url": "https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html", "title": "The Hacker News: Researchers Find 341 Malicious ClawHub Skills Stealing Data", "published": "2026-02-18" },
+    { "url": "https://www.darkreading.com/application-security/critical-openclaw-vulnerability-ai-agent-risks", "title": "Dark Reading: Critical OpenClaw Vulnerability Exposes AI Agent Risks", "published": "2026-02-15" },
+    { "url": "https://www.trendmicro.com/en_us/research/26/b/openclaw-skills-used-to-distribute-atomic-macos-stealer.html", "title": "Trend Micro: Malicious OpenClaw Skills Distribute Atomic MacOS Stealer", "published": "2026-02-20" }
+  ],
+  "status": "analyzed",
+  "overview": {
+    "attacker": "未知攻击组织，发起代号为'ClawHavoc'的恶意供应链攻击行动",
+    "target": "OpenClaw AI代理框架的25万+ GitHub stars用户群体，13.5万暴露在互联网上的实例",
+    "economic_loss": "未公开具体金额，但涉及大规模凭证窃取、加密货币钱包私钥和API密钥被盗",
+    "timeline": "2026年2月初研究人员发现 → 2026年2月2日Koi Security和OpenSourceMalware发布研究 → 后续OpenClaw创始人实施报告机制",
+    "status": "持续中"
+  },
+  "technique": {
+    "vulnerabilities": [
+      "AI代理技能市场缺乏安全审核机制",
+      "技能以完整系统权限执行，无沙箱隔离",
+      "AI代理被用作可信中间人进行社会工程",
+      "SKILL.md文件可注入恶意指令"
+    ],
+    "method": "攻击者在ClawHub技能市场上传包含恶意代码的技能。恶意指令隐藏在SKILL.md文件中，利用AI代理作为可信中间人，向用户展示看似合理的'安装前置依赖'要求。在macOS上，受害者被指示复制一段来自glot.io的安装脚本并粘贴到终端执行；在Windows上则被引导下载名为'openclaw-agent.zip'的恶意压缩包。感染链包含多阶段混淆脚本，从攻击者基础设施（91.92.242.30）获取载荷，最终部署Atomic Stealer (AMOS) macOS窃密木马，窃取加密货币交易所API密钥、钱包私钥、SSH凭证、浏览器密码等。",
+    "owasp_classification": "LLM07 - Insecure Plugin Design（不安全的插件设计）",
+    "tools_used": ["Atomic Stealer (AMOS)", "混淆安装脚本", "glot.io代码托管", "多阶段载荷投递"],
+    "sophistication": "medium"
+  },
+  "attack_chain": {
+    "description": "一次利用AI代理生态系统信任链的供应链攻击，攻击者将恶意代码伪装为合法技能发布到市场，利用AI代理作为'中间人'说服用户执行恶意操作。",
+    "mermaid": "graph TD\n  A[\"📦 技能投毒<br/>上传含恶意SKILL.md<br/>的技能到ClawHub\"] --> B[\"🤖 AI代理加载<br/>用户安装恶意技能<br/>AI读取SKILL.md\"]\n  B --> C[\"🎭 社工欺骗<br/>AI作为可信中间人<br/>展示虚假安装要求\"]\n  C --> D[\"⬇️ 载荷投递<br/>用户执行恶意脚本<br/>从91.92.242.30获取载荷\"]\n  D --> E[\"🦠 木马部署<br/>安装Atomic Stealer<br/>macOS窃密木马\"]\n  E --> F[\"🔑 数据窃取<br/>窃取钱包私钥<br/>API密钥和凭证\"]\n  style A fill:#fff3e0\n  style B fill:#e1f5fe\n  style C fill:#f3e5f5\n  style D fill:#fce4ec\n  style E fill:#ffebee\n  style F fill:#ffcdd2",
+    "steps": [
+      { "phase": "技能投毒", "detail": "攻击者在ClawHub市场发布1184个包含恶意代码的技能，占市场总量约20%" },
+      { "phase": "AI代理加载", "detail": "用户安装恶意技能后，OpenClaw代理读取SKILL.md中的隐藏恶意指令" },
+      { "phase": "社会工程", "detail": "AI代理作为可信中间人，向用户展示看似合理的前置依赖安装要求" },
+      { "phase": "恶意载荷投递", "detail": "用户按照AI的指示执行脚本，从攻击者控制的服务器下载多阶段载荷" },
+      { "phase": "窃密木马部署", "detail": "最终部署Atomic Stealer木马，在系统后台运行" },
+      { "phase": "数据外泄", "detail": "木马窃取加密货币钱包私钥、交易所API密钥、SSH凭证、浏览器密码等敏感信息" }
+    ]
+  },
+  "lessons": {
+    "ai_vulnerabilities": [
+      "AI代理的技能/插件市场面临与传统软件包管理器相同的供应链攻击风险，但由于AI的可信中间人角色而更加危险",
+      "AI代理以完整系统权限运行且缺乏沙箱隔离，是AI系统特有的架构性缺陷",
+      "SKILL.md等自然语言配置文件可被注入恶意指令，这是传统软件中不存在的攻击面"
+    ],
+    "ai_role": "AI代理在此攻击中被利用为'可信中间人'——用户信任AI代理提出的操作建议，就像信任一个有经验的同事。攻击者利用这种信任关系，让AI代理成为恶意软件分发链中的关键环节，显著提高了社会工程攻击的成功率。",
+    "defense_recommendations": [
+      "AI代理技能市场必须实施强制安全审核和代码签名机制",
+      "技能执行应在沙箱环境中运行，限制文件系统和网络访问权限",
+      "引入社区信任评分和安全扫描自动化流程",
+      "AI代理应在执行系统级操作前向用户明确展示风险警告",
+      "用户应警惕AI代理要求执行的任何终端命令或脚本安装"
+    ],
+    "industry_impact": "此事件是2026年首个重大AI代理安全危机，暴露了快速增长的AI代理生态系统中的根本性安全缺陷。它证明AI代理的供应链安全问题比传统软件更加严峻——因为AI代理同时拥有系统权限和用户信任，一旦被攻破将造成双重损害。"
+  }
+}

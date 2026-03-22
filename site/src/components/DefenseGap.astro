@@ -1,0 +1,176 @@
+---
+/**
+ * Defense GAP Analysis Table
+ *
+ * Maps defense recommendations to solution categories and coverage status.
+ * Uses monochrome indicators (shapes, not colors) per the design system:
+ *   ● Full coverage  ◐ Partial  ○ No coverage (GAP)
+ */
+
+interface Props {
+  recommendations: string[];
+}
+
+const { recommendations } = Astro.props;
+
+// Map recommendations to defense solution categories with GAP analysis
+// Each recommendation gets auto-classified into a coverage assessment
+interface GapRow {
+  solution: string;
+  coverage: 'full' | 'partial' | 'none';
+  recommendation: string;
+  gap_reason: string;
+}
+
+function classifyRecommendation(rec: string): GapRow {
+  const lower = rec.toLowerCase();
+
+  // Classify into solution categories based on keywords
+  if (lower.includes('waf') || lower.includes('防火墙') || lower.includes('过滤') || lower.includes('净化')) {
+    return {
+      solution: 'Web应用防火墙 (WAF)',
+      coverage: 'none',
+      recommendation: rec,
+      gap_reason: '传统WAF依赖正则匹配，无法解析语义级别的提示注入或AI驱动的攻击变体'
+    };
+  }
+  if (lower.includes('edr') || lower.includes('检测') || lower.includes('行为') || lower.includes('异常') || lower.includes('签名')) {
+    return {
+      solution: '终端检测与响应 (EDR)',
+      coverage: 'partial',
+      recommendation: rec,
+      gap_reason: 'EDR可检测已知恶意行为模式，但AI生成的多态代码和动态变异可绕过签名检测'
+    };
+  }
+  if (lower.includes('siem') || lower.includes('监控') || lower.includes('日志') || lower.includes('审计')) {
+    return {
+      solution: '安全信息与事件管理 (SIEM)',
+      coverage: 'partial',
+      recommendation: rec,
+      gap_reason: 'SIEM可记录和关联事件，但需要针对AI特有的攻击模式定制检测规则'
+    };
+  }
+  if (lower.includes('意图') || lower.includes('语义') || lower.includes('llm') || lower.includes('ai安全') || lower.includes('护栏') || lower.includes('提示')) {
+    return {
+      solution: 'LLM语义防火墙',
+      coverage: 'partial',
+      recommendation: rec,
+      gap_reason: '新兴方案，可识别部分提示注入，但角色扮演和任务分解等高级绕过技术仍是挑战'
+    };
+  }
+  if (lower.includes('权限') || lower.includes('沙箱') || lower.includes('隔离') || lower.includes('最小')) {
+    return {
+      solution: '权限控制与沙箱隔离',
+      coverage: 'full',
+      recommendation: rec,
+      gap_reason: '成熟的安全原则，可有效限制AI代理的影响范围，关键在于正确实施'
+    };
+  }
+  if (lower.includes('培训') || lower.includes('意识') || lower.includes('审核') || lower.includes('人工')) {
+    return {
+      solution: '安全意识与人工审核',
+      coverage: 'partial',
+      recommendation: rec,
+      gap_reason: '人工审核可作为最后防线，但无法扩展到AI运行速度，且深度伪造增加了识别难度'
+    };
+  }
+  if (lower.includes('供应链') || lower.includes('签名') || lower.includes('注册') || lower.includes('市场')) {
+    return {
+      solution: '供应链安全',
+      coverage: 'none',
+      recommendation: rec,
+      gap_reason: 'AI代理生态系统的技能/插件市场缺乏成熟的安全审核和代码签名机制'
+    };
+  }
+  // Default
+  return {
+    solution: '综合安全策略',
+    coverage: 'partial',
+    recommendation: rec,
+    gap_reason: '需要结合多种防御手段，传统单点方案无法应对AI时代的复合威胁'
+  };
+}
+
+const gapRows = recommendations.map(classifyRecommendation);
+
+// Coverage indicator helpers
+function getCoverageLabel(c: string): string {
+  if (c === 'full') return '可防御';
+  if (c === 'partial') return '部分覆盖';
+  return '防御缺口';
+}
+---
+
+<div class="mt-6">
+  <div class="text-xs text-[var(--color-text-tertiary)] font-medium mb-3">防御能力差距分析</div>
+
+  <div class="border border-[var(--color-border-default)] rounded-md overflow-hidden">
+    <!-- Table header -->
+    <div class="hidden sm:grid sm:grid-cols-[180px_100px_1fr] bg-[var(--color-bg-secondary)] border-b border-[var(--color-border-default)]">
+      <div class="px-4 py-2.5 text-xs font-medium text-[var(--color-text-tertiary)]">防御方案</div>
+      <div class="px-4 py-2.5 text-xs font-medium text-[var(--color-text-tertiary)]">覆盖状态</div>
+      <div class="px-4 py-2.5 text-xs font-medium text-[var(--color-text-tertiary)]">差距分析</div>
+    </div>
+
+    <!-- Table rows -->
+    {gapRows.map((row, i) => (
+      <div class={`sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 ${i % 2 === 0 ? 'bg-[var(--color-bg-primary)]' : 'bg-[var(--color-bg-primary)]'}`}>
+
+        {/* Solution category */}
+        <div class="px-4 py-3.5 sm:py-4">
+          <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div>
+          <div class="text-sm font-medium text-[var(--color-text-primary)]">{row.solution}</div>
+        </div>
+
+        {/* Coverage status with monochrome indicators */}
+        <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2">
+          <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div>
+          {row.coverage === 'full' ? (
+            <span class="flex items-center gap-1.5">
+              <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="#111827"/></svg>
+              <span class="text-xs text-[var(--color-text-primary)] font-medium">{getCoverageLabel(row.coverage)}</span>
+            </span>
+          ) : row.coverage === 'partial' ? (
+            <span class="flex items-center gap-1.5">
+              <svg width="12" height="12" viewBox="0 0 12 12">
+                <circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"/>
+                <path d="M6 1 A5 5 0 0 1 6 11 Z" fill="#111827"/>
+              </svg>
+              <span class="text-xs text-[var(--color-text-secondary)]">{getCoverageLabel(row.coverage)}</span>
+            </span>
+          ) : (
+            <span class="flex items-center gap-1.5">
+              <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"/></svg>
+              <span class="text-xs text-[var(--color-text-secondary)]">{getCoverageLabel(row.coverage)}</span>
+            </span>
+          )}
+        </div>
+
+        {/* Gap analysis explanation */}
+        <div class="px-4 py-1.5 pb-3.5 sm:py-4">
+          <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div>
+          <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">{row.gap_reason}</div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Legend -->
+  <div class="flex items-center gap-5 mt-3">
+    <span class="flex items-center gap-1.5 text-xs text-[var(--color-text-tertiary)]">
+      <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="#111827"/></svg>
+      可防御
+    </span>
+    <span class="flex items-center gap-1.5 text-xs text-[var(--color-text-tertiary)]">
+      <svg width="10" height="10" viewBox="0 0 10 10">
+        <circle cx="5" cy="5" r="4" fill="none" stroke="#111827" stroke-width="1.5"/>
+        <path d="M5 1 A4 4 0 0 1 5 9 Z" fill="#111827"/>
+      </svg>
+      部分覆盖
+    </span>
+    <span class="flex items-center gap-1.5 text-xs text-[var(--color-text-tertiary)]">
+      <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="none" stroke="#111827" stroke-width="1.5"/></svg>
+      防御缺口
+    </span>
+  </div>
+</div>

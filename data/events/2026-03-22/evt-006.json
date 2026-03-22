@@ -1,0 +1,56 @@
+{
+  "id": "2026-03-22-006",
+  "collected_at": "2026-03-22T15:00:00Z",
+  "category": "ai_powered_attack",
+  "title": "俄罗斯APT28使用PROMPTSTEAL恶意软件：利用大模型动态生成攻击指令窃取乌克兰数据",
+  "summary": "俄罗斯军事黑客组织APT28部署了一款名为PROMPTSTEAL的Python恶意软件，该恶意软件通过Hugging Face API调用Qwen2.5-Coder-32B大模型，实时动态生成Windows攻击命令，用于窃取乌克兰目标的系统信息和Active Directory数据。这是首批被发现利用LLM动态生成攻击载荷的国家级恶意软件。",
+  "sources": [
+    { "url": "https://www.axios.com/2025/11/05/google-ai-cybersecurity-malware-report", "title": "Axios: Hackers are already using AI-enabled malware, Google says", "published": "2025-11-05" },
+    { "url": "https://www.securityweek.com/cyber-insights-2026-malware-and-cyberattacks-in-the-age-of-ai/", "title": "SecurityWeek: Malware and Cyberattacks in the Age of AI", "published": "2026-01-15" }
+  ],
+  "status": "analyzed",
+  "overview": {
+    "attacker": "APT28（又名Fancy Bear），隶属于俄罗斯军事情报局（GRU）",
+    "target": "乌克兰政府和军事实体",
+    "economic_loss": "未公开具体金额，涉及军事和政府敏感数据窃取",
+    "timeline": "2025年6月被Google威胁情报组（GTAG）发现处于活跃使用状态",
+    "status": "持续中"
+  },
+  "technique": {
+    "vulnerabilities": [
+      "利用公开LLM API（Hugging Face）生成恶意代码，规避传统签名检测",
+      "AI生成的攻击命令具有多态性，每次执行产生不同变体"
+    ],
+    "method": "PROMPTSTEAL是一款基于Python的数据窃取恶意软件。其核心创新在于不预置攻击命令，而是在运行时通过Hugging Face API调用Qwen2.5-Coder-32B-Instruct大模型，动态生成一行式Windows命令。这些AI生成的命令用于收集目标系统的硬件详情、进程信息、网络配置和Active Directory数据。由于每次生成的命令都是独特的，传统的基于签名的检测方法难以有效识别。Google同时发现了另一款类似的AI恶意软件PromptFlux，它可以动态生成恶意脚本、混淆自身代码，并利用AI模型按需创建恶意功能。",
+    "owasp_classification": "N/A（非针对LLM系统的攻击，是利用LLM进行的攻击）",
+    "tools_used": ["PROMPTSTEAL（Python恶意软件）", "Hugging Face API", "Qwen2.5-Coder-32B-Instruct模型", "PromptFlux（相关恶意软件）"],
+    "sophistication": "advanced"
+  },
+  "attack_chain": {
+    "description": "国家级黑客组织将大模型集成到恶意软件中，使恶意代码具有动态生成和自我变异能力，从而规避传统安全检测。",
+    "mermaid": "graph TD\n  A[\"🎯 目标锁定<br/>APT28选定乌克兰<br/>政府/军事目标\"] --> B[\"📧 初始入侵<br/>通过社工或漏洞<br/>植入PROMPTSTEAL\"]\n  B --> C[\"🤖 调用LLM<br/>通过Hugging Face API<br/>查询Qwen大模型\"]\n  C --> D[\"⚡ 动态生成命令<br/>AI实时生成独特的<br/>Windows攻击命令\"]\n  D --> E[\"📊 数据收集<br/>收集硬件信息<br/>进程/网络/AD数据\"]\n  E --> F[\"📤 数据外泄<br/>窃取敏感信息<br/>回传至C2服务器\"]\n  style A fill:#e1f5fe\n  style B fill:#fff3e0\n  style C fill:#f3e5f5\n  style D fill:#fce4ec\n  style E fill:#e8f5e9\n  style F fill:#ffebee",
+    "steps": [
+      { "phase": "目标选择与初始入侵", "detail": "APT28通过社会工程或已知漏洞在乌克兰目标系统中植入PROMPTSTEAL恶意软件" },
+      { "phase": "LLM API调用", "detail": "恶意软件运行时通过Hugging Face API连接Qwen2.5-Coder-32B-Instruct模型" },
+      { "phase": "动态命令生成", "detail": "向大模型发送提示，要求生成用于收集系统信息的一行式Windows命令，每次生成的命令都独一无二" },
+      { "phase": "信息收集", "detail": "执行AI生成的命令，收集目标系统的硬件详情、运行进程、网络配置和Active Directory数据" },
+      { "phase": "数据外泄", "detail": "将收集到的敏感信息通过隐蔽通道回传至攻击者控制的基础设施" }
+    ]
+  },
+  "lessons": {
+    "ai_vulnerabilities": [
+      "公开可用的LLM API可被恶意软件用于动态生成攻击代码，这是AI服务被滥用的新形式",
+      "AI赋予恶意软件多态性——76%的被检测恶意软件现在具有AI驱动的多态能力，有些每15秒变异一次",
+      "开源大模型的广泛可用性降低了国家级恶意软件的开发门槛"
+    ],
+    "ai_role": "AI在此攻击中扮演了'恶意代码生成器'的角色。传统恶意软件预置固定的攻击命令，容易被签名检测识别；PROMPTSTEAL则将命令生成外包给大模型，使每次攻击都使用独特的代码变体。AI本质上成为了恶意软件的'大脑'，赋予了原本静态的工具以动态适应能力。",
+    "defense_recommendations": [
+      "安全厂商需要从基于签名的检测转向基于行为的检测，识别恶意软件调用LLM API的模式",
+      "LLM API提供商应实施滥用检测机制，识别可疑的代码生成请求",
+      "企业应监控异常的API外联行为，特别是对AI服务API的调用",
+      "网络防御需要AI驱动的检测工具来对抗AI驱动的攻击",
+      "国家级网络安全机构应关注开源大模型被武器化的趋势"
+    ],
+    "industry_impact": "PROMPTSTEAL标志着AI驱动恶意软件从理论走向国家级实战应用。CrowdStrike 2026全球威胁报告显示AI赋能的攻击者增加了89%，AI驱动的恶意软件平均造成每起事件572万美元的损失。这预示着'AI vs AI'的网络攻防新时代已经到来。"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "id": "2026-03-22-007",
+  "collected_at": "2026-03-22T15:00:00Z",
+  "category": "attack_on_ai",
+  "title": "Palo Alto发现真实环境中的间接提示注入：AI广告审核系统被恶意网页绕过",
+  "summary": "2025年12月，Palo Alto Networks Unit 42团队首次在真实生产环境中观察到间接提示注入攻击。攻击者在诈骗网页HTML中嵌入24处隐藏的恶意提示，使用零字体、屏幕外定位、Base64编码等多重隐匿技术，成功绕过了AI驱动的广告审核系统，使欺诈广告通过自动审核。",
+  "sources": [
+    { "url": "https://unit42.paloaltonetworks.com/ai-agent-prompt-injection/", "title": "Unit 42: Fooling AI Agents - Indirect Prompt Injection in the Wild", "published": "2026-03-03" },
+    { "url": "https://www.lakera.ai/blog/indirect-prompt-injection", "title": "Lakera: Indirect Prompt Injection - The Hidden Threat", "published": "2025-09-15" }
+  ],
+  "status": "analyzed",
+  "overview": {
+    "attacker": "未知诈骗团伙，运营虚假军用眼镜销售网站",
+    "target": "基于AI/LLM的产品广告审核系统",
+    "economic_loss": "未公开具体金额，但攻击成功将使欺诈广告大规模投放，导致消费者经济损失",
+    "timeline": "2025年12月被Unit 42通过大规模遥测分析发现 → 2026年3月3日发布完整分析报告",
+    "status": "持续中"
+  },
+  "technique": {
+    "vulnerabilities": [
+      "AI广告审核系统无法检测HTML中的隐藏提示注入",
+      "静态分析工具无法识别动态解码的恶意指令",
+      "AI系统缺乏区分可信指令和不可信内容的能力"
+    ],
+    "method": "攻击者在诈骗网站（reviewerpress.com）的HTML中嵌入了24处间接提示注入，使用多层隐匿技术：(1) 视觉隐藏：零字体大小（font-size:0）、屏幕外定位（left:-9999px）、透明度为零（opacity:0）；(2) 代码混淆：XML/SVG封装、HTML属性伪装；(3) 运行时组装：Base64编码指令在页面加载后动态解码；(4) 越狱技巧：社会工程语言、语义欺骗、多语言命令。这些隐藏指令旨在欺骗AI广告审核系统，使其判定该诈骗页面为合法产品页面。诈骗页面伪装为军用眼镜促销，包含虚假折扣按钮，将用户重定向到欺诈支付处理器。",
+    "owasp_classification": "LLM01 - Prompt Injection（提示注入）",
+    "tools_used": ["HTML隐藏注入", "零字体技术", "Base64编码", "CSS隐藏技术", "SVG/XML封装"],
+    "sophistication": "medium"
+  },
+  "attack_chain": {
+    "description": "攻击者在诈骗网页中嵌入多重隐匿的提示注入指令，使AI广告审核系统将欺诈内容误判为合法，从而绕过自动化审核流程。",
+    "mermaid": "graph TD\n  A[\"🌐 构建诈骗网页<br/>伪造军用眼镜促销<br/>设置欺诈支付链接\"] --> B[\"💉 嵌入隐藏提示<br/>24处提示注入<br/>使用多重隐匿技术\"]\n  B --> C[\"🔍 AI审核触发<br/>广告审核系统<br/>抓取网页内容\"]\n  C --> D[\"🎭 AI被欺骗<br/>隐藏指令覆盖<br/>审核判断逻辑\"]\n  D --> E[\"✅ 审核通过<br/>欺诈广告获批<br/>大规模投放\"]\n  E --> F[\"💸 消费者受骗<br/>点击虚假广告<br/>付款至欺诈账户\"]\n  style A fill:#fff3e0\n  style B fill:#fce4ec\n  style C fill:#e1f5fe\n  style D fill:#f3e5f5\n  style E fill:#e8f5e9\n  style F fill:#ffebee",
+    "steps": [
+      { "phase": "诈骗基础设施搭建", "detail": "攻击者创建伪装为军用眼镜促销的诈骗网站，设置指向欺诈支付处理器的购买链接" },
+      { "phase": "多重隐匿提示注入", "detail": "在网页HTML中嵌入24处隐藏提示注入，使用零字体、屏幕外定位、Base64编码等技术确保人眼不可见但AI可读取" },
+      { "phase": "AI审核系统触发", "detail": "当诈骗页面提交广告投放时，AI驱动的广告审核系统自动抓取并分析网页内容" },
+      { "phase": "审核逻辑被覆盖", "detail": "隐藏的提示注入指令干扰AI审核系统的判断逻辑，使其将诈骗内容评估为合法" },
+      { "phase": "欺诈广告投放", "detail": "通过审核的欺诈广告被大规模投放，吸引消费者点击" },
+      { "phase": "消费者资金损失", "detail": "消费者点击虚假促销链接后，付款至攻击者控制的欺诈支付处理器" }
+    ]
+  },
+  "lessons": {
+    "ai_vulnerabilities": [
+      "AI系统在处理网页内容时无法有效区分可信指令和嵌入的恶意指令，这是LLM架构的固有弱点",
+      "传统的视觉隐藏技术（零字体、CSS隐藏）在AI时代获得了全新的攻击价值——它们对人类不可见但对AI完全可见",
+      "AI审核系统可被多层嵌套的隐匿技术组合攻击绕过"
+    ],
+    "ai_role": "AI在此事件中是攻击目标——AI驱动的广告审核系统被攻击者的隐藏提示注入所欺骗。这表明随着越来越多的决策流程被AI自动化（内容审核、风控、合规检查等），针对AI决策系统的攻击将成为新的犯罪模式。",
+    "defense_recommendations": [
+      "AI审核系统应实施'Spotlighting'技术，将不可信内容与可信指令明确分离",
+      "部署专门的提示注入检测层，在AI处理内容之前过滤恶意指令",
+      "结合静态分析和动态渲染分析，检测运行时组装的隐藏内容",
+      "实施指令层级架构，确保系统指令优先于外部内容中的指令",
+      "对AI审核决策添加人工抽检和对抗性测试环节"
+    ],
+    "industry_impact": "这是首次在真实生产环境中被系统性记录的间接提示注入攻击案例。它证明间接提示注入已从学术研究阶段进入实际犯罪应用，任何使用AI处理外部内容的系统都面临类似风险。随着AI被广泛应用于内容审核、风控和合规领域，此类攻击的影响面将持续扩大。"
+  }
+}
