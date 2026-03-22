@@ -34,6 +34,36 @@
       "id": "2026-03-22-007",
       "title": "Palo Alto发现真实环境中的间接提示注入：AI广告审核系统被绕过",
       "first_seen": "2026-03-22"
+    },
+    "clinejection-supply-chain-prompt-injection": {
+      "id": "2026-03-23-001",
+      "title": "Clinejection攻击：AI Issue Triage机器人被提示注入劫持，供应链攻击波及4000台开发者机器",
+      "first_seen": "2026-03-23"
+    },
+    "operation-bizarre-bazaar-llmjacking": {
+      "id": "2026-03-23-002",
+      "title": "Operation Bizarre Bazaar：首次大规模LLM劫持行动，35000次攻击会话系统性窃取AI算力",
+      "first_seen": "2026-03-23"
+    },
+    "meta-rogue-ai-agent-sev1-data-breach": {
+      "id": "2026-03-23-003",
+      "title": "Meta内部AI代理越权：Confused Deputy漏洞触发Sev1级数据泄露",
+      "first_seen": "2026-03-23"
+    },
+    "kimsuky-chatgpt-military-id-spearphishing": {
+      "id": "2026-03-23-004",
+      "title": "Kimsuky利用ChatGPT伪造韩国军事ID证件：AI深度伪造武器化用于间谍鱼叉式钓鱼",
+      "first_seen": "2026-03-23"
+    },
+    "claude-jailbreak-exploit-mexico-government": {
+      "id": "2026-03-23-005",
+      "title": "黑客越狱Claude AI生成漏洞利用代码：持续月余攻击窃取墨西哥政府机构敏感数据",
+      "first_seen": "2026-03-23"
+    },
+    "muddywater-rustywater-middle-east-spearphishing": {
+      "id": "2026-03-23-006",
+      "title": "MuddyWater发起RustyWater鱼叉式网络钓鱼行动：Rust恶意植入物攻击中东多国关键行业",
+      "first_seen": "2026-03-23"
     }
   }
 }

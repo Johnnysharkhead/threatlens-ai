@@ -14,7 +14,28 @@
       "WebFetch(domain:www.cm-alliance.com)",
       "WebFetch(domain:unit42.paloaltonetworks.com)",
       "Bash(curl -s http://localhost:4321)",
-      "Bash(curl -s http://localhost:4321/event/2026-03-22-001/)"
+      "Bash(curl -s http://localhost:4321/event/2026-03-22-001/)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "WebFetch(domain:cyberpress.org)",
+      "WebFetch(domain:www.microsoft.com)",
+      "WebFetch(domain:techcrunch.com)",
+      "WebFetch(domain:www.brside.com)",
+      "WebFetch(domain:labs.cloudsecurityalliance.org)",
+      "WebFetch(domain:www.bleepingcomputer.com)",
+      "WebFetch(domain:snyk.io)",
+      "WebFetch(domain:adnanthekhan.com)",
+      "WebFetch(domain:www.techzine.eu)",
+      "WebFetch(domain:creati.ai)",
+      "WebFetch(domain:securityonline.info)",
+      "WebFetch(domain:www.infosecurity-magazine.com)",
+      "WebFetch(domain:aviatrix.ai)",
+      "WebFetch(domain:www.ic3.gov)",
+      "WebFetch(domain:www.pillar.security)",
+      "WebFetch(domain:www.sysdig.com)",
+      "WebFetch(domain:securityaffairs.com)",
+      "WebFetch(domain:blackswan-cybersecurity.com)"
     ]
   }
 }

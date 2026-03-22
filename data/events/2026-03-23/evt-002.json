@@ -1,0 +1,114 @@
+{
+  "id": "2026-03-23-002",
+  "collected_at": "2026-03-23T00:00:00Z",
+  "category": "attack_on_ai",
+  "title": "Operation Bizarre Bazaar：首次大规模LLM劫持行动，35000次攻击会话系统性窃取AI算力",
+  "summary": "在2025年12月至2026年1月间，威胁行为者对暴露的LLM和MCP服务端点发动首次有据可查的大规模系统性攻击，平均每日972次攻击会话，并通过地下市场变现被劫持的AI访问权限。研究人员将此次行动归因于化名"Hecker"（别名Sakuya、LiveGamer101）的威胁行为者，其运营名为silver.inc的地下黑市，以40-60%的折扣向30余家LLM提供商转售被窃取的API访问权限。",
+  "sources": [
+    {
+      "url": "https://www.techzine.eu/news/security/138324/first-large-scale-llmjacking-generates-tens-of-thousands-of-attacks/",
+      "title": "First large-scale LLMjacking generates tens of thousands of attacks | Techzine Global",
+      "published": "2026-01"
+    },
+    {
+      "url": "https://www.bleepingcomputer.com/news/security/hackers-hijack-exposed-llm-endpoints-in-bizarre-bazaar-operation/",
+      "title": "Hackers hijack exposed LLM endpoints in Bizarre Bazaar operation | BleepingComputer",
+      "published": "2026-01"
+    },
+    {
+      "url": "https://www.pillar.security/blog/operation-bizarre-bazaar-first-attributed-llmjacking-campaign-with-commercial-marketplace-monetization",
+      "title": "Operation Bizarre Bazaar: First Attributed LLMjacking Campaign | Pillar Security",
+      "published": "2026-01"
+    },
+    {
+      "url": "https://www.sysdig.com/blog/llmjacking-from-emerging-threat-to-black-market-reality",
+      "title": "LLMjacking: From Emerging Threat to Black Market Reality | Sysdig",
+      "published": "2026-01"
+    }
+  ],
+  "status": "analyzed",
+  "overview": {
+    "attacker": "化名"Hecker"（别名Sakuya、LiveGamer101）的威胁行为者，领导三个协同运作的攻击组：扫描基础设施团队、silver.inc验证团队、silver.inc地下黑市运营团队。基础设施托管于荷兰防弹托管服务商（AS135377，子网204.76.203.0/24），并与nexeonai.com存在基础设施重叠，攻击者管理面板显示"Hiii I'm Hecker"字样。",
+    "target": "互联网暴露的LLM和MCP服务端点，包括：未配置身份验证的Ollama实例（端口11434）、暴露于公网的OpenAI兼容API（端口8000）、未受保护的Model Context Protocol（MCP）服务器、缺乏认证或速率限制的生产级聊天机器人端点、使用公网IP的开发/测试环境。攻击覆盖30余家LLM提供商。",
+    "economic_loss": "受害组织面临多重经济损失：云账单因未授权推理调用而暴涨，直接算力资源被盗用。silver.inc以40-60%折扣转售被窃API访问权限，意味着受害方为攻击者使用的算力支付全价。具体总损失金额未公开披露，但规模涉及35,000次攻击会话、跨越30余家提供商，持续约40天。",
+    "timeline": "2025年12月：攻击活动开始，扫描和劫持暴露的LLM端点；2026年1月初：攻击高峰期，日均972次攻击会话，累计35,000次会话；2026年1月下旬：60%的攻击流量转向MCP服务器侦察，表明独立威胁行为者开始为横向移动做准备；2026年1月底至2月：Pillar Security研究人员记录并公开披露此次行动。",
+    "status": "持续中"
+  },
+  "technique": {
+    "vulnerabilities": [
+      "Ollama在端口11434上运行且未配置身份验证（CVE级别的设计缺陷）",
+      "OpenAI兼容API在端口8000上对公网暴露，无访问控制",
+      "未经身份验证的MCP服务器可从公网直接访问",
+      "使用公网IP的开发/测试基础设施缺乏访问控制隔离",
+      "生产级聊天机器人端点缺失认证机制或速率限制",
+      "AI API密钥存储不当，可从云环境中被提取",
+      "IAM权限过于宽泛，令牌生命周期过长"
+    ],
+    "method": "攻击者采用三阶段工业化犯罪供应链：第一阶段，利用Shodan和Censys扫描引擎系统性探测互联网，发现暴露的AI端点，目标包括未认证的Ollama实例、vLLM服务器和MCP端点；第二阶段，silver.inc验证团队对发现的端点进行API验证，使用占位符API密钥（如sk-test、test-token）枚举模型能力和响应质量；第三阶段，通过Discord和Telegram上的silver.inc地下黑市，以40-60%折扣将未授权的AI访问权限转售给下游买家，接受加密货币和PayPal付款。攻击者还利用反向代理集中管理多个被窃账户的访问，同时隐匿凭据。攻击者快速适应市场变化，在DeepSeek-V3等新模型发布后数日内即将其纳入攻击目标。",
+    "owasp_classification": "LLM04 - Model Denial of Service（算力耗尽）；LLM06 - Sensitive Information Disclosure（通过LLM上下文窗口泄露敏感数据）；LLM08 - Excessive Agency（MCP服务器被滥用实现横向移动）；LLM05 - Supply Chain Vulnerabilities（未受保护的MCP中间件作为攻击入口）",
+    "tools_used": [
+      "Shodan（网络扫描，发现暴露的AI端点）",
+      "Censys（网络扫描，识别脆弱的LLM服务）",
+      "分布式僵尸网络基础设施（大规模自动化扫描）",
+      "API验证脚本（枚举模型能力，测试访问权限，使用占位符密钥模式）",
+      "silver.inc平台（地下黑市，通过Discord/Telegram运营）",
+      "反向代理基础设施（集中管理被窃访问权限，隐匿凭据）",
+      "荷兰防弹托管（AS135377/204.76.203.0/24，规避执法追踪）"
+    ],
+    "sophistication": "high"
+  },
+  "attack_chain": {
+    "description": "Operation Bizarre Bazaar采用三阶段工业化攻击链：侦察扫描→访问验证→商业变现。攻击者将AI基础设施的错误配置转化为可变现的商品，构建了完整的地下AI访问经济体系。到2026年1月下旬，攻击重心已从纯算力窃取转向MCP服务器侦察，为横向入侵企业内部系统做准备，威胁层级从算力盗窃显著升级为企业全面渗透。",
+    "steps": [
+      {
+        "phase": "侦察",
+        "action": "网络扫描发现暴露的AI端点",
+        "detail": "攻击者使用Shodan和Censys扫描互联网，系统性识别未受保护的Ollama实例（端口11434）、OpenAI兼容API（端口8000）、vLLM服务器和MCP端点。分布式僵尸网络基础设施确保扫描规模和速度，目标在被发现后数小时内即遭到利用。"
+      },
+      {
+        "phase": "验证",
+        "action": "API测试枚举模型能力",
+        "detail": "silver.inc验证团队对发现的端点发送API请求，使用占位符密钥（sk-test、test-token等模式）测试访问权限，枚举可用模型列表，评估响应质量和计算能力，筛选出具有商业价值的高质量访问权限。"
+      },
+      {
+        "phase": "驻留",
+        "action": "通过反向代理建立持久访问",
+        "detail": "攻击者利用反向代理基础设施集中管理多个被窃账户的访问权限，在隐匿凭据的同时保持对目标LLM服务的持续访问能力。托管于荷兰防弹服务商（AS135377）确保基础设施的抗执法能力。"
+      },
+      {
+        "phase": "变现",
+        "action": "通过silver.inc地下黑市转售AI访问权限",
+        "detail": "silver.inc以"统一LLM API网关"为名运营，在Discord和Telegram上向下游买家销售对30余家LLM提供商的未授权访问权限，定价为市场价的40-60%折扣，接受加密货币和PayPal付款，使非技术型威胁行为者也能购买AI攻击能力。"
+      },
+      {
+        "phase": "横向移动准备",
+        "action": "转向MCP服务器侦察",
+        "detail": "到2026年1月下旬，60%的攻击流量转向Model Context Protocol服务器。MCP服务器连接AI系统与内部基础设施（文件系统、数据库、Shell访问、内部API），攻击者通过MCP端点绘制企业内网拓扑，为后续深度入侵做准备，威胁从算力窃取升级为全面企业网络入侵。"
+      }
+    ],
+    "mermaid": "graph TD\n  A[\"侦察阶段\\nShodan/Censys扫描\"] --> B[\"目标识别\\n暴露的LLM端点\"]\n  B --> C[\"验证阶段\\nAPI测试 & 模型枚举\"]\n  C --> D{\"访问质量评估\"}\n  D -->|\"高价值目标\"| E[\"驻留\\n反向代理集中管理\"]\n  D -->|\"低价值目标\"| F[\"放弃\"]\n  E --> G[\"变现\\nsilver.inc黑市销售\"]\n  G --> H[\"下游买家\\n加密货币/PayPal付款\"]\n  E --> I[\"MCP侦察\\n60%流量转向\"]\n  I --> J[\"横向移动\\n文件系统/数据库/Shell\"]\n\n  style A fill:#4a1942,color:#fff\n  style B fill:#7b2d8b,color:#fff\n  style C fill:#9b59b6,color:#fff\n  style D fill:#8e44ad,color:#fff\n  style E fill:#c0392b,color:#fff\n  style F fill:#7f8c8d,color:#fff\n  style G fill:#e74c3c,color:#fff\n  style H fill:#e67e22,color:#fff\n  style I fill:#d35400,color:#fff\n  style J fill:#922b21,color:#fff"
+  },
+  "lessons": {
+    "ai_vulnerabilities": [
+      "AI基础设施默认配置普遍缺乏身份验证：Ollama等本地LLM框架设计时未预设公网暴露场景，默认监听无认证端口，开发者将其部署到公网时风险被严重低估",
+      "MCP协议的过度授权设计：MCP服务器作为AI与内部系统的桥梁，若缺乏严格访问控制，单点暴露即可导致整个企业内网被渗透",
+      "AI算力的高度可变现性：LLM推理算力具有即时商业价值，形成了不同于传统僵尸网络的新型黑色产业链",
+      "AI工具链快速迭代带来的安全盲区：新模型（如DeepSeek-V3）发布后，组织往往在安全评估完成前就将其部署，攻击者利用这一窗口期快速扩大目标范围",
+      "开发/测试环境与生产环境安全标准不一致：使用公网IP的开发服务器成为攻击者的主要突破口",
+      "LLM上下文窗口成为敏感数据泄露渠道：被劫持的LLM不仅消耗算力，还可能通过对话历史或系统提示泄露企业机密信息"
+    ],
+    "ai_role": "此次攻击中，AI系统本身是被攻击的目标资产。攻击者将LLM的推理能力视为可窃取和转售的商品，构建了完整的"AI算力黑市"生态。MCP服务器作为AI能力的扩展层，其高权限设计使其成为横向移动的理想跳板。与传统资源劫持（如挖矿僵尸网络）相比，LLM劫持的隐蔽性更强——受害方可能数月后才通过账单异常发现入侵——且变现渠道更多样，不仅限于计算能力，还涵盖知识产权访问、数据获取、内部API调用等。",
+    "defense_recommendations": [
+      "立即措施：为所有LLM端点启用强制身份验证，包括Ollama、vLLM等本地部署的开源框架，绝不将其暴露于公网",
+      "网络隔离：将LLM服务部署于私有网络，通过API网关统一管控访问，禁止直接公网访问",
+      "MCP安全加固：将MCP服务器视为特权中间件，实施严格的最小权限原则，定期审计MCP端点的公网暴露面",
+      "威胁情报封锁：将已知攻击基础设施列入黑名单，包括204.76.203.0/24子网和AS135377 ASN范围",
+      "异常检测：监控API调用中的占位符密钥模式（sk-test、test-token等），部署行为检测识别多提供商枚举行为",
+      "成本监控：建立安全团队与财务团队的跨职能协作机制，通过云账单异常（LLM使用量意外飙升）及时发现未授权使用",
+      "IAM强化：缩短API令牌生命周期，收紧IAM权限范围，实施持续凭据轮换策略",
+      "AI资产清单：建立完整的AI基础设施资产目录，定期使用Shodan/Censys等工具进行攻击面自查",
+      "速率限制：对所有AI API端点实施速率限制和使用量配额，防止大规模滥用和算力耗尽攻击"
+    ],
+    "industry_impact": "Operation Bizarre Bazaar标志着AI安全威胁的重要演进节点：这是首个有据可查的、具有商业化地下市场的大规模LLM劫持行动，证明了"AI算力即商品"的黑色产业模式已从理论走向现实。对行业的深远影响体现在三个维度：一是威胁门槛的降低——通过silver.inc等黑市，非技术攻击者也能购买LLM访问能力，大幅扩展了潜在攻击者群体；二是MCP生态系统的安全隐患——随着MCP协议被广泛采用，其作为AI与企业系统的集成层，正在成为新的高价值攻击面，预计此类攻击将在2026年持续增加；三是监管压力——此次事件将推动企业将AI基础设施纳入正式的安全审计范围，预计将催生针对AI服务暴露的合规要求和安全标准。"
+  }
+}
