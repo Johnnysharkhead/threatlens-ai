@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/threatlens-aifavicon.svg"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="ThreatLens AI — AI网络攻击威胁情报平台"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><title>俄罗斯APT28使用PROMPTSTEAL恶意软件：利用大模型动态生成攻击指令窃取乌克兰数据 — ThreatLens AI</title><link rel="stylesheet" href="/threatlens-ai/_astro/events.DUKyK1Fp.css"></head> <body class="bg-[var(--color-bg-primary)] text-[var(--color-text-primary)] font-sans min-h-screen antialiased"> <header class="border-b border-[var(--color-border-default)] sticky top-0 z-50 bg-[var(--color-bg-primary)]"> <nav class="max-w-[896px] mx-auto px-6 h-14 flex items-center justify-between"> <a href="/threatlens-ai" class="flex items-center gap-2 no-underline"> <span class="text-base font-bold tracking-tight text-[var(--color-text-primary)]">ThreatLens</span> <span class="text-base font-semibold text-[var(--color-accent)] tracking-wide">AI</span> </a> <span class="text-xs text-[var(--color-text-tertiary)]">Cyber Threat Intelligence</span> </nav> </header> <main class="max-w-[896px] mx-auto px-6 py-10">   <a href="/threatlens-ai" class="inline-flex items-center gap-1 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] no-underline mb-8 transition-colors">
+← 返回
+</a>  <div class="flex gap-10"> <!-- Sticky sidebar TOC (desktop only) --> <aside class="hidden lg:block w-44 shrink-0"> <nav class="sticky top-20"> <div class="text-xs font-medium text-[var(--color-text-tertiary)] uppercase tracking-widest mb-3">目录</div> <ul class="space-y-1 list-none p-0 m-0"> <li> <a href="#overview" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="overview"> 攻击概况 </a> </li><li> <a href="#technique" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="technique"> 攻击手法 </a> </li><li> <a href="#attack-chain" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="attack-chain"> 攻击链分析 </a> </li><li> <a href="#defense" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="defense"> 启示与防御 </a> </li><li> <a href="#sources" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="sources"> 信息来源 </a> </li> </ul> </nav> </aside> <!-- Main report content --> <article class="flex-1 min-w-0"> <!-- Header --> <header class="mb-10 pb-8 border-b border-[var(--color-border-default)]"> <div class="flex items-center gap-3 mb-4"> <span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2 py-0.5 rounded-sm font-medium"> AI驱动攻击 </span> <time class="text-xs text-[var(--color-text-tertiary)]">2026-03-22</time> <span class="text-xs text-[var(--color-text-tertiary)]">
+复杂度: 高级 </span> </div> <h1 class="text-2xl md:text-[28px] font-bold leading-tight mb-4">俄罗斯APT28使用PROMPTSTEAL恶意软件：利用大模型动态生成攻击指令窃取乌克兰数据</h1> <p class="text-[var(--color-text-secondary)] text-[15px] leading-relaxed">俄罗斯军事黑客组织APT28部署了一款名为PROMPTSTEAL的Python恶意软件，该恶意软件通过Hugging Face API调用Qwen2.5-Coder-32B大模型，实时动态生成Windows攻击命令，用于窃取乌克兰目标的系统信息和Active Directory数据。这是首批被发现利用LLM动态生成攻击载荷的国家级恶意软件。</p> </header> <div class="space-y-12"> <!-- Section: 攻击概况 --> <section id="overview"> <h2 class="text-lg font-semibold mb-5">攻击概况</h2> <div class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-[var(--color-border-default)] border border-[var(--color-border-default)] rounded-md overflow-hidden"> <div class="bg-[var(--color-bg-primary)] p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">攻击方</div> <div class="text-sm font-medium leading-snug">APT28（又名Fancy Bear），隶属于俄罗斯军事情报局（GRU）</div> </div> <div class="bg-[var(--color-bg-primary)] p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">攻击目标</div> <div class="text-sm font-medium leading-snug">乌克兰政府和军事实体</div> </div> <div class="bg-[var(--color-bg-primary)] p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">经济损失</div> <div class="text-sm font-medium">未公开具体金额，涉及军事和政府敏感数据窃取</div> </div> <div class="bg-[var(--color-bg-primary)] p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">事件状态</div> <div class="text-sm font-medium">持续中</div> </div> </div> <div class="mt-4 border border-[var(--color-border-default)] rounded-md p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">事件时间线</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">2025年6月被Google威胁情报组（GTAG）发现处于活跃使用状态</div> </div> <div class="mt-4 border border-[var(--color-border-default)] rounded-md p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">行业影响</div> <div class="text-sm text-[var(--color-text-secondary)] leading-[1.7]">PROMPTSTEAL标志着AI驱动恶意软件从理论走向国家级实战应用。CrowdStrike 2026全球威胁报告显示AI赋能的攻击者增加了89%，AI驱动的恶意软件平均造成每起事件572万美元的损失。这预示着&#39;AI vs AI&#39;的网络攻防新时代已经到来。</div> </div> </section> <!-- Section: 攻击手法 --> <section id="technique"> <h2 class="text-lg font-semibold mb-5">攻击手法</h2> <div class="border border-[var(--color-border-default)] rounded-md p-5 mb-4"> <div class="text-sm leading-[1.7] text-[var(--color-text-primary)]"> PROMPTSTEAL是一款基于Python的数据窃取恶意软件。其核心创新在于不预置攻击命令，而是在运行时通过Hugging Face API调用Qwen2.5-Coder-32B-Instruct大模型，动态生成一行式Windows命令。这些AI生成的命令用于收集目标系统的硬件详情、进程信息、网络配置和Active Directory数据。由于每次生成的命令都是独特的，传统的基于签名的检测方法难以有效识别。Google同时发现了另一款类似的AI恶意软件PromptFlux，它可以动态生成恶意脚本、混淆自身代码，并利用AI模型按需创建恶意功能。 </div> </div> <div class="flex flex-wrap gap-2 mb-4"> <span class="text-xs bg-[var(--color-accent-surface)] text-[var(--color-accent)] px-2.5 py-1 rounded-sm font-medium"> N/A（非针对LLM系统的攻击，是利用LLM进行的攻击） </span> <span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">PROMPTSTEAL（Python恶意软件）</span><span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">Hugging Face API</span><span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">Qwen2.5-Coder-32B-Instruct模型</span><span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">PromptFlux（相关恶意软件）</span> </div> <div> <div class="text-xs text-[var(--color-text-tertiary)] mb-2 font-medium">利用的脆弱性</div> <ul class="list-none p-0 m-0 space-y-1.5"> <li class="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]"> <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-text-tertiary)] shrink-0"></span> 利用公开LLM API（Hugging Face）生成恶意代码，规避传统签名检测 </li><li class="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]"> <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-text-tertiary)] shrink-0"></span> AI生成的攻击命令具有多态性，每次执行产生不同变体 </li> </ul> </div> </section> <!-- Section: 攻击链分析 (Interactive) --> <section id="attack-chain"> <h2 class="text-lg font-semibold mb-2">攻击链分析</h2> <p class="text-sm text-[var(--color-text-secondary)] mb-6 leading-relaxed">国家级黑客组织将大模型集成到恶意软件中，使恶意代码具有动态生成和自我变异能力，从而规避传统安全检测。</p> <div class="flex flex-col lg:flex-row gap-6" id="chain-2026-03-22-006"> <!-- Left Panel: Interactive Timeline / Step Cards --> <div class="lg:w-[340px] shrink-0 space-y-2" id="steps-2026-03-22-006"> <button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="0" data-chain="2026-03-22-006" data-node="A" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 1 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">目标选择与初始入侵</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> APT28通过社会工程或已知漏洞在乌克兰目标系统中植入PROMPTSTEAL恶意软件 </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="1" data-chain="2026-03-22-006" data-node="B" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 2 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">LLM API调用</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> 恶意软件运行时通过Hugging Face API连接Qwen2.5-Coder-32B-Instruct模型 </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="2" data-chain="2026-03-22-006" data-node="C" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 3 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">动态命令生成</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> 向大模型发送提示，要求生成用于收集系统信息的一行式Windows命令，每次生成的命令都独一无二 </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="3" data-chain="2026-03-22-006" data-node="D" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 4 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">信息收集</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> 执行AI生成的命令，收集目标系统的硬件详情、运行进程、网络配置和Active Directory数据 </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="4" data-chain="2026-03-22-006" data-node="E" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 5 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">数据外泄</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> 将收集到的敏感信息通过隐蔽通道回传至攻击者控制的基础设施 </div> </div> </div> </button> </div> <!-- Right Panel: Mermaid Graph (Sticky) --> <div class="flex-1 min-w-0 lg:sticky lg:top-20 lg:self-start"> <div class="mermaid-container border border-[var(--color-border-default)] rounded-md bg-[var(--color-bg-primary)] p-6 overflow-x-auto"> <pre class="mermaid" id="mermaid-2026-03-22-006">graph TD
+  A[&quot;🎯 目标锁定&lt;br/&gt;APT28选定乌克兰&lt;br/&gt;政府/军事目标&quot;] --&gt; B[&quot;📧 初始入侵&lt;br/&gt;通过社工或漏洞&lt;br/&gt;植入PROMPTSTEAL&quot;]
+  B --&gt; C[&quot;🤖 调用LLM&lt;br/&gt;通过Hugging Face API&lt;br/&gt;查询Qwen大模型&quot;]
+  C --&gt; D[&quot;⚡ 动态生成命令&lt;br/&gt;AI实时生成独特的&lt;br/&gt;Windows攻击命令&quot;]
+  D --&gt; E[&quot;📊 数据收集&lt;br/&gt;收集硬件信息&lt;br/&gt;进程/网络/AD数据&quot;]
+  E --&gt; F[&quot;📤 数据外泄&lt;br/&gt;窃取敏感信息&lt;br/&gt;回传至C2服务器&quot;]
+  style A fill:#e1f5fe
+  style B fill:#fff3e0
+  style C fill:#f3e5f5
+  style D fill:#fce4ec
+  style E fill:#e8f5e9
+  style F fill:#ffebee</pre> </div> </div> </div> <!-- Attack Chain interaction script --> <script>(function(){const eventId = "2026-03-22-006";
+const nodeCount = 5;
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('steps-' + eventId);
+    if (!container) return;
+
+    const cards = container.querySelectorAll('.step-card');
+    let activeIndex = 0;
+
+    function activateStep(index) {
+      activeIndex = index;
+
+      cards.forEach(function(card, i) {
+        const isActive = i === index;
+        const detail = card.querySelector('.step-detail');
+        const number = card.querySelector('.step-number');
+
+        // Card styling
+        card.style.borderColor = isActive ? '#2563EB' : '';
+        card.style.borderLeftWidth = isActive ? '3px' : '';
+        card.style.backgroundColor = isActive ? '#EFF6FF' : '';
+
+        // Number badge
+        if (number) {
+          number.style.backgroundColor = isActive ? '#2563EB' : '';
+          number.style.color = isActive ? '#FFFFFF' : '';
+        }
+
+        // Progressive disclosure: show/hide detail
+        if (detail) {
+          if (isActive) {
+            detail.classList.remove('hidden');
+          } else {
+            detail.classList.add('hidden');
+          }
+        }
+      });
+
+      // Highlight active Mermaid node
+      highlightMermaidNode(index);
+    }
+
+    function highlightMermaidNode(index) {
+      const mermaidContainer = document.querySelector('#chain-' + eventId + ' .mermaid-container');
+      if (!mermaidContainer) return;
+
+      // Reset all nodes
+      var allNodes = mermaidContainer.querySelectorAll('.node');
+      allNodes.forEach(function(node) {
+        var rect = node.querySelector('rect') || node.querySelector('polygon');
+        var label = node.querySelector('.nodeLabel');
+        if (rect) {
+          rect.style.fill = '#FFFFFF';
+          rect.style.stroke = '#D1D5DB';
+          rect.style.strokeWidth = '1px';
+        }
+        if (label) {
+          label.style.color = '#111827';
+        }
+      });
+
+      // Highlight the active node (nodes are in DOM order matching steps)
+      if (allNodes[index]) {
+        var rect = allNodes[index].querySelector('rect') || allNodes[index].querySelector('polygon');
+        var label = allNodes[index].querySelector('.nodeLabel');
+        if (rect) {
+          rect.style.fill = '#2563EB';
+          rect.style.stroke = '#2563EB';
+          rect.style.strokeWidth = '2px';
+        }
+        if (label) {
+          label.style.color = '#FFFFFF';
+        }
+      }
+    }
+
+    // Click handlers
+    cards.forEach(function(card, i) {
+      card.addEventListener('click', function() {
+        activateStep(i);
+      });
+    });
+
+    // Activate first step after Mermaid renders
+    // Use MutationObserver to detect when SVG appears
+    var mermaidEl = document.getElementById('mermaid-' + eventId);
+    if (mermaidEl) {
+      var observer = new MutationObserver(function(mutations) {
+        for (var m = 0; m < mutations.length; m++) {
+          if (mutations[m].addedNodes.length) {
+            for (var n = 0; n < mutations[m].addedNodes.length; n++) {
+              if (mutations[m].addedNodes[n].tagName === 'svg') {
+                setTimeout(function() { activateStep(0); }, 100);
+                observer.disconnect();
+                return;
+              }
+            }
+          }
+        }
+      });
+      observer.observe(mermaidEl.parentElement, { childList: true, subtree: true });
+    }
+
+    // Fallback: activate first step after a delay
+    setTimeout(function() { activateStep(0); }, 1500);
+  });
+})();</script> </section> <!-- Section: 启示与防御 + GAP Analysis --> <section id="defense"> <h2 class="text-lg font-semibold mb-5">启示与防御</h2> <!-- AI Role --> <div class="border-l-2 border-[var(--color-accent)] pl-4 mb-6"> <div class="text-xs text-[var(--color-accent)] font-medium mb-1.5">AI在攻击中的角色</div> <div class="text-sm text-[var(--color-text-secondary)] leading-[1.7]">AI在此攻击中扮演了&#39;恶意代码生成器&#39;的角色。传统恶意软件预置固定的攻击命令，容易被签名检测识别；PROMPTSTEAL则将命令生成外包给大模型，使每次攻击都使用独特的代码变体。AI本质上成为了恶意软件的&#39;大脑&#39;，赋予了原本静态的工具以动态适应能力。</div> </div> <!-- AI Vulnerabilities --> <div class="mb-6"> <div class="text-xs text-[var(--color-text-tertiary)] font-medium mb-2.5">AI特有脆弱性</div> <ul class="list-none p-0 m-0 space-y-2"> <li class="flex items-start gap-2.5 text-sm text-[var(--color-text-secondary)] leading-relaxed"> <span class="mt-1.5 w-1.5 h-1.5 bg-[var(--color-text-tertiary)] shrink-0" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"></span> 公开可用的LLM API可被恶意软件用于动态生成攻击代码，这是AI服务被滥用的新形式 </li><li class="flex items-start gap-2.5 text-sm text-[var(--color-text-secondary)] leading-relaxed"> <span class="mt-1.5 w-1.5 h-1.5 bg-[var(--color-text-tertiary)] shrink-0" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"></span> AI赋予恶意软件多态性——76%的被检测恶意软件现在具有AI驱动的多态能力，有些每15秒变异一次 </li><li class="flex items-start gap-2.5 text-sm text-[var(--color-text-secondary)] leading-relaxed"> <span class="mt-1.5 w-1.5 h-1.5 bg-[var(--color-text-tertiary)] shrink-0" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"></span> 开源大模型的广泛可用性降低了国家级恶意软件的开发门槛 </li> </ul> </div> <!-- Defense GAP Analysis --> <div class="mt-6"> <div class="text-xs text-[var(--color-text-tertiary)] font-medium mb-3">防御能力差距分析</div> <div class="border border-[var(--color-border-default)] rounded-md overflow-hidden"> <!-- Table header --> <div class="hidden sm:grid sm:grid-cols-[180px_100px_1fr] bg-[var(--color-bg-secondary)] border-b border-[var(--color-border-default)]"> <div class="px-4 py-2.5 text-xs font-medium text-[var(--color-text-tertiary)]">防御方案</div> <div class="px-4 py-2.5 text-xs font-medium text-[var(--color-text-tertiary)]">覆盖状态</div> <div class="px-4 py-2.5 text-xs font-medium text-[var(--color-text-tertiary)]">差距分析</div> </div> <!-- Table rows --> <div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">终端检测与响应 (EDR)</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"> <circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M6 1 A5 5 0 0 1 6 11 Z" fill="#111827"></path> </svg> <span class="text-xs text-[var(--color-text-secondary)]">部分覆盖</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">EDR可检测已知恶意行为模式，但AI生成的多态代码和动态变异可绕过签名检测</div> </div> </div><div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">终端检测与响应 (EDR)</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"> <circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M6 1 A5 5 0 0 1 6 11 Z" fill="#111827"></path> </svg> <span class="text-xs text-[var(--color-text-secondary)]">部分覆盖</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">EDR可检测已知恶意行为模式，但AI生成的多态代码和动态变异可绕过签名检测</div> </div> </div><div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">终端检测与响应 (EDR)</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"> <circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M6 1 A5 5 0 0 1 6 11 Z" fill="#111827"></path> </svg> <span class="text-xs text-[var(--color-text-secondary)]">部分覆盖</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">EDR可检测已知恶意行为模式，但AI生成的多态代码和动态变异可绕过签名检测</div> </div> </div><div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">终端检测与响应 (EDR)</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"> <circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M6 1 A5 5 0 0 1 6 11 Z" fill="#111827"></path> </svg> <span class="text-xs text-[var(--color-text-secondary)]">部分覆盖</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">EDR可检测已知恶意行为模式，但AI生成的多态代码和动态变异可绕过签名检测</div> </div> </div><div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">综合安全策略</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"> <circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M6 1 A5 5 0 0 1 6 11 Z" fill="#111827"></path> </svg> <span class="text-xs text-[var(--color-text-secondary)]">部分覆盖</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">需要结合多种防御手段，传统单点方案无法应对AI时代的复合威胁</div> </div> </div> </div> <!-- Legend --> <div class="flex items-center gap-5 mt-3"> <span class="flex items-center gap-1.5 text-xs text-[var(--color-text-tertiary)]"> <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="#111827"></circle></svg>
+可防御
+</span> <span class="flex items-center gap-1.5 text-xs text-[var(--color-text-tertiary)]"> <svg width="10" height="10" viewBox="0 0 10 10"> <circle cx="5" cy="5" r="4" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M5 1 A4 4 0 0 1 5 9 Z" fill="#111827"></path> </svg>
+部分覆盖
+</span> <span class="flex items-center gap-1.5 text-xs text-[var(--color-text-tertiary)]"> <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="none" stroke="#111827" stroke-width="1.5"></circle></svg>
+防御缺口
+</span> </div> </div> </section> <!-- Section: Sources --> <section id="sources" class="pt-8 border-t border-[var(--color-border-default)]"> <div class="text-xs text-[var(--color-text-tertiary)] font-medium uppercase tracking-widest mb-3">信息来源</div> <ul class="list-none p-0 m-0 space-y-2"> <li> <a href="https://www.axios.com/2025/11/05/google-ai-cybersecurity-malware-report" target="_blank" rel="noopener noreferrer" class="text-sm text-[var(--color-accent)] hover:underline no-underline"> Axios: Hackers are already using AI-enabled malware, Google says </a> <span class="text-xs text-[var(--color-text-tertiary)] ml-2">2025-11-05</span> </li><li> <a href="https://www.securityweek.com/cyber-insights-2026-malware-and-cyberattacks-in-the-age-of-ai/" target="_blank" rel="noopener noreferrer" class="text-sm text-[var(--color-accent)] hover:underline no-underline"> SecurityWeek: Malware and Cyberattacks in the Age of AI </a> <span class="text-xs text-[var(--color-text-tertiary)] ml-2">2026-01-15</span> </li> </ul> </section> </div> </article> </div>  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const links = document.querySelectorAll('.toc-link');
+      if (!links.length) return;
+      const sectionIds = Array.from(links).map(l => l.getAttribute('data-section'));
+
+      function updateActive() {
+        let current = sectionIds[0];
+        for (const id of sectionIds) {
+          const el = document.getElementById(id);
+          if (el && el.getBoundingClientRect().top <= 100) current = id;
+        }
+        links.forEach(l => {
+          const isActive = l.getAttribute('data-section') === current;
+          l.style.borderColor = isActive ? '#2563EB' : 'transparent';
+          l.style.color = isActive ? '#111827' : '';
+          l.style.fontWeight = isActive ? '500' : '';
+        });
+      }
+
+      window.addEventListener('scroll', updateActive, { passive: true });
+      updateActive();
+    });
+  </script>  </main> <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script> <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        if (typeof mermaid !== 'undefined') {
+          mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+              primaryColor: '#FFFFFF',
+              primaryBorderColor: '#D1D5DB',
+              primaryTextColor: '#111827',
+              lineColor: '#D1D5DB',
+              secondaryColor: '#F9FAFB',
+              tertiaryColor: '#F3F4F6',
+              fontFamily: 'Inter, system-ui, sans-serif',
+              fontSize: '13px'
+            },
+            flowchart: {
+              curve: 'basis',
+              padding: 16
+            }
+          });
+        }
+      });
+    </script> </body> </html>

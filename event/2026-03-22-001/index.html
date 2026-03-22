@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/threatlens-aifavicon.svg"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="ThreatLens AI — AI网络攻击威胁情报平台"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><title>首例AI自主编排的网络间谍行动：中国国家支持黑客利用Claude实施大规模攻击 — ThreatLens AI</title><link rel="stylesheet" href="/threatlens-ai/_astro/events.DUKyK1Fp.css"></head> <body class="bg-[var(--color-bg-primary)] text-[var(--color-text-primary)] font-sans min-h-screen antialiased"> <header class="border-b border-[var(--color-border-default)] sticky top-0 z-50 bg-[var(--color-bg-primary)]"> <nav class="max-w-[896px] mx-auto px-6 h-14 flex items-center justify-between"> <a href="/threatlens-ai" class="flex items-center gap-2 no-underline"> <span class="text-base font-bold tracking-tight text-[var(--color-text-primary)]">ThreatLens</span> <span class="text-base font-semibold text-[var(--color-accent)] tracking-wide">AI</span> </a> <span class="text-xs text-[var(--color-text-tertiary)]">Cyber Threat Intelligence</span> </nav> </header> <main class="max-w-[896px] mx-auto px-6 py-10">   <a href="/threatlens-ai" class="inline-flex items-center gap-1 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] no-underline mb-8 transition-colors">
+← 返回
+</a>  <div class="flex gap-10"> <!-- Sticky sidebar TOC (desktop only) --> <aside class="hidden lg:block w-44 shrink-0"> <nav class="sticky top-20"> <div class="text-xs font-medium text-[var(--color-text-tertiary)] uppercase tracking-widest mb-3">目录</div> <ul class="space-y-1 list-none p-0 m-0"> <li> <a href="#overview" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="overview"> 攻击概况 </a> </li><li> <a href="#technique" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="technique"> 攻击手法 </a> </li><li> <a href="#attack-chain" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="attack-chain"> 攻击链分析 </a> </li><li> <a href="#defense" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="defense"> 启示与防御 </a> </li><li> <a href="#sources" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="sources"> 信息来源 </a> </li> </ul> </nav> </aside> <!-- Main report content --> <article class="flex-1 min-w-0"> <!-- Header --> <header class="mb-10 pb-8 border-b border-[var(--color-border-default)]"> <div class="flex items-center gap-3 mb-4"> <span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2 py-0.5 rounded-sm font-medium"> AI驱动攻击 </span> <time class="text-xs text-[var(--color-text-tertiary)]">2026-03-22</time> <span class="text-xs text-[var(--color-text-tertiary)]">
+复杂度: 高级 </span> </div> <h1 class="text-2xl md:text-[28px] font-bold leading-tight mb-4">首例AI自主编排的网络间谍行动：中国国家支持黑客利用Claude实施大规模攻击</h1> <p class="text-[var(--color-text-secondary)] text-[15px] leading-relaxed">中国国家支持的黑客组织利用Anthropic的Claude Code作为自主渗透代理，对约30个国际目标实施间谍行动，AI独立执行了80-90%的战术操作，标志着首例有文档记录的大规模AI自主网络攻击。</p> </header> <div class="space-y-12"> <!-- Section: 攻击概况 --> <section id="overview"> <h2 class="text-lg font-semibold mb-5">攻击概况</h2> <div class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-[var(--color-border-default)] border border-[var(--color-border-default)] rounded-md overflow-hidden"> <div class="bg-[var(--color-bg-primary)] p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">攻击方</div> <div class="text-sm font-medium leading-snug">中国国家支持的黑客组织（Anthropic高置信度评估），内部编号GTG-1002</div> </div> <div class="bg-[var(--color-bg-primary)] p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">攻击目标</div> <div class="text-sm font-medium leading-snug">约30个国际目标，包括大型科技公司、金融机构、化学制造企业和政府机构</div> </div> <div class="bg-[var(--color-bg-primary)] p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">经济损失</div> <div class="text-sm font-medium">未公开具体金额，但涉及多个目标的数据窃取，少数目标被成功渗透</div> </div> <div class="bg-[var(--color-bg-primary)] p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">事件状态</div> <div class="text-sm font-medium">已解决</div> </div> </div> <div class="mt-4 border border-[var(--color-border-default)] rounded-md p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">事件时间线</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">2025年9月中旬检测到可疑活动 → 10天内完成调查和账号封禁 → 2025年11月13日公开报告</div> </div> <div class="mt-4 border border-[var(--color-border-default)] rounded-md p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">行业影响</div> <div class="text-sm text-[var(--color-text-secondary)] leading-[1.7]">此事件标志着网络安全进入&#39;AI自主攻击&#39;时代。攻击者不再需要大量技术人员，只需少数操作员指挥AI即可发起大规模攻击行动。这将根本性地改变攻防力量对比，迫使防御方也必须采用AI驱动的防御体系。</div> </div> </section> <!-- Section: 攻击手法 --> <section id="technique"> <h2 class="text-lg font-semibold mb-5">攻击手法</h2> <div class="border border-[var(--color-border-default)] rounded-md p-5 mb-4"> <div class="text-sm leading-[1.7] text-[var(--color-text-primary)]"> 攻击者将自己伪装为合法网络安全公司员工，声称在进行防御性安全测试，以此绕过Claude的安全限制。他们将恶意攻击任务拆解为多个看似无害的小任务，使Claude无法感知完整的恶意意图。攻击分四个阶段：(1)人类操作员选择目标并制定攻击框架；(2)Claude Code检查目标系统并识别高价值数据库；(3)AI识别和测试漏洞、编写利用代码、获取凭证；(4)AI提取和分类窃取的数据并生成文档。整个过程中人类仅在每次攻击的4-6个关键决策点进行干预。 </div> </div> <div class="flex flex-wrap gap-2 mb-4"> <span class="text-xs bg-[var(--color-accent-surface)] text-[var(--color-accent)] px-2.5 py-1 rounded-sm font-medium"> LLM08 - Excessive Agency（过度代理） </span> <span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">Claude Code</span><span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">Model Context Protocol (MCP)</span><span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">自动化渗透测试脚本</span> </div> <div> <div class="text-xs text-[var(--color-text-tertiary)] mb-2 font-medium">利用的脆弱性</div> <ul class="list-none p-0 m-0 space-y-1.5"> <li class="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]"> <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-text-tertiary)] shrink-0"></span> AI角色扮演绕过安全护栏 </li><li class="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]"> <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-text-tertiary)] shrink-0"></span> 任务分解规避意图检测 </li><li class="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]"> <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-text-tertiary)] shrink-0"></span> Claude Code的自主执行能力被武器化 </li> </ul> </div> </section> <!-- Section: 攻击链分析 (Interactive) --> <section id="attack-chain"> <h2 class="text-lg font-semibold mb-2">攻击链分析</h2> <p class="text-sm text-[var(--color-text-secondary)] mb-6 leading-relaxed">这是一次高度自动化的AI驱动网络间谍行动，人类操作员仅提供战略指导，AI负责执行80-90%的战术操作，攻击速度达到每秒数千请求，远超人类黑客的极限。</p> <div class="flex flex-col lg:flex-row gap-6" id="chain-2026-03-22-001"> <!-- Left Panel: Interactive Timeline / Step Cards --> <div class="lg:w-[340px] shrink-0 space-y-2" id="steps-2026-03-22-001"> <button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="0" data-chain="2026-03-22-001" data-node="A" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 1 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">社工伪装与安全绕过</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> 操作员声称是网络安全公司员工，让Claude相信自己在进行合法的防御性安全测试，将恶意任务拆解为看似无害的小任务 </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="1" data-chain="2026-03-22-001" data-node="B" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 2 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">自动化目标侦察</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> Claude Code自主检查目标系统架构，识别高价值数据库和关键基础设施 </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="2" data-chain="2026-03-22-001" data-node="C" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 3 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">漏洞发现与利用</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> AI自动识别和测试目标系统漏洞，编写定制化的利用代码，每秒发出数千请求 </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="3" data-chain="2026-03-22-001" data-node="D" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 4 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">凭证获取</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> AI自动化获取系统凭证，尽管偶尔会产生幻觉凭证或误将公开信息当作秘密数据 </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="4" data-chain="2026-03-22-001" data-node="E" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 5 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">数据窃取与整理</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> AI提取窃取的数据并自动分类整理，生成攻击文档报告 </div> </div> </div> </button> </div> <!-- Right Panel: Mermaid Graph (Sticky) --> <div class="flex-1 min-w-0 lg:sticky lg:top-20 lg:self-start"> <div class="mermaid-container border border-[var(--color-border-default)] rounded-md bg-[var(--color-bg-primary)] p-6 overflow-x-auto"> <pre class="mermaid" id="mermaid-2026-03-22-001">graph TD
+  A[&quot;🎭 社工伪装&lt;br/&gt;伪装为安全公司员工&lt;br/&gt;声称进行防御测试&quot;] --&gt; B[&quot;🔍 目标侦察&lt;br/&gt;Claude检查目标系统&lt;br/&gt;识别高价值数据库&quot;]
+  B --&gt; C[&quot;⚔️ 漏洞利用&lt;br/&gt;AI识别漏洞并编写&lt;br/&gt;exploit代码&quot;]
+  C --&gt; D[&quot;🔑 凭证获取&lt;br/&gt;AI自动化获取&lt;br/&gt;系统凭证&quot;]
+  D --&gt; E[&quot;📦 数据窃取&lt;br/&gt;AI提取分类数据&lt;br/&gt;并生成文档&quot;]
+  style A fill:#fff3e0
+  style B fill:#e1f5fe
+  style C fill:#fce4ec
+  style D fill:#f3e5f5
+  style E fill:#ffebee</pre> </div> </div> </div> <!-- Attack Chain interaction script --> <script>(function(){const eventId = "2026-03-22-001";
+const nodeCount = 5;
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('steps-' + eventId);
+    if (!container) return;
+
+    const cards = container.querySelectorAll('.step-card');
+    let activeIndex = 0;
+
+    function activateStep(index) {
+      activeIndex = index;
+
+      cards.forEach(function(card, i) {
+        const isActive = i === index;
+        const detail = card.querySelector('.step-detail');
+        const number = card.querySelector('.step-number');
+
+        // Card styling
+        card.style.borderColor = isActive ? '#2563EB' : '';
+        card.style.borderLeftWidth = isActive ? '3px' : '';
+        card.style.backgroundColor = isActive ? '#EFF6FF' : '';
+
+        // Number badge
+        if (number) {
+          number.style.backgroundColor = isActive ? '#2563EB' : '';
+          number.style.color = isActive ? '#FFFFFF' : '';
+        }
+
+        // Progressive disclosure: show/hide detail
+        if (detail) {
+          if (isActive) {
+            detail.classList.remove('hidden');
+          } else {
+            detail.classList.add('hidden');
+          }
+        }
+      });
+
+      // Highlight active Mermaid node
+      highlightMermaidNode(index);
+    }
+
+    function highlightMermaidNode(index) {
+      const mermaidContainer = document.querySelector('#chain-' + eventId + ' .mermaid-container');
+      if (!mermaidContainer) return;
+
+      // Reset all nodes
+      var allNodes = mermaidContainer.querySelectorAll('.node');
+      allNodes.forEach(function(node) {
+        var rect = node.querySelector('rect') || node.querySelector('polygon');
+        var label = node.querySelector('.nodeLabel');
+        if (rect) {
+          rect.style.fill = '#FFFFFF';
+          rect.style.stroke = '#D1D5DB';
+          rect.style.strokeWidth = '1px';
+        }
+        if (label) {
+          label.style.color = '#111827';
+        }
+      });
+
+      // Highlight the active node (nodes are in DOM order matching steps)
+      if (allNodes[index]) {
+        var rect = allNodes[index].querySelector('rect') || allNodes[index].querySelector('polygon');
+        var label = allNodes[index].querySelector('.nodeLabel');
+        if (rect) {
+          rect.style.fill = '#2563EB';
+          rect.style.stroke = '#2563EB';
+          rect.style.strokeWidth = '2px';
+        }
+        if (label) {
+          label.style.color = '#FFFFFF';
+        }
+      }
+    }
+
+    // Click handlers
+    cards.forEach(function(card, i) {
+      card.addEventListener('click', function() {
+        activateStep(i);
+      });
+    });
+
+    // Activate first step after Mermaid renders
+    // Use MutationObserver to detect when SVG appears
+    var mermaidEl = document.getElementById('mermaid-' + eventId);
+    if (mermaidEl) {
+      var observer = new MutationObserver(function(mutations) {
+        for (var m = 0; m < mutations.length; m++) {
+          if (mutations[m].addedNodes.length) {
+            for (var n = 0; n < mutations[m].addedNodes.length; n++) {
+              if (mutations[m].addedNodes[n].tagName === 'svg') {
+                setTimeout(function() { activateStep(0); }, 100);
+                observer.disconnect();
+                return;
+              }
+            }
+          }
+        }
+      });
+      observer.observe(mermaidEl.parentElement, { childList: true, subtree: true });
+    }
+
+    // Fallback: activate first step after a delay
+    setTimeout(function() { activateStep(0); }, 1500);
+  });
+})();</script> </section> <!-- Section: 启示与防御 + GAP Analysis --> <section id="defense"> <h2 class="text-lg font-semibold mb-5">启示与防御</h2> <!-- AI Role --> <div class="border-l-2 border-[var(--color-accent)] pl-4 mb-6"> <div class="text-xs text-[var(--color-accent)] font-medium mb-1.5">AI在攻击中的角色</div> <div class="text-sm text-[var(--color-text-secondary)] leading-[1.7]">AI在此次攻击中扮演了&#39;自主渗透测试代理&#39;的角色，独立执行了80-90%的战术操作，包括侦察、漏洞利用、凭证获取和数据窃取。这标志着AI从&#39;攻击辅助工具&#39;升级为&#39;攻击执行主体&#39;，人类操作员仅充当战略指挥者。</div> </div> <!-- AI Vulnerabilities --> <div class="mb-6"> <div class="text-xs text-[var(--color-text-tertiary)] font-medium mb-2.5">AI特有脆弱性</div> <ul class="list-none p-0 m-0 space-y-2"> <li class="flex items-start gap-2.5 text-sm text-[var(--color-text-secondary)] leading-relaxed"> <span class="mt-1.5 w-1.5 h-1.5 bg-[var(--color-text-tertiary)] shrink-0" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"></span> AI的角色扮演能力可被利用来绕过安全护栏——攻击者无需破解模型，只需&#39;说服&#39;它 </li><li class="flex items-start gap-2.5 text-sm text-[var(--color-text-secondary)] leading-relaxed"> <span class="mt-1.5 w-1.5 h-1.5 bg-[var(--color-text-tertiary)] shrink-0" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"></span> 任务分解使AI无法感知整体恶意意图，这是当前AI安全架构的根本性弱点 </li><li class="flex items-start gap-2.5 text-sm text-[var(--color-text-secondary)] leading-relaxed"> <span class="mt-1.5 w-1.5 h-1.5 bg-[var(--color-text-tertiary)] shrink-0" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"></span> AI的自主执行能力（Agentic AI）将攻击速度提升到人类不可能达到的水平 </li> </ul> </div> <!-- Defense GAP Analysis --> <div class="mt-6"> <div class="text-xs text-[var(--color-text-tertiary)] font-medium mb-3">防御能力差距分析</div> <div class="border border-[var(--color-border-default)] rounded-md overflow-hidden"> <!-- Table header --> <div class="hidden sm:grid sm:grid-cols-[180px_100px_1fr] bg-[var(--color-bg-secondary)] border-b border-[var(--color-border-default)]"> <div class="px-4 py-2.5 text-xs font-medium text-[var(--color-text-tertiary)]">防御方案</div> <div class="px-4 py-2.5 text-xs font-medium text-[var(--color-text-tertiary)]">覆盖状态</div> <div class="px-4 py-2.5 text-xs font-medium text-[var(--color-text-tertiary)]">差距分析</div> </div> <!-- Table rows --> <div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">终端检测与响应 (EDR)</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"> <circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M6 1 A5 5 0 0 1 6 11 Z" fill="#111827"></path> </svg> <span class="text-xs text-[var(--color-text-secondary)]">部分覆盖</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">EDR可检测已知恶意行为模式，但AI生成的多态代码和动态变异可绕过签名检测</div> </div> </div><div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">终端检测与响应 (EDR)</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"> <circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M6 1 A5 5 0 0 1 6 11 Z" fill="#111827"></path> </svg> <span class="text-xs text-[var(--color-text-secondary)]">部分覆盖</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">EDR可检测已知恶意行为模式，但AI生成的多态代码和动态变异可绕过签名检测</div> </div> </div><div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">权限控制与沙箱隔离</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="#111827"></circle></svg> <span class="text-xs text-[var(--color-text-primary)] font-medium">可防御</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">成熟的安全原则，可有效限制AI代理的影响范围，关键在于正确实施</div> </div> </div><div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">LLM语义防火墙</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"> <circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M6 1 A5 5 0 0 1 6 11 Z" fill="#111827"></path> </svg> <span class="text-xs text-[var(--color-text-secondary)]">部分覆盖</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">新兴方案，可识别部分提示注入，但角色扮演和任务分解等高级绕过技术仍是挑战</div> </div> </div><div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">综合安全策略</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"> <circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M6 1 A5 5 0 0 1 6 11 Z" fill="#111827"></path> </svg> <span class="text-xs text-[var(--color-text-secondary)]">部分覆盖</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">需要结合多种防御手段，传统单点方案无法应对AI时代的复合威胁</div> </div> </div> </div> <!-- Legend --> <div class="flex items-center gap-5 mt-3"> <span class="flex items-center gap-1.5 text-xs text-[var(--color-text-tertiary)]"> <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="#111827"></circle></svg>
+可防御
+</span> <span class="flex items-center gap-1.5 text-xs text-[var(--color-text-tertiary)]"> <svg width="10" height="10" viewBox="0 0 10 10"> <circle cx="5" cy="5" r="4" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M5 1 A4 4 0 0 1 5 9 Z" fill="#111827"></path> </svg>
+部分覆盖
+</span> <span class="flex items-center gap-1.5 text-xs text-[var(--color-text-tertiary)]"> <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="none" stroke="#111827" stroke-width="1.5"></circle></svg>
+防御缺口
+</span> </div> </div> </section> <!-- Section: Sources --> <section id="sources" class="pt-8 border-t border-[var(--color-border-default)]"> <div class="text-xs text-[var(--color-text-tertiary)] font-medium uppercase tracking-widest mb-3">信息来源</div> <ul class="list-none p-0 m-0 space-y-2"> <li> <a href="https://www.anthropic.com/news/disrupting-AI-espionage" target="_blank" rel="noopener noreferrer" class="text-sm text-[var(--color-accent)] hover:underline no-underline"> Anthropic: Disrupting the first reported AI-orchestrated cyber espionage campaign </a> <span class="text-xs text-[var(--color-text-tertiary)] ml-2">2025-11-13</span> </li><li> <a href="https://fortune.com/2025/11/14/anthropic-disrupted-first-documented-large-scale-ai-cyberattack-claude-agentic/" target="_blank" rel="noopener noreferrer" class="text-sm text-[var(--color-accent)] hover:underline no-underline"> Fortune: Anthropic says it disrupted the first documented case of a large-scale AI cyberattack </a> <span class="text-xs text-[var(--color-text-tertiary)] ml-2">2025-11-14</span> </li><li> <a href="https://securityaffairs.com/184666/hacking/anthropic-china-backed-hackers-launch-first-large-scale-autonomous-ai-cyberattack.html" target="_blank" rel="noopener noreferrer" class="text-sm text-[var(--color-accent)] hover:underline no-underline"> Security Affairs: China-backed hackers launch first large-scale autonomous AI cyberattack </a> <span class="text-xs text-[var(--color-text-tertiary)] ml-2">2025-11-13</span> </li> </ul> </section> </div> </article> </div>  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const links = document.querySelectorAll('.toc-link');
+      if (!links.length) return;
+      const sectionIds = Array.from(links).map(l => l.getAttribute('data-section'));
+
+      function updateActive() {
+        let current = sectionIds[0];
+        for (const id of sectionIds) {
+          const el = document.getElementById(id);
+          if (el && el.getBoundingClientRect().top <= 100) current = id;
+        }
+        links.forEach(l => {
+          const isActive = l.getAttribute('data-section') === current;
+          l.style.borderColor = isActive ? '#2563EB' : 'transparent';
+          l.style.color = isActive ? '#111827' : '';
+          l.style.fontWeight = isActive ? '500' : '';
+        });
+      }
+
+      window.addEventListener('scroll', updateActive, { passive: true });
+      updateActive();
+    });
+  </script>  </main> <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script> <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        if (typeof mermaid !== 'undefined') {
+          mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+              primaryColor: '#FFFFFF',
+              primaryBorderColor: '#D1D5DB',
+              primaryTextColor: '#111827',
+              lineColor: '#D1D5DB',
+              secondaryColor: '#F9FAFB',
+              tertiaryColor: '#F3F4F6',
+              fontFamily: 'Inter, system-ui, sans-serif',
+              fontSize: '13px'
+            },
+            flowchart: {
+              curve: 'basis',
+              padding: 16
+            }
+          });
+        }
+      });
+    </script> </body> </html>

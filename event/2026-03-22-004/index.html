@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/threatlens-aifavicon.svg"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="ThreatLens AI — AI网络攻击威胁情报平台"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><title>AI代码编辑器大规模漏洞：GitHub Copilot、Cursor等30+CVE允许通过提示注入远程执行代码 — ThreatLens AI</title><link rel="stylesheet" href="/threatlens-ai/_astro/events.DUKyK1Fp.css"></head> <body class="bg-[var(--color-bg-primary)] text-[var(--color-text-primary)] font-sans min-h-screen antialiased"> <header class="border-b border-[var(--color-border-default)] sticky top-0 z-50 bg-[var(--color-bg-primary)]"> <nav class="max-w-[896px] mx-auto px-6 h-14 flex items-center justify-between"> <a href="/threatlens-ai" class="flex items-center gap-2 no-underline"> <span class="text-base font-bold tracking-tight text-[var(--color-text-primary)]">ThreatLens</span> <span class="text-base font-semibold text-[var(--color-accent)] tracking-wide">AI</span> </a> <span class="text-xs text-[var(--color-text-tertiary)]">Cyber Threat Intelligence</span> </nav> </header> <main class="max-w-[896px] mx-auto px-6 py-10">   <a href="/threatlens-ai" class="inline-flex items-center gap-1 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] no-underline mb-8 transition-colors">
+← 返回
+</a>  <div class="flex gap-10"> <!-- Sticky sidebar TOC (desktop only) --> <aside class="hidden lg:block w-44 shrink-0"> <nav class="sticky top-20"> <div class="text-xs font-medium text-[var(--color-text-tertiary)] uppercase tracking-widest mb-3">目录</div> <ul class="space-y-1 list-none p-0 m-0"> <li> <a href="#overview" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="overview"> 攻击概况 </a> </li><li> <a href="#technique" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="technique"> 攻击手法 </a> </li><li> <a href="#attack-chain" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="attack-chain"> 攻击链分析 </a> </li><li> <a href="#defense" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="defense"> 启示与防御 </a> </li><li> <a href="#sources" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="sources"> 信息来源 </a> </li> </ul> </nav> </aside> <!-- Main report content --> <article class="flex-1 min-w-0"> <!-- Header --> <header class="mb-10 pb-8 border-b border-[var(--color-border-default)]"> <div class="flex items-center gap-3 mb-4"> <span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2 py-0.5 rounded-sm font-medium"> 针对AI攻击 </span> <time class="text-xs text-[var(--color-text-tertiary)]">2026-03-22</time> <span class="text-xs text-[var(--color-text-tertiary)]">
+复杂度: 高 </span> </div> <h1 class="text-2xl md:text-[28px] font-bold leading-tight mb-4">AI代码编辑器大规模漏洞：GitHub Copilot、Cursor等30+CVE允许通过提示注入远程执行代码</h1> <p class="text-[var(--color-text-secondary)] text-[15px] leading-relaxed">安全研究人员在GitHub Copilot、Cursor、Windsurf等10余款主流AI编程工具中发现超过30个安全漏洞，攻击者可通过在代码注释、GitHub Issues或网页中注入恶意提示，操控AI修改编辑器配置启用&#39;YOLO模式&#39;，最终实现远程代码执行，攻击成功率高达84%。</p> </header> <div class="space-y-12"> <!-- Section: 攻击概况 --> <section id="overview"> <h2 class="text-lg font-semibold mb-5">攻击概况</h2> <div class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-[var(--color-border-default)] border border-[var(--color-border-default)] rounded-md overflow-hidden"> <div class="bg-[var(--color-bg-primary)] p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">攻击方</div> <div class="text-sm font-medium leading-snug">安全研究人员（wunderwuzzi、Markus Vervier等）发现并负责任披露，暂未发现大规模野外利用</div> </div> <div class="bg-[var(--color-bg-primary)] p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">攻击目标</div> <div class="text-sm font-medium leading-snug">GitHub Copilot、Cursor、Windsurf、Kiro.dev、Zed.dev、Roo Code、JetBrains Junie、Cline、Gemini CLI、Claude Code等10+款AI编程工具及其数百万用户</div> </div> <div class="bg-[var(--color-bg-primary)] p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">经济损失</div> <div class="text-sm font-medium">潜在影响数百万开发者，可导致源代码窃取、供应链投毒和企业系统入侵</div> </div> <div class="bg-[var(--color-bg-primary)] p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">事件状态</div> <div class="text-sm font-medium">已解决（主要漏洞已修补）</div> </div> </div> <div class="mt-4 border border-[var(--color-border-default)] rounded-md p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">事件时间线</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">2025年6月29日报告CVE-2025-53773 → 2025年8月微软补丁修复 → 2025年12月研究人员公布30+ CVE全景</div> </div> <div class="mt-4 border border-[var(--color-border-default)] rounded-md p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">行业影响</div> <div class="text-sm text-[var(--color-text-secondary)] leading-[1.7]">此系列漏洞影响了全球最主流的AI编程工具生态，揭示了&#39;AI辅助开发&#39;模式中普遍存在的安全隐患。84%的攻击成功率表明当前AI编程工具的安全架构存在系统性缺陷，迫使整个行业重新审视AI代理的权限模型。</div> </div> </section> <!-- Section: 攻击手法 --> <section id="technique"> <h2 class="text-lg font-semibold mb-5">攻击手法</h2> <div class="border border-[var(--color-border-default)] rounded-md p-5 mb-4"> <div class="text-sm leading-[1.7] text-[var(--color-text-primary)]"> 攻击者在公开的代码仓库注释、GitHub Issues或网页中嵌入恶意提示注入指令。当开发者打开包含恶意内容的项目或浏览相关页面时，AI编程助手读取到恶意指令后，被操控修改.vscode/settings.json文件，添加&#39;chat.tools.autoApprove&#39;: true配置项，使编辑器进入所谓的&#39;YOLO模式&#39;——此模式下AI助手可以在无需用户确认的情况下执行终端命令、浏览网页等操作。攻击者随后通过条件化提示注入针对特定操作系统执行任意命令，实现远程代码执行。在Cursor中，类似攻击通过MCP服务器自动启动配置实现。 </div> </div> <div class="flex flex-wrap gap-2 mb-4"> <span class="text-xs bg-[var(--color-accent-surface)] text-[var(--color-accent)] px-2.5 py-1 rounded-sm font-medium"> LLM01 - Prompt Injection（提示注入） </span> <span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">代码注释注入</span><span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">GitHub Issues注入</span><span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">网页内容注入</span><span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">.vscode/settings.json篡改</span><span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">MCP配置注入</span> </div> <div> <div class="text-xs text-[var(--color-text-tertiary)] mb-2 font-medium">利用的脆弱性</div> <ul class="list-none p-0 m-0 space-y-1.5"> <li class="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]"> <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-text-tertiary)] shrink-0"></span> 间接提示注入导致配置文件篡改 </li><li class="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]"> <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-text-tertiary)] shrink-0"></span> AI代码代理可直接写入磁盘文件无需用户确认 </li><li class="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]"> <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-text-tertiary)] shrink-0"></span> YOLO模式（autoApprove）允许跳过所有用户审批 </li><li class="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]"> <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-text-tertiary)] shrink-0"></span> MCP服务器自动启动导致代码执行（CVE-2025-54135） </li> </ul> </div> </section> <!-- Section: 攻击链分析 (Interactive) --> <section id="attack-chain"> <h2 class="text-lg font-semibold mb-2">攻击链分析</h2> <p class="text-sm text-[var(--color-text-secondary)] mb-6 leading-relaxed">通过在公开代码或内容中植入恶意提示，操控AI编程助手修改安全配置，最终利用被授权的AI代理在开发者机器上执行任意代码。</p> <div class="flex flex-col lg:flex-row gap-6" id="chain-2026-03-22-004"> <!-- Left Panel: Interactive Timeline / Step Cards --> <div class="lg:w-[340px] shrink-0 space-y-2" id="steps-2026-03-22-004"> <button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="0" data-chain="2026-03-22-004" data-node="A" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 1 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">恶意提示植入</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> 攻击者在公开代码仓库的注释、GitHub Issues、或网页中嵌入精心构造的提示注入指令 </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="1" data-chain="2026-03-22-004" data-node="B" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 2 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">AI内容加载</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> 开发者使用AI编程工具打开仓库或浏览页面时，AI助手自动读取并处理恶意内容 </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="2" data-chain="2026-03-22-004" data-node="C" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 3 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">配置文件篡改</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> AI被操控创建或修改.vscode/settings.json，添加autoApprove配置，无需用户审批即可写入磁盘 </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="3" data-chain="2026-03-22-004" data-node="D" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 4 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">YOLO模式激活</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> 编辑器进入自动批准模式，后续所有AI操作不再需要用户确认 </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="4" data-chain="2026-03-22-004" data-node="E" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 5 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">任意代码执行</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> 攻击者通过后续提示注入指导AI执行系统命令，实现完整的远程代码执行 </div> </div> </div> </button> </div> <!-- Right Panel: Mermaid Graph (Sticky) --> <div class="flex-1 min-w-0 lg:sticky lg:top-20 lg:self-start"> <div class="mermaid-container border border-[var(--color-border-default)] rounded-md bg-[var(--color-bg-primary)] p-6 overflow-x-auto"> <pre class="mermaid" id="mermaid-2026-03-22-004">graph TD
+  A[&quot;💉 注入恶意提示&lt;br/&gt;在代码注释/Issues/网页&lt;br/&gt;中嵌入隐藏指令&quot;] --&gt; B[&quot;🤖 AI读取内容&lt;br/&gt;Copilot/Cursor加载&lt;br/&gt;包含恶意提示的内容&quot;]
+  B --&gt; C[&quot;📝 配置篡改&lt;br/&gt;AI修改settings.json&lt;br/&gt;启用autoApprove&quot;]
+  C --&gt; D[&quot;🔓 YOLO模式激活&lt;br/&gt;所有操作跳过&lt;br/&gt;用户确认&quot;]
+  D --&gt; E[&quot;💻 远程代码执行&lt;br/&gt;AI执行攻击者指定的&lt;br/&gt;系统命令&quot;]
+  style A fill:#fff3e0
+  style B fill:#e1f5fe
+  style C fill:#fce4ec
+  style D fill:#f3e5f5
+  style E fill:#ffebee</pre> </div> </div> </div> <!-- Attack Chain interaction script --> <script>(function(){const eventId = "2026-03-22-004";
+const nodeCount = 5;
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('steps-' + eventId);
+    if (!container) return;
+
+    const cards = container.querySelectorAll('.step-card');
+    let activeIndex = 0;
+
+    function activateStep(index) {
+      activeIndex = index;
+
+      cards.forEach(function(card, i) {
+        const isActive = i === index;
+        const detail = card.querySelector('.step-detail');
+        const number = card.querySelector('.step-number');
+
+        // Card styling
+        card.style.borderColor = isActive ? '#2563EB' : '';
+        card.style.borderLeftWidth = isActive ? '3px' : '';
+        card.style.backgroundColor = isActive ? '#EFF6FF' : '';
+
+        // Number badge
+        if (number) {
+          number.style.backgroundColor = isActive ? '#2563EB' : '';
+          number.style.color = isActive ? '#FFFFFF' : '';
+        }
+
+        // Progressive disclosure: show/hide detail
+        if (detail) {
+          if (isActive) {
+            detail.classList.remove('hidden');
+          } else {
+            detail.classList.add('hidden');
+          }
+        }
+      });
+
+      // Highlight active Mermaid node
+      highlightMermaidNode(index);
+    }
+
+    function highlightMermaidNode(index) {
+      const mermaidContainer = document.querySelector('#chain-' + eventId + ' .mermaid-container');
+      if (!mermaidContainer) return;
+
+      // Reset all nodes
+      var allNodes = mermaidContainer.querySelectorAll('.node');
+      allNodes.forEach(function(node) {
+        var rect = node.querySelector('rect') || node.querySelector('polygon');
+        var label = node.querySelector('.nodeLabel');
+        if (rect) {
+          rect.style.fill = '#FFFFFF';
+          rect.style.stroke = '#D1D5DB';
+          rect.style.strokeWidth = '1px';
+        }
+        if (label) {
+          label.style.color = '#111827';
+        }
+      });
+
+      // Highlight the active node (nodes are in DOM order matching steps)
+      if (allNodes[index]) {
+        var rect = allNodes[index].querySelector('rect') || allNodes[index].querySelector('polygon');
+        var label = allNodes[index].querySelector('.nodeLabel');
+        if (rect) {
+          rect.style.fill = '#2563EB';
+          rect.style.stroke = '#2563EB';
+          rect.style.strokeWidth = '2px';
+        }
+        if (label) {
+          label.style.color = '#FFFFFF';
+        }
+      }
+    }
+
+    // Click handlers
+    cards.forEach(function(card, i) {
+      card.addEventListener('click', function() {
+        activateStep(i);
+      });
+    });
+
+    // Activate first step after Mermaid renders
+    // Use MutationObserver to detect when SVG appears
+    var mermaidEl = document.getElementById('mermaid-' + eventId);
+    if (mermaidEl) {
+      var observer = new MutationObserver(function(mutations) {
+        for (var m = 0; m < mutations.length; m++) {
+          if (mutations[m].addedNodes.length) {
+            for (var n = 0; n < mutations[m].addedNodes.length; n++) {
+              if (mutations[m].addedNodes[n].tagName === 'svg') {
+                setTimeout(function() { activateStep(0); }, 100);
+                observer.disconnect();
+                return;
+              }
+            }
+          }
+        }
+      });
+      observer.observe(mermaidEl.parentElement, { childList: true, subtree: true });
+    }
+
+    // Fallback: activate first step after a delay
+    setTimeout(function() { activateStep(0); }, 1500);
+  });
+})();</script> </section> <!-- Section: 启示与防御 + GAP Analysis --> <section id="defense"> <h2 class="text-lg font-semibold mb-5">启示与防御</h2> <!-- AI Role --> <div class="border-l-2 border-[var(--color-accent)] pl-4 mb-6"> <div class="text-xs text-[var(--color-accent)] font-medium mb-1.5">AI在攻击中的角色</div> <div class="text-sm text-[var(--color-text-secondary)] leading-[1.7]">AI编程助手在此类攻击中既是攻击目标也是攻击媒介——攻击者不直接攻击开发者的机器，而是通过操控AI助手间接实现攻击。AI的代码生成和系统操作能力被武器化为攻击能力。</div> </div> <!-- AI Vulnerabilities --> <div class="mb-6"> <div class="text-xs text-[var(--color-text-tertiary)] font-medium mb-2.5">AI特有脆弱性</div> <ul class="list-none p-0 m-0 space-y-2"> <li class="flex items-start gap-2.5 text-sm text-[var(--color-text-secondary)] leading-relaxed"> <span class="mt-1.5 w-1.5 h-1.5 bg-[var(--color-text-tertiary)] shrink-0" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"></span> AI编程助手可以直接写入文件系统是一个根本性的安全隐患——文件写入应默认受限 </li><li class="flex items-start gap-2.5 text-sm text-[var(--color-text-secondary)] leading-relaxed"> <span class="mt-1.5 w-1.5 h-1.5 bg-[var(--color-text-tertiary)] shrink-0" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"></span> 提示注入在AI编程工具中的攻击面极大，任何AI读取的内容都可能包含恶意指令 </li><li class="flex items-start gap-2.5 text-sm text-[var(--color-text-secondary)] leading-relaxed"> <span class="mt-1.5 w-1.5 h-1.5 bg-[var(--color-text-tertiary)] shrink-0" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"></span> 自动批准模式（YOLO mode）的存在为攻击者提供了完美的权限升级路径 </li> </ul> </div> <!-- Defense GAP Analysis --> <div class="mt-6"> <div class="text-xs text-[var(--color-text-tertiary)] font-medium mb-3">防御能力差距分析</div> <div class="border border-[var(--color-border-default)] rounded-md overflow-hidden"> <!-- Table header --> <div class="hidden sm:grid sm:grid-cols-[180px_100px_1fr] bg-[var(--color-bg-secondary)] border-b border-[var(--color-border-default)]"> <div class="px-4 py-2.5 text-xs font-medium text-[var(--color-text-tertiary)]">防御方案</div> <div class="px-4 py-2.5 text-xs font-medium text-[var(--color-text-tertiary)]">覆盖状态</div> <div class="px-4 py-2.5 text-xs font-medium text-[var(--color-text-tertiary)]">差距分析</div> </div> <!-- Table rows --> <div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">综合安全策略</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"> <circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M6 1 A5 5 0 0 1 6 11 Z" fill="#111827"></path> </svg> <span class="text-xs text-[var(--color-text-secondary)]">部分覆盖</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">需要结合多种防御手段，传统单点方案无法应对AI时代的复合威胁</div> </div> </div><div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">Web应用防火墙 (WAF)</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"></circle></svg> <span class="text-xs text-[var(--color-text-secondary)]">防御缺口</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">传统WAF依赖正则匹配，无法解析语义级别的提示注入或AI驱动的攻击变体</div> </div> </div><div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">权限控制与沙箱隔离</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="#111827"></circle></svg> <span class="text-xs text-[var(--color-text-primary)] font-medium">可防御</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">成熟的安全原则，可有效限制AI代理的影响范围，关键在于正确实施</div> </div> </div><div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">综合安全策略</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"> <circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M6 1 A5 5 0 0 1 6 11 Z" fill="#111827"></path> </svg> <span class="text-xs text-[var(--color-text-secondary)]">部分覆盖</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">需要结合多种防御手段，传统单点方案无法应对AI时代的复合威胁</div> </div> </div><div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">终端检测与响应 (EDR)</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"> <circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M6 1 A5 5 0 0 1 6 11 Z" fill="#111827"></path> </svg> <span class="text-xs text-[var(--color-text-secondary)]">部分覆盖</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">EDR可检测已知恶意行为模式，但AI生成的多态代码和动态变异可绕过签名检测</div> </div> </div> </div> <!-- Legend --> <div class="flex items-center gap-5 mt-3"> <span class="flex items-center gap-1.5 text-xs text-[var(--color-text-tertiary)]"> <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="#111827"></circle></svg>
+可防御
+</span> <span class="flex items-center gap-1.5 text-xs text-[var(--color-text-tertiary)]"> <svg width="10" height="10" viewBox="0 0 10 10"> <circle cx="5" cy="5" r="4" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M5 1 A4 4 0 0 1 5 9 Z" fill="#111827"></path> </svg>
+部分覆盖
+</span> <span class="flex items-center gap-1.5 text-xs text-[var(--color-text-tertiary)]"> <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="none" stroke="#111827" stroke-width="1.5"></circle></svg>
+防御缺口
+</span> </div> </div> </section> <!-- Section: Sources --> <section id="sources" class="pt-8 border-t border-[var(--color-border-default)]"> <div class="text-xs text-[var(--color-text-tertiary)] font-medium uppercase tracking-widest mb-3">信息来源</div> <ul class="list-none p-0 m-0 space-y-2"> <li> <a href="https://embracethered.com/blog/posts/2025/github-copilot-remote-code-execution-via-prompt-injection/" target="_blank" rel="noopener noreferrer" class="text-sm text-[var(--color-accent)] hover:underline no-underline"> Embrace The Red: GitHub Copilot RCE via Prompt Injection (CVE-2025-53773) </a> <span class="text-xs text-[var(--color-text-tertiary)] ml-2">2025-08-12</span> </li><li> <a href="https://thehackernews.com/2025/12/researchers-uncover-30-flaws-in-ai.html" target="_blank" rel="noopener noreferrer" class="text-sm text-[var(--color-accent)] hover:underline no-underline"> The Hacker News: 30+ Flaws in AI Coding Tools </a> <span class="text-xs text-[var(--color-text-tertiary)] ml-2">2025-12-15</span> </li><li> <a href="https://www.pillar.security/blog/new-vulnerability-in-github-copilot-and-cursor-how-hackers-can-weaponize-code-agents" target="_blank" rel="noopener noreferrer" class="text-sm text-[var(--color-accent)] hover:underline no-underline"> Pillar Security: How Hackers Can Weaponize Code Agents </a> <span class="text-xs text-[var(--color-text-tertiary)] ml-2">2025-09-10</span> </li> </ul> </section> </div> </article> </div>  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const links = document.querySelectorAll('.toc-link');
+      if (!links.length) return;
+      const sectionIds = Array.from(links).map(l => l.getAttribute('data-section'));
+
+      function updateActive() {
+        let current = sectionIds[0];
+        for (const id of sectionIds) {
+          const el = document.getElementById(id);
+          if (el && el.getBoundingClientRect().top <= 100) current = id;
+        }
+        links.forEach(l => {
+          const isActive = l.getAttribute('data-section') === current;
+          l.style.borderColor = isActive ? '#2563EB' : 'transparent';
+          l.style.color = isActive ? '#111827' : '';
+          l.style.fontWeight = isActive ? '500' : '';
+        });
+      }
+
+      window.addEventListener('scroll', updateActive, { passive: true });
+      updateActive();
+    });
+  </script>  </main> <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script> <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        if (typeof mermaid !== 'undefined') {
+          mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+              primaryColor: '#FFFFFF',
+              primaryBorderColor: '#D1D5DB',
+              primaryTextColor: '#111827',
+              lineColor: '#D1D5DB',
+              secondaryColor: '#F9FAFB',
+              tertiaryColor: '#F3F4F6',
+              fontFamily: 'Inter, system-ui, sans-serif',
+              fontSize: '13px'
+            },
+            flowchart: {
+              curve: 'basis',
+              padding: 16
+            }
+          });
+        }
+      });
+    </script> </body> </html>

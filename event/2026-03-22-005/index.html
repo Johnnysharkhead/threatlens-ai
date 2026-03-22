@@ -1,0 +1,176 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/threatlens-aifavicon.svg"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="ThreatLens AI — AI网络攻击威胁情报平台"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><title>DeepSeek遭受大规模DDoS攻击：僵尸网络协同攻击致服务瘫痪 — ThreatLens AI</title><link rel="stylesheet" href="/threatlens-ai/_astro/events.DUKyK1Fp.css"></head> <body class="bg-[var(--color-bg-primary)] text-[var(--color-text-primary)] font-sans min-h-screen antialiased"> <header class="border-b border-[var(--color-border-default)] sticky top-0 z-50 bg-[var(--color-bg-primary)]"> <nav class="max-w-[896px] mx-auto px-6 h-14 flex items-center justify-between"> <a href="/threatlens-ai" class="flex items-center gap-2 no-underline"> <span class="text-base font-bold tracking-tight text-[var(--color-text-primary)]">ThreatLens</span> <span class="text-base font-semibold text-[var(--color-accent)] tracking-wide">AI</span> </a> <span class="text-xs text-[var(--color-text-tertiary)]">Cyber Threat Intelligence</span> </nav> </header> <main class="max-w-[896px] mx-auto px-6 py-10">   <a href="/threatlens-ai" class="inline-flex items-center gap-1 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] no-underline mb-8 transition-colors">
+← 返回
+</a>  <div class="flex gap-10"> <!-- Sticky sidebar TOC (desktop only) --> <aside class="hidden lg:block w-44 shrink-0"> <nav class="sticky top-20"> <div class="text-xs font-medium text-[var(--color-text-tertiary)] uppercase tracking-widest mb-3">目录</div> <ul class="space-y-1 list-none p-0 m-0"> <li> <a href="#overview" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="overview"> 攻击概况 </a> </li><li> <a href="#technique" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="technique"> 攻击手法 </a> </li><li> <a href="#attack-chain" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="attack-chain"> 攻击链分析 </a> </li><li> <a href="#defense" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="defense"> 启示与防御 </a> </li><li> <a href="#sources" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="sources"> 信息来源 </a> </li> </ul> </nav> </aside> <!-- Main report content --> <article class="flex-1 min-w-0"> <!-- Header --> <header class="mb-10 pb-8 border-b border-[var(--color-border-default)]"> <div class="flex items-center gap-3 mb-4"> <span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2 py-0.5 rounded-sm font-medium"> 针对AI攻击 </span> <time class="text-xs text-[var(--color-text-tertiary)]">2026-03-22</time> <span class="text-xs text-[var(--color-text-tertiary)]">
+复杂度: 高 </span> </div> <h1 class="text-2xl md:text-[28px] font-bold leading-tight mb-4">DeepSeek遭受大规模DDoS攻击：僵尸网络协同攻击致服务瘫痪</h1> <p class="text-[var(--color-text-secondary)] text-[15px] leading-relaxed">中国AI平台DeepSeek在2025年1月遭受大规模、多维度的网络攻击，包括持续DDoS攻击（指令激增100倍）、ClickHouse数据库暴露导致百万日志泄露、以及PyPI供应链投毒，攻击导致平台暂停新用户注册并引发全球股市波动。</p> </header> <div class="space-y-12"> <!-- Section: 攻击概况 --> <section id="overview"> <h2 class="text-lg font-semibold mb-5">攻击概况</h2> <div class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-[var(--color-border-default)] border border-[var(--color-border-default)] rounded-md overflow-hidden"> <div class="bg-[var(--color-bg-primary)] p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">攻击方</div> <div class="text-sm font-medium leading-snug">攻击IP来源追溯至美国、新加坡、荷兰、德国和中国，使用HailBot和RapperBot两个专业DDoS僵尸网络</div> </div> <div class="bg-[var(--color-bg-primary)] p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">攻击目标</div> <div class="text-sm font-medium leading-snug">DeepSeek AI平台（API接口和Web聊天界面）</div> </div> <div class="bg-[var(--color-bg-primary)] p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">经济损失</div> <div class="text-sm font-medium">直接损失未公开，但间接导致美国股市大规模抛售（AI竞赛相关股票），意大利实施禁令（Garante调查），品牌信誉受损</div> </div> <div class="bg-[var(--color-bg-primary)] p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">事件状态</div> <div class="text-sm font-medium">已解决</div> </div> </div> <div class="mt-4 border border-[var(--color-border-default)] rounded-md p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">事件时间线</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">2025年1月3-4日起持续DDoS攻击 → 1月27日攻击升级，暂停新用户注册 → Wiz发现数据库暴露 → 恶意PyPI包被发现</div> </div> <div class="mt-4 border border-[var(--color-border-default)] rounded-md p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">行业影响</div> <div class="text-sm text-[var(--color-text-secondary)] leading-[1.7]">DeepSeek事件揭示了AI平台作为关键基础设施面临的多维度安全挑战。快速增长的AI公司在安全建设上的滞后是整个行业的通病。此事件也展示了AI竞赛中的地缘政治因素如何使AI平台成为网络攻击的优先目标。</div> </div> </section> <!-- Section: 攻击手法 --> <section id="technique"> <h2 class="text-lg font-semibold mb-5">攻击手法</h2> <div class="border border-[var(--color-border-default)] rounded-md p-5 mb-4"> <div class="text-sm leading-[1.7] text-[var(--color-text-primary)]"> 这是一次多向量协同攻击：(1) DDoS攻击：至少两个僵尸网络（HailBot和RapperBot）对DeepSeek的API和Web聊天接口发起分布式拒绝服务攻击，攻击指令在升级阶段激增100倍；(2) 数据泄露：Wiz安全研究团队发现两个未设认证的ClickHouse数据库实例暴露在互联网上，包含超过100万条运营日志，涉及明文用户聊天记录、API密钥和后端系统细节；(3) 供应链投毒：攻击者利用DeepSeek的知名度在PyPI上传名为&#39;deepseek&#39;和&#39;deepseekai&#39;的恶意Python包，安装后会窃取开发者凭证。 </div> </div> <div class="flex flex-wrap gap-2 mb-4"> <span class="text-xs bg-[var(--color-accent-surface)] text-[var(--color-accent)] px-2.5 py-1 rounded-sm font-medium"> LLM04 - Model Denial of Service（模型拒绝服务） </span> <span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">HailBot僵尸网络</span><span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">RapperBot僵尸网络</span><span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">恶意PyPI包</span><span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">公网扫描工具</span> </div> <div> <div class="text-xs text-[var(--color-text-tertiary)] mb-2 font-medium">利用的脆弱性</div> <ul class="list-none p-0 m-0 space-y-1.5"> <li class="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]"> <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-text-tertiary)] shrink-0"></span> ClickHouse数据库暴露在公网且无身份认证 </li><li class="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]"> <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-text-tertiary)] shrink-0"></span> 敏感信息（API密钥、聊天记录）明文存储在日志中 </li><li class="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]"> <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-text-tertiary)] shrink-0"></span> DDoS防护基础设施不足 </li><li class="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]"> <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-text-tertiary)] shrink-0"></span> PyPI软件包生态的供应链信任机制 </li> </ul> </div> </section> <!-- Section: 攻击链分析 (Interactive) --> <section id="attack-chain"> <h2 class="text-lg font-semibold mb-2">攻击链分析</h2> <p class="text-sm text-[var(--color-text-secondary)] mb-6 leading-relaxed">一次多维度协同攻击，同时利用DDoS瘫痪服务、暴露数据库窃取数据、以及供应链投毒扩大影响面，三条攻击线路并行推进。</p> <div class="flex flex-col lg:flex-row gap-6" id="chain-2026-03-22-005"> <!-- Left Panel: Interactive Timeline / Step Cards --> <div class="lg:w-[340px] shrink-0 space-y-2" id="steps-2026-03-22-005"> <button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="0" data-chain="2026-03-22-005" data-node="A" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 1 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">目标识别</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> DeepSeek因快速崛起和AI竞赛热度引发攻击者关注 </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="1" data-chain="2026-03-22-005" data-node="B" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 2 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">DDoS攻击</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> HailBot和RapperBot两个僵尸网络对API和Web界面发起持续DDoS攻击，指令量激增100倍 </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="2" data-chain="2026-03-22-005" data-node="C" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 3 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">数据库暴露利用</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> 两个未设认证的ClickHouse数据库被发现，包含百万级日志和敏感信息 </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="3" data-chain="2026-03-22-005" data-node="D" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 4 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">供应链投毒</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> 在PyPI上发布冒名恶意包，利用DeepSeek知名度诱导开发者安装 </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="4" data-chain="2026-03-22-005" data-node="E" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 5 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">多重影响</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> 服务瘫痪、数据泄露、开发者凭证被盗，并引发全球股市波动和监管审查 </div> </div> </div> </button> </div> <!-- Right Panel: Mermaid Graph (Sticky) --> <div class="flex-1 min-w-0 lg:sticky lg:top-20 lg:self-start"> <div class="mermaid-container border border-[var(--color-border-default)] rounded-md bg-[var(--color-bg-primary)] p-6 overflow-x-auto"> <pre class="mermaid" id="mermaid-2026-03-22-005">graph TD
+  A[&quot;🎯 目标选定&lt;br/&gt;DeepSeek快速崛起&lt;br/&gt;引发攻击者关注&quot;] --&gt; B[&quot;⚡ DDoS攻击&lt;br/&gt;HailBot + RapperBot&lt;br/&gt;指令激增100倍&quot;]
+  A --&gt; C[&quot;🔍 数据库暴露&lt;br/&gt;ClickHouse无认证&lt;br/&gt;100万+日志泄露&quot;]
+  A --&gt; D[&quot;📦 供应链投毒&lt;br/&gt;PyPI恶意包&lt;br/&gt;deepseek/deepseekai&quot;]
+  B --&gt; E[&quot;🚫 服务瘫痪&lt;br/&gt;暂停新用户注册&lt;br/&gt;API响应降级&quot;]
+  C --&gt; F[&quot;🔑 数据泄露&lt;br/&gt;聊天记录、API密钥&lt;br/&gt;后端信息外泄&quot;]
+  D --&gt; G[&quot;💻 开发者感染&lt;br/&gt;凭证被窃取&lt;br/&gt;环境被入侵&quot;]
+  style A fill:#e1f5fe
+  style B fill:#ffebee
+  style C fill:#fff3e0
+  style D fill:#fce4ec
+  style E fill:#ffcdd2
+  style F fill:#ffe0b2
+  style G fill:#f8bbd0</pre> </div> </div> </div> <!-- Attack Chain interaction script --> <script>(function(){const eventId = "2026-03-22-005";
+const nodeCount = 5;
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('steps-' + eventId);
+    if (!container) return;
+
+    const cards = container.querySelectorAll('.step-card');
+    let activeIndex = 0;
+
+    function activateStep(index) {
+      activeIndex = index;
+
+      cards.forEach(function(card, i) {
+        const isActive = i === index;
+        const detail = card.querySelector('.step-detail');
+        const number = card.querySelector('.step-number');
+
+        // Card styling
+        card.style.borderColor = isActive ? '#2563EB' : '';
+        card.style.borderLeftWidth = isActive ? '3px' : '';
+        card.style.backgroundColor = isActive ? '#EFF6FF' : '';
+
+        // Number badge
+        if (number) {
+          number.style.backgroundColor = isActive ? '#2563EB' : '';
+          number.style.color = isActive ? '#FFFFFF' : '';
+        }
+
+        // Progressive disclosure: show/hide detail
+        if (detail) {
+          if (isActive) {
+            detail.classList.remove('hidden');
+          } else {
+            detail.classList.add('hidden');
+          }
+        }
+      });
+
+      // Highlight active Mermaid node
+      highlightMermaidNode(index);
+    }
+
+    function highlightMermaidNode(index) {
+      const mermaidContainer = document.querySelector('#chain-' + eventId + ' .mermaid-container');
+      if (!mermaidContainer) return;
+
+      // Reset all nodes
+      var allNodes = mermaidContainer.querySelectorAll('.node');
+      allNodes.forEach(function(node) {
+        var rect = node.querySelector('rect') || node.querySelector('polygon');
+        var label = node.querySelector('.nodeLabel');
+        if (rect) {
+          rect.style.fill = '#FFFFFF';
+          rect.style.stroke = '#D1D5DB';
+          rect.style.strokeWidth = '1px';
+        }
+        if (label) {
+          label.style.color = '#111827';
+        }
+      });
+
+      // Highlight the active node (nodes are in DOM order matching steps)
+      if (allNodes[index]) {
+        var rect = allNodes[index].querySelector('rect') || allNodes[index].querySelector('polygon');
+        var label = allNodes[index].querySelector('.nodeLabel');
+        if (rect) {
+          rect.style.fill = '#2563EB';
+          rect.style.stroke = '#2563EB';
+          rect.style.strokeWidth = '2px';
+        }
+        if (label) {
+          label.style.color = '#FFFFFF';
+        }
+      }
+    }
+
+    // Click handlers
+    cards.forEach(function(card, i) {
+      card.addEventListener('click', function() {
+        activateStep(i);
+      });
+    });
+
+    // Activate first step after Mermaid renders
+    // Use MutationObserver to detect when SVG appears
+    var mermaidEl = document.getElementById('mermaid-' + eventId);
+    if (mermaidEl) {
+      var observer = new MutationObserver(function(mutations) {
+        for (var m = 0; m < mutations.length; m++) {
+          if (mutations[m].addedNodes.length) {
+            for (var n = 0; n < mutations[m].addedNodes.length; n++) {
+              if (mutations[m].addedNodes[n].tagName === 'svg') {
+                setTimeout(function() { activateStep(0); }, 100);
+                observer.disconnect();
+                return;
+              }
+            }
+          }
+        }
+      });
+      observer.observe(mermaidEl.parentElement, { childList: true, subtree: true });
+    }
+
+    // Fallback: activate first step after a delay
+    setTimeout(function() { activateStep(0); }, 1500);
+  });
+})();</script> </section> <!-- Section: 启示与防御 + GAP Analysis --> <section id="defense"> <h2 class="text-lg font-semibold mb-5">启示与防御</h2> <!-- AI Role --> <div class="border-l-2 border-[var(--color-accent)] pl-4 mb-6"> <div class="text-xs text-[var(--color-accent)] font-medium mb-1.5">AI在攻击中的角色</div> <div class="text-sm text-[var(--color-text-secondary)] leading-[1.7]">在此事件中AI本身不是攻击工具，而是攻击目标。DeepSeek作为AI平台的特殊性在于：(1)其存储的海量用户对话数据具有极高敏感性；(2)作为AI竞赛中的关键参与者，其服务中断具有地缘政治影响；(3)AI平台的快速扩张导致安全防护跟不上增长速度。</div> </div> <!-- AI Vulnerabilities --> <div class="mb-6"> <div class="text-xs text-[var(--color-text-tertiary)] font-medium mb-2.5">AI特有脆弱性</div> <ul class="list-none p-0 m-0 space-y-2"> <li class="flex items-start gap-2.5 text-sm text-[var(--color-text-secondary)] leading-relaxed"> <span class="mt-1.5 w-1.5 h-1.5 bg-[var(--color-text-tertiary)] shrink-0" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"></span> AI平台的快速增长往往超过安全建设的速度，88.9%的Ollama框架服务器直接暴露在互联网上 </li><li class="flex items-start gap-2.5 text-sm text-[var(--color-text-secondary)] leading-relaxed"> <span class="mt-1.5 w-1.5 h-1.5 bg-[var(--color-text-tertiary)] shrink-0" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"></span> AI平台存储的大量用户对话数据使其成为高价值攻击目标 </li><li class="flex items-start gap-2.5 text-sm text-[var(--color-text-secondary)] leading-relaxed"> <span class="mt-1.5 w-1.5 h-1.5 bg-[var(--color-text-tertiary)] shrink-0" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"></span> AI公司品牌在开源生态中的知名度可被供应链攻击利用 </li> </ul> </div> <!-- Defense GAP Analysis --> <div class="mt-6"> <div class="text-xs text-[var(--color-text-tertiary)] font-medium mb-3">防御能力差距分析</div> <div class="border border-[var(--color-border-default)] rounded-md overflow-hidden"> <!-- Table header --> <div class="hidden sm:grid sm:grid-cols-[180px_100px_1fr] bg-[var(--color-bg-secondary)] border-b border-[var(--color-border-default)]"> <div class="px-4 py-2.5 text-xs font-medium text-[var(--color-text-tertiary)]">防御方案</div> <div class="px-4 py-2.5 text-xs font-medium text-[var(--color-text-tertiary)]">覆盖状态</div> <div class="px-4 py-2.5 text-xs font-medium text-[var(--color-text-tertiary)]">差距分析</div> </div> <!-- Table rows --> <div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">安全信息与事件管理 (SIEM)</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"> <circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M6 1 A5 5 0 0 1 6 11 Z" fill="#111827"></path> </svg> <span class="text-xs text-[var(--color-text-secondary)]">部分覆盖</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">SIEM可记录和关联事件，但需要针对AI特有的攻击模式定制检测规则</div> </div> </div><div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">Web应用防火墙 (WAF)</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"></circle></svg> <span class="text-xs text-[var(--color-text-secondary)]">防御缺口</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">传统WAF依赖正则匹配，无法解析语义级别的提示注入或AI驱动的攻击变体</div> </div> </div><div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">安全信息与事件管理 (SIEM)</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"> <circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M6 1 A5 5 0 0 1 6 11 Z" fill="#111827"></path> </svg> <span class="text-xs text-[var(--color-text-secondary)]">部分覆盖</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">SIEM可记录和关联事件，但需要针对AI特有的攻击模式定制检测规则</div> </div> </div><div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">供应链安全</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"></circle></svg> <span class="text-xs text-[var(--color-text-secondary)]">防御缺口</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">AI代理生态系统的技能/插件市场缺乏成熟的安全审核和代码签名机制</div> </div> </div><div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">综合安全策略</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"> <circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M6 1 A5 5 0 0 1 6 11 Z" fill="#111827"></path> </svg> <span class="text-xs text-[var(--color-text-secondary)]">部分覆盖</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">需要结合多种防御手段，传统单点方案无法应对AI时代的复合威胁</div> </div> </div> </div> <!-- Legend --> <div class="flex items-center gap-5 mt-3"> <span class="flex items-center gap-1.5 text-xs text-[var(--color-text-tertiary)]"> <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="#111827"></circle></svg>
+可防御
+</span> <span class="flex items-center gap-1.5 text-xs text-[var(--color-text-tertiary)]"> <svg width="10" height="10" viewBox="0 0 10 10"> <circle cx="5" cy="5" r="4" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M5 1 A4 4 0 0 1 5 9 Z" fill="#111827"></path> </svg>
+部分覆盖
+</span> <span class="flex items-center gap-1.5 text-xs text-[var(--color-text-tertiary)]"> <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="none" stroke="#111827" stroke-width="1.5"></circle></svg>
+防御缺口
+</span> </div> </div> </section> <!-- Section: Sources --> <section id="sources" class="pt-8 border-t border-[var(--color-border-default)]"> <div class="text-xs text-[var(--color-text-tertiary)] font-medium uppercase tracking-widest mb-3">信息来源</div> <ul class="list-none p-0 m-0 space-y-2"> <li> <a href="https://www.cm-alliance.com/cybersecurity-blog/deepseek-cyber-attack-timeline-impact-and-lessons-learned" target="_blank" rel="noopener noreferrer" class="text-sm text-[var(--color-accent)] hover:underline no-underline"> CM-Alliance: DeepSeek Cyber Attack Timeline and Lessons </a> <span class="text-xs text-[var(--color-text-tertiary)] ml-2">2025-02-05</span> </li><li> <a href="https://nsfocusglobal.com/the-undercurrent-behind-the-rise-of-deepseek-ddos-attacks-in-the-global-ai-technology-game/" target="_blank" rel="noopener noreferrer" class="text-sm text-[var(--color-accent)] hover:underline no-underline"> NSFocus: DDoS Attacks in the Global AI Technology Game </a> <span class="text-xs text-[var(--color-text-tertiary)] ml-2">2025-01-30</span> </li><li> <a href="https://www.globaltimes.cn/page/202501/1327697.shtml" target="_blank" rel="noopener noreferrer" class="text-sm text-[var(--color-accent)] hover:underline no-underline"> Global Times: Cyberattacks against DeepSeek escalate </a> <span class="text-xs text-[var(--color-text-tertiary)] ml-2">2025-01-28</span> </li> </ul> </section> </div> </article> </div>  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const links = document.querySelectorAll('.toc-link');
+      if (!links.length) return;
+      const sectionIds = Array.from(links).map(l => l.getAttribute('data-section'));
+
+      function updateActive() {
+        let current = sectionIds[0];
+        for (const id of sectionIds) {
+          const el = document.getElementById(id);
+          if (el && el.getBoundingClientRect().top <= 100) current = id;
+        }
+        links.forEach(l => {
+          const isActive = l.getAttribute('data-section') === current;
+          l.style.borderColor = isActive ? '#2563EB' : 'transparent';
+          l.style.color = isActive ? '#111827' : '';
+          l.style.fontWeight = isActive ? '500' : '';
+        });
+      }
+
+      window.addEventListener('scroll', updateActive, { passive: true });
+      updateActive();
+    });
+  </script>  </main> <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script> <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        if (typeof mermaid !== 'undefined') {
+          mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+              primaryColor: '#FFFFFF',
+              primaryBorderColor: '#D1D5DB',
+              primaryTextColor: '#111827',
+              lineColor: '#D1D5DB',
+              secondaryColor: '#F9FAFB',
+              tertiaryColor: '#F3F4F6',
+              fontFamily: 'Inter, system-ui, sans-serif',
+              fontSize: '13px'
+            },
+            flowchart: {
+              curve: 'basis',
+              padding: 16
+            }
+          });
+        }
+      });
+    </script> </body> </html>
