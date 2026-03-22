@@ -10,37 +10,32 @@
 1. **AI驱动的攻击** (`ai_powered_attack`): 攻击者利用AI/LLM技术实施的网络攻击（如AI生成钓鱼邮件、AI辅助漏洞利用、deepfake社工攻击、AI自动化渗透等）
 2. **针对AI的攻击** (`attack_on_ai`): 针对LLM、Agent系统、AI服务的攻击（如prompt injection、模型投毒、越狱攻击、数据泄露、模型窃取、对抗样本攻击等）
 
+## 采集上限
+
+- **每类事件每日最多采集 3 个**（`ai_powered_attack` ≤ 3，`attack_on_ai` ≤ 3）
+- 某类达到上限后立即停止该类别的搜索
+- 优先选择细节最丰富、影响最大的事件
+- 搜索到足够数量的事件后，不必遍历所有关键词，立即进入下一步
+
 ## 执行步骤
 
 ### 1. 多关键词、多语言搜索
 
 使用 WebSearch 工具，分批执行以下搜索（根据 $ARGUMENTS 可调整日期或主题）：
 
-**英文搜索词**（覆盖主流安全媒体和资讯）:
+**英文搜索词**（按需搜索，达到上限即停）:
 - "AI cyberattack 2026"
-- "AI-powered cyber attack incident"
 - "LLM prompt injection attack real world"
-- "AI-powered phishing attack"
 - "deepfake cyber attack incident"
 - "AI agent security breach"
-- "ChatGPT jailbreak exploit incident"
-- "LLM vulnerability exploit in the wild"
-- "AI supply chain attack"
 - "generative AI used in cyberattack"
 - "AI model data breach"
-- "adversarial attack on AI system"
-- "AI copilot security vulnerability"
-- "MCP server attack" OR "AI tool use exploit"
 
 **中文搜索词**:
 - "AI网络攻击事件 2026"
 - "大模型安全漏洞 攻击"
-- "AI钓鱼攻击 事件"
-- "LLM越狱攻击事件"
 - "AI智能体安全事件"
-- "人工智能 网络安全事件"
 - "深度伪造 攻击 事件"
-- "大模型 prompt注入 真实案例"
 
 **优先关注的信息来源**（搜索时可限定站点）:
 - 英文: BleepingComputer, The Hacker News, KrebsOnSecurity, Dark Reading, SecurityWeek, Wired, Ars Technica, The Record, TechCrunch (security)
@@ -102,6 +97,7 @@
 ## 注意事项
 
 - 所有标题和摘要使用中文
-- 如果搜索结果较少，扩大时间范围或调整关键词
+- **节约API调用**：搜索到足够事件（每类3个）后立即停止，不必遍历所有关键词
+- 如果搜索结果较少，可适当扩大时间范围，但不要增加关键词数量
 - 确保来源URL真实有效
 - $ARGUMENTS 可传入特定日期（如 "2026-03-20"）或主题（如 "prompt injection"）来聚焦搜索
