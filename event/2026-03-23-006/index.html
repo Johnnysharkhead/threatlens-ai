@@ -1,0 +1,181 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/threatlens-ai/favicon.svg"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="ThreatLens AI — AI网络攻击威胁情报平台"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><title>MuddyWater发起RustyWater鱼叉式网络钓鱼行动：Rust恶意植入物攻击中东多国关键行业 — ThreatLens AI</title><link rel="stylesheet" href="/threatlens-ai/_astro/events.DUKyK1Fp.css"></head> <body class="bg-[var(--color-bg-primary)] text-[var(--color-text-primary)] font-sans min-h-screen antialiased"> <header class="border-b border-[var(--color-border-default)] sticky top-0 z-50 bg-[var(--color-bg-primary)]"> <nav class="max-w-[896px] mx-auto px-6 h-14 flex items-center justify-between"> <a href="/threatlens-ai/" class="flex items-center gap-2 no-underline"> <span class="text-base font-bold tracking-tight text-[var(--color-text-primary)]">ThreatLens</span> <span class="text-base font-semibold text-[var(--color-accent)] tracking-wide">AI</span> </a> <span class="text-xs text-[var(--color-text-tertiary)]">Cyber Threat Intelligence</span> </nav> </header> <main class="max-w-[896px] mx-auto px-6 py-10">   <a href="/threatlens-ai/" class="inline-flex items-center gap-1 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] no-underline mb-8 transition-colors">
+← 返回
+</a>  <div class="flex gap-10"> <!-- Sticky sidebar TOC (desktop only) --> <aside class="hidden lg:block w-44 shrink-0"> <nav class="sticky top-20"> <div class="text-xs font-medium text-[var(--color-text-tertiary)] uppercase tracking-widest mb-3">目录</div> <ul class="space-y-1 list-none p-0 m-0"> <li> <a href="#overview" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="overview"> 攻击概况 </a> </li><li> <a href="#technique" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="technique"> 攻击手法 </a> </li><li> <a href="#attack-chain" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="attack-chain"> 攻击链分析 </a> </li><li> <a href="#defense" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="defense"> 启示与防御 </a> </li><li> <a href="#sources" class="toc-link block text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] no-underline py-1 pl-3 border-l-2 border-transparent transition-colors" data-section="sources"> 信息来源 </a> </li> </ul> </nav> </aside> <!-- Main report content --> <article class="flex-1 min-w-0"> <!-- Header --> <header class="mb-10 pb-8 border-b border-[var(--color-border-default)]"> <div class="flex items-center gap-3 mb-4"> <span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2 py-0.5 rounded-sm font-medium"> AI驱动攻击 </span> <time class="text-xs text-[var(--color-text-tertiary)]">2026-03-23</time> <span class="text-xs text-[var(--color-text-tertiary)]">
+复杂度: 高级 </span> </div> <h1 class="text-2xl md:text-[28px] font-bold leading-tight mb-4">MuddyWater发起RustyWater鱼叉式网络钓鱼行动：Rust恶意植入物攻击中东多国关键行业</h1> <p class="text-[var(--color-text-secondary)] text-[15px] leading-relaxed">2026年1月，伊朗国家支持的威胁行为者MuddyWater针对中东及北非地区外交、海事、金融和电信机构发起大规模鱼叉式网络钓鱼行动（代号Operation Olalampo），部署基于Rust语言的新型RAT植入物RustyWater（又称Archer RAT/RUSTRIC），并在配套工具CHAR的调试字符串中发现AI辅助开发迹象，标志着伊朗系威胁组织正式将生成式AI融入恶意软件开发流程。攻击造成约500万美元损失，目标系统平均停机14天。</p> </header> <div class="space-y-12"> <!-- Section: 攻击概况 --> <section id="overview"> <h2 class="text-lg font-semibold mb-5">攻击概况</h2> <div class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-[var(--color-border-default)] border border-[var(--color-border-default)] rounded-md overflow-hidden"> <div class="bg-[var(--color-bg-primary)] p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">攻击方</div> <div class="text-sm font-medium leading-snug">MuddyWater（又称Earth Vetala、Mango Sandstorm、Static Kitten、TA450、MERCURY），隶属伊朗情报与安全部（MOIS），自2017年起持续活跃</div> </div> <div class="bg-[var(--color-bg-primary)] p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">攻击目标</div> <div class="text-sm font-medium leading-snug">中东及北非（MENA）地区外交机构、海事行业、金融服务机构、电信运营商，涉及土库曼斯坦、阿联酋、沙特阿拉伯等国政府和基础设施单位</div> </div> <div class="bg-[var(--color-bg-primary)] p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">经济损失</div> <div class="text-sm font-medium">估计经济损失约500万美元；受害系统平均停机14天；泄露数据涵盖政府文件、基础设施图纸及机密通信内容</div> </div> <div class="bg-[var(--color-bg-primary)] p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">事件状态</div> <div class="text-sm font-medium">持续中</div> </div> </div> <div class="mt-4 border border-[var(--color-border-default)] rounded-md p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">事件时间线</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">2026年1月8日：FBI/IC3发布Flash警报；2026年1月26日：Operation Olalampo正式启动，鱼叉式钓鱼邮件开始大规模投递；2026年2月：Group-IB披露GhostFetch、CHAR、HTTP_VIP等新工具技术细节；2026年3月：行动持续扩展，已延伸至美国银行及机场网络</div> </div> <div class="mt-4 border border-[var(--color-border-default)] rounded-md p-4"> <div class="text-xs text-[var(--color-text-tertiary)] mb-1">行业影响</div> <div class="text-sm text-[var(--color-text-secondary)] leading-[1.7]">本次行动的战略意义远超单次攻击事件：MuddyWater将Rust等内存安全语言与AI辅助开发相结合，代表了国家级APT组织工具链现代化的重要里程碑。外交、海事、金融、电信等关键基础设施行业面临更高风险——这些行业传统安全防护能力参差不齐，而AI生成的高质量社会工程学内容将使普通员工更难识别钓鱼攻击。随着GenAI技术门槛持续降低，预计中等能力的威胁组织也将快速掌握开发复杂、低噪音RAT的能力，全球组织机构需将「AI赋能攻击」纳入首要威胁模型。伊朗系APT组织将持续针对MENA地区机构及美国利益相关方，地缘政治紧张局势将进一步推动此类行动的频度与烈度。</div> </div> </section> <!-- Section: 攻击手法 --> <section id="technique"> <h2 class="text-lg font-semibold mb-5">攻击手法</h2> <div class="border border-[var(--color-border-default)] rounded-md p-5 mb-4"> <div class="text-sm leading-[1.7] text-[var(--color-text-primary)]"> 攻击以高度定向的鱼叉式钓鱼邮件为入口，附带恶意Microsoft Word文档（如Cybersecurity.doc）。受害者启用文档宏后，VBA宏中的WriteHexToFile函数从UserForm1.TextBox1读取十六进制编码的Payload并解码，写入C:\ProgramData\CertificationKit.ini，随后通过动态重建的WScript.Shell COM对象执行（载荷文件名变体：reddit.exe、art.exe、cloud.exe、nginx.exe）。核心植入物RustyWater（又称Archer RAT/RUSTRIC）为Rust编译的RAT，具备以下技术特点：（1）异步C2通信：基于Rust tokio运行时和reqwest库实现多线程HTTP通信，通信内容经JSON→Base64→XOR三层混淆加密；（2）高级反分析机制：注册向量化异常处理器（VEH）检测调试行为，扫描25+款杀毒产品的文件路径、服务名及安装目录，启用随机化休眠抖动规避沙箱；（3）注册表持久化：写入HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run，无需管理员权限；（4）进程注入：通过VirtualAllocEx+WriteProcessMemory注入explorer.exe；（5）模块化扩展：无需重感染即可动态下发新功能模块。AI辅助开发证据：配套工具CHAR的调试字符串中发现Emoji字符，研究人员据此判断存在生成式AI辅助编码行为，与MuddyWater实验性使用GenAI工具进行恶意软件开发的文献记录相吻合。多工具联合作战：GhostFetch（一阶段内存执行下载器）、GhostBackDoor（二阶段交互式后门）、HTTP_VIP（部署AnyDesk的本地下载器）和CHAR（通过Telegram Bot stager_51_bot进行C2的Rust后门）共同构成完整的多阶段攻击工具链，DNS隧道和obfuscated PowerShell脚本用于辅助C2通信。 </div> </div> <div class="flex flex-wrap gap-2 mb-4"> <span class="text-xs bg-[var(--color-accent-surface)] text-[var(--color-accent)] px-2.5 py-1 rounded-sm font-medium"> N/A（本事件属于AI辅助进攻性工具开发场景，非直接针对LLM系统的攻击；AI技术被用于辅助生成恶意软件代码，降低了高质量RAT的开发门槛，与OWASP LLM Top 10框架适用场景不同） </span> <span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">RustyWater / Archer RAT / RUSTRIC（Rust编写的核心RAT植入物）</span><span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">GhostFetch（一阶段内存执行下载器，含反沙箱检测）</span><span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">GhostBackDoor（二阶段交互式后门，支持Shell访问和横向移动）</span><span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">HTTP_VIP（本地下载器，可部署AnyDesk远程访问工具，支持剪贴板捕获）</span><span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">CHAR（Rust编写的后门，通过Telegram Bot stager_51_bot进行C2控制）</span><span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">SimpleHelp（合法远程管理工具，被滥用于横向移动）</span><span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">AnyDesk（合法远程桌面工具，被滥用作持久访问手段）</span><span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">VBA宏（嵌入Word文档的初始执行载体，含十六进制编码Payload）</span><span class="text-xs bg-[var(--color-bg-tertiary)] text-[#374151] px-2.5 py-1 rounded-sm">生成式AI工具（辅助CHAR等工具的代码生成，证据为调试字符串中的Emoji字符）</span> </div> <div> <div class="text-xs text-[var(--color-text-tertiary)] mb-2 font-medium">利用的脆弱性</div> <ul class="list-none p-0 m-0 space-y-1.5"> <li class="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]"> <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-text-tertiary)] shrink-0"></span> CVE-2017-0199（CVSS 7.8）：Microsoft Office远程代码执行漏洞，通过精心构造的Office文档触发宏执行 </li><li class="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]"> <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-text-tertiary)] shrink-0"></span> CVE-2020-1472（CVSS 5.5）：Netlogon特权提升漏洞（ZeroLogon），用于获取域管理员权限 </li><li class="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]"> <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-text-tertiary)] shrink-0"></span> 社会工程学：冒充土库曼斯坦移动运营商TMCell及网络安全指引发送高可信度钓鱼邮件 </li><li class="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]"> <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-text-tertiary)] shrink-0"></span> 泄露凭证滥用：利用已泄露的土库曼斯坦、阿联酋等国政府邮件账户发件，绕过发件人信誉检测 </li> </ul> </div> </section> <!-- Section: 攻击链分析 (Interactive) --> <section id="attack-chain"> <h2 class="text-lg font-semibold mb-2">攻击链分析</h2> <p class="text-sm text-[var(--color-text-secondary)] mb-6 leading-relaxed">攻击分为七个阶段：侦察与AI辅助武器化→鱼叉式钓鱼邮件投递→VBA宏执行与Payload释放→RustyWater植入与持久化→C2通信与多后门部署→横向移动与权限提升→数据窃取与长期驻留。整个攻击链融合了凭证滥用、漏洞利用、AI辅助工具开发和多层次混淆，体现了国家级APT组织向内存安全语言（Rust）和AI赋能攻击演进的技术趋势。</p> <div class="flex flex-col lg:flex-row gap-6" id="chain-2026-03-23-006"> <!-- Left Panel: Interactive Timeline / Step Cards --> <div class="lg:w-[340px] shrink-0 space-y-2" id="steps-2026-03-23-006"> <button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="0" data-chain="2026-03-23-006" data-node="A" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 1 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">侦察与武器化</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> 利用已泄露的土库曼斯坦、阿联酋等国政府邮件账户凭证建立高可信度发件身份；使用生成式AI工具辅助开发Rust恶意软件（CHAR调试字符串中的Emoji为证）；制作冒充TMCell或网络安全指引的钓鱼文档 </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="1" data-chain="2026-03-23-006" data-node="B" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 2 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">初始入侵</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> 从泄露的政府邮件账户发送定向钓鱼邮件，附带恶意Word文档（如Cybersecurity.doc，SHA256：f38a56b8dc0e8a581999621eef65ef497f0ac0d35e953bd94335926f00e9464f），利用CVE-2017-0199触发宏执行 </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="2" data-chain="2026-03-23-006" data-node="C" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 3 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">执行</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> WriteHexToFile函数从UserForm1.TextBox1读取十六进制编码PE文件，解码后写入C:\ProgramData\CertificationKit.ini；love_me_function通过动态重建WScript.Shell COM对象执行（变体：reddit.exe、art.exe等） </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="3" data-chain="2026-03-23-006" data-node="D" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 4 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">持久化</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> 写入HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run键，指向C:\ProgramData\CertificationKit.ini；通过VirtualAllocEx+WriteProcessMemory注入explorer.exe进程；使用随机化休眠抖动规避行为检测 </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="4" data-chain="2026-03-23-006" data-node="E" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 5 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">C2通信与多后门部署</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> RustyWater通过HTTP与C2服务器通信（stratioai.org/159.198.68.25、bootcamptg.org/161.35.228.250、nomercys.it.com/159.198.66.153），通信内容经JSON→Base64→XOR三层加密；CHAR通过Telegram Bot（stager_51_bot）接受C2指令；GhostFetch在内存中直接加载GhostBackDoor；HTTP_VIP连接codefusiontech[.]org部署AnyDesk </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="5" data-chain="2026-03-23-006" data-node="F" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 6 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">横向移动与权限提升</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> 利用Netlogon漏洞（CVE-2020-1472）获取域管理员权限；通过SimpleHelp在内网横向扩散；GhostBackDoor支持重新执行GhostFetch进行进一步渗透；结合DNS隧道和混淆PowerShell脚本维持隐蔽通信 </div> </div> </div> </button><button class="step-card w-full text-left border border-[var(--color-border-default)] rounded-md p-4 cursor-pointer bg-[var(--color-bg-primary)]" data-step-index="6" data-chain="2026-03-23-006" data-node="G" type="button"> <div class="flex items-start gap-3"> <span class="mt-0.5 w-6 h-6 flex items-center justify-center rounded-sm text-xs font-semibold bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] shrink-0 step-number"> 7 </span> <div class="flex-1 min-w-0"> <div class="text-sm font-medium text-[var(--color-text-primary)] step-title">数据窃取与影响</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed mt-1 step-detail hidden"> 窃取政府文件、基础设施图纸和机密通信内容；HTTP_VIP更新变体捕获剪贴板数据；平均造成14天系统停机，估计损失约500万美元；行动持续扩展，已延伸至美国银行及机场网络 </div> </div> </div> </button> </div> <!-- Right Panel: Mermaid Graph (Sticky) --> <div class="flex-1 min-w-0 lg:sticky lg:top-20 lg:self-start"> <div class="mermaid-container border border-[var(--color-border-default)] rounded-md bg-[var(--color-bg-primary)] p-6 overflow-x-auto"> <pre class="mermaid" id="mermaid-2026-03-23-006">graph TD
+    A[&quot;侦察与武器化\nAI辅助开发Rust恶意软件\n收集泄露政府邮件凭证&quot;] --&gt; B[&quot;鱼叉式钓鱼邮件\n伪装TMCell/安全指引\nCybersecurity.doc附件&quot;]
+    B --&gt; C[&quot;VBA宏执行\nWriteHexToFile解码载荷\nWScript.Shell触发&quot;]
+    C --&gt; D[&quot;RustyWater植入\nRust RAT，三层加密C2\n反调试/反AV/进程注入&quot;]
+    D --&gt; E[&quot;注册表持久化\nHKCU Run键\nexplorer.exe进程注入&quot;]
+    E --&gt; F[&quot;多后门并行部署\nGhostFetch内存加载\nCHAR Telegram C2\nHTTP_VIP部署AnyDesk&quot;]
+    F --&gt; G[&quot;横向移动\nCVE-2020-1472提权\nSimpleHelp内网扩散&quot;]
+    G --&gt; H[&quot;数据窃取\n政府文件/基础设施图纸\n剪贴板捕获&quot;]
+    H --&gt; I[&quot;业务影响\n停机14天\n损失约500万美元&quot;]
+
+    style A fill:#1a1a2e,color:#e0e0e0,stroke:#4a4a8a
+    style B fill:#16213e,color:#e0e0e0,stroke:#e94560
+    style C fill:#16213e,color:#e0e0e0,stroke:#e94560
+    style D fill:#e94560,color:#ffffff,stroke:#c23152
+    style E fill:#c23152,color:#ffffff,stroke:#a01f3f
+    style F fill:#0f3460,color:#e0e0e0,stroke:#533483
+    style G fill:#533483,color:#ffffff,stroke:#3d2470
+    style H fill:#e94560,color:#ffffff,stroke:#c23152
+    style I fill:#7b0000,color:#ffffff,stroke:#5c0000</pre> </div> </div> </div> <!-- Attack Chain interaction script --> <script>(function(){const eventId = "2026-03-23-006";
+const nodeCount = 7;
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('steps-' + eventId);
+    if (!container) return;
+
+    const cards = container.querySelectorAll('.step-card');
+    let activeIndex = 0;
+
+    function activateStep(index) {
+      activeIndex = index;
+
+      cards.forEach(function(card, i) {
+        const isActive = i === index;
+        const detail = card.querySelector('.step-detail');
+        const number = card.querySelector('.step-number');
+
+        // Card styling
+        card.style.borderColor = isActive ? '#2563EB' : '';
+        card.style.borderLeftWidth = isActive ? '3px' : '';
+        card.style.backgroundColor = isActive ? '#EFF6FF' : '';
+
+        // Number badge
+        if (number) {
+          number.style.backgroundColor = isActive ? '#2563EB' : '';
+          number.style.color = isActive ? '#FFFFFF' : '';
+        }
+
+        // Progressive disclosure: show/hide detail
+        if (detail) {
+          if (isActive) {
+            detail.classList.remove('hidden');
+          } else {
+            detail.classList.add('hidden');
+          }
+        }
+      });
+
+      // Highlight active Mermaid node
+      highlightMermaidNode(index);
+    }
+
+    function highlightMermaidNode(index) {
+      const mermaidContainer = document.querySelector('#chain-' + eventId + ' .mermaid-container');
+      if (!mermaidContainer) return;
+
+      // Reset all nodes
+      var allNodes = mermaidContainer.querySelectorAll('.node');
+      allNodes.forEach(function(node) {
+        var rect = node.querySelector('rect') || node.querySelector('polygon');
+        var label = node.querySelector('.nodeLabel');
+        if (rect) {
+          rect.style.fill = '#FFFFFF';
+          rect.style.stroke = '#D1D5DB';
+          rect.style.strokeWidth = '1px';
+        }
+        if (label) {
+          label.style.color = '#111827';
+        }
+      });
+
+      // Highlight the active node (nodes are in DOM order matching steps)
+      if (allNodes[index]) {
+        var rect = allNodes[index].querySelector('rect') || allNodes[index].querySelector('polygon');
+        var label = allNodes[index].querySelector('.nodeLabel');
+        if (rect) {
+          rect.style.fill = '#2563EB';
+          rect.style.stroke = '#2563EB';
+          rect.style.strokeWidth = '2px';
+        }
+        if (label) {
+          label.style.color = '#FFFFFF';
+        }
+      }
+    }
+
+    // Click handlers
+    cards.forEach(function(card, i) {
+      card.addEventListener('click', function() {
+        activateStep(i);
+      });
+    });
+
+    // Activate first step after Mermaid renders
+    // Use MutationObserver to detect when SVG appears
+    var mermaidEl = document.getElementById('mermaid-' + eventId);
+    if (mermaidEl) {
+      var observer = new MutationObserver(function(mutations) {
+        for (var m = 0; m < mutations.length; m++) {
+          if (mutations[m].addedNodes.length) {
+            for (var n = 0; n < mutations[m].addedNodes.length; n++) {
+              if (mutations[m].addedNodes[n].tagName === 'svg') {
+                setTimeout(function() { activateStep(0); }, 100);
+                observer.disconnect();
+                return;
+              }
+            }
+          }
+        }
+      });
+      observer.observe(mermaidEl.parentElement, { childList: true, subtree: true });
+    }
+
+    // Fallback: activate first step after a delay
+    setTimeout(function() { activateStep(0); }, 1500);
+  });
+})();</script> </section> <!-- Section: 启示与防御 + GAP Analysis --> <section id="defense"> <h2 class="text-lg font-semibold mb-5">启示与防御</h2> <!-- AI Role --> <div class="border-l-2 border-[var(--color-accent)] pl-4 mb-6"> <div class="text-xs text-[var(--color-accent)] font-medium mb-1.5">AI在攻击中的角色</div> <div class="text-sm text-[var(--color-text-secondary)] leading-[1.7]">AI在本次攻击中扮演了恶意软件辅助开发者的角色：研究人员在CHAR后门的调试字符串中发现Emoji字符，这是GenAI工具（如GitHub Copilot、GPT-4类代码生成模型）辅助代码生成的典型痕迹。AI的参与使MuddyWater能够更快速地开发出具备异步C2、反分析、模块化扩展能力的高质量Rust恶意软件，同时可能被用于生成针对不同目标语言和文化背景的定制化钓鱼内容。这标志着AI赋能进攻性网络行动从理论探讨正式进入APT组织实际部署阶段。</div> </div> <!-- AI Vulnerabilities --> <div class="mb-6"> <div class="text-xs text-[var(--color-text-tertiary)] font-medium mb-2.5">AI特有脆弱性</div> <ul class="list-none p-0 m-0 space-y-2"> <li class="flex items-start gap-2.5 text-sm text-[var(--color-text-secondary)] leading-relaxed"> <span class="mt-1.5 w-1.5 h-1.5 bg-[var(--color-text-tertiary)] shrink-0" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"></span> 生成式AI大幅降低了高质量Rust恶意软件的开发门槛：CHAR后门调试字符串中发现Emoji，表明AI辅助编码已渗透至APT级工具链开发流程 </li><li class="flex items-start gap-2.5 text-sm text-[var(--color-text-secondary)] leading-relaxed"> <span class="mt-1.5 w-1.5 h-1.5 bg-[var(--color-text-tertiary)] shrink-0" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"></span> AI可辅助生成高可信度的多语种社会工程学内容，使传统钓鱼识别特征（语法错误、表述异常）日益失效 </li><li class="flex items-start gap-2.5 text-sm text-[var(--color-text-secondary)] leading-relaxed"> <span class="mt-1.5 w-1.5 h-1.5 bg-[var(--color-text-tertiary)] shrink-0" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"></span> AI加速了从脚本语言（PowerShell/VBS）向内存安全语言（Rust）的恶意软件演进速度，传统基于签名的检测面临更大挑战 </li><li class="flex items-start gap-2.5 text-sm text-[var(--color-text-secondary)] leading-relaxed"> <span class="mt-1.5 w-1.5 h-1.5 bg-[var(--color-text-tertiary)] shrink-0" style="clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"></span> 国家级威胁组织（MOIS/MuddyWater）已将GenAI纳入标准化武器开发流程，这将成为行业常态而非例外 </li> </ul> </div> <!-- Defense GAP Analysis --> <div class="mt-6"> <div class="text-xs text-[var(--color-text-tertiary)] font-medium mb-3">防御能力差距分析</div> <div class="border border-[var(--color-border-default)] rounded-md overflow-hidden"> <!-- Table header --> <div class="hidden sm:grid sm:grid-cols-[180px_100px_1fr] bg-[var(--color-bg-secondary)] border-b border-[var(--color-border-default)]"> <div class="px-4 py-2.5 text-xs font-medium text-[var(--color-text-tertiary)]">防御方案</div> <div class="px-4 py-2.5 text-xs font-medium text-[var(--color-text-tertiary)]">覆盖状态</div> <div class="px-4 py-2.5 text-xs font-medium text-[var(--color-text-tertiary)]">差距分析</div> </div> <!-- Table rows --> <div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">综合安全策略</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"> <circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M6 1 A5 5 0 0 1 6 11 Z" fill="#111827"></path> </svg> <span class="text-xs text-[var(--color-text-secondary)]">部分覆盖</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">需要结合多种防御手段，传统单点方案无法应对AI时代的复合威胁</div> </div> </div><div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">终端检测与响应 (EDR)</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"> <circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M6 1 A5 5 0 0 1 6 11 Z" fill="#111827"></path> </svg> <span class="text-xs text-[var(--color-text-secondary)]">部分覆盖</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">EDR可检测已知恶意行为模式，但AI生成的多态代码和动态变异可绕过签名检测</div> </div> </div><div class="sm:grid sm:grid-cols-[180px_100px_1fr] border-b border-[var(--color-border-default)] last:border-b-0 bg-[var(--color-bg-primary)]">  <div class="px-4 py-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">防御方案</div> <div class="text-sm font-medium text-[var(--color-text-primary)]">安全信息与事件管理 (SIEM)</div> </div>  <div class="px-4 py-1.5 sm:py-4 flex items-center gap-2"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mr-1">状态:</div> <span class="flex items-center gap-1.5"> <svg width="12" height="12" viewBox="0 0 12 12"> <circle cx="6" cy="6" r="5" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M6 1 A5 5 0 0 1 6 11 Z" fill="#111827"></path> </svg> <span class="text-xs text-[var(--color-text-secondary)]">部分覆盖</span> </span> </div>  <div class="px-4 py-1.5 pb-3.5 sm:py-4"> <div class="text-xs text-[var(--color-text-tertiary)] sm:hidden mb-1">差距分析</div> <div class="text-sm text-[var(--color-text-secondary)] leading-relaxed">SIEM可记录和关联事件，但需要针对AI特有的攻击模式定制检测规则</div> </div> </div> </div> <!-- Legend --> <div class="flex items-center gap-5 mt-3"> <span class="flex items-center gap-1.5 text-xs text-[var(--color-text-tertiary)]"> <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="#111827"></circle></svg>
+可防御
+</span> <span class="flex items-center gap-1.5 text-xs text-[var(--color-text-tertiary)]"> <svg width="10" height="10" viewBox="0 0 10 10"> <circle cx="5" cy="5" r="4" fill="none" stroke="#111827" stroke-width="1.5"></circle> <path d="M5 1 A4 4 0 0 1 5 9 Z" fill="#111827"></path> </svg>
+部分覆盖
+</span> <span class="flex items-center gap-1.5 text-xs text-[var(--color-text-tertiary)]"> <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="none" stroke="#111827" stroke-width="1.5"></circle></svg>
+防御缺口
+</span> </div> </div> </section> <!-- Section: Sources --> <section id="sources" class="pt-8 border-t border-[var(--color-border-default)]"> <div class="text-xs text-[var(--color-text-tertiary)] font-medium uppercase tracking-widest mb-3">信息来源</div> <ul class="list-none p-0 m-0 space-y-2"> <li> <a href="https://thehackernews.com/2026/01/muddywater-launches-rustywater-rat-via.html" target="_blank" rel="noopener noreferrer" class="text-sm text-[var(--color-accent)] hover:underline no-underline"> MuddyWater Launches RustyWater RAT via Spear-Phishing Across Middle East Sectors | The Hacker News </a> <span class="text-xs text-[var(--color-text-tertiary)] ml-2">2026-01</span> </li><li> <a href="https://aviatrix.ai/threat-research-center/muddywater-2026-mena-ghostfetch-char-http-vip/" target="_blank" rel="noopener noreferrer" class="text-sm text-[var(--color-accent)] hover:underline no-underline"> MuddyWater&#39;s 2026 Cyberespionage Campaign Targets MENA Organizations | Aviatrix AI </a> <span class="text-xs text-[var(--color-text-tertiary)] ml-2">2026-01</span> </li><li> <a href="https://www.ic3.gov/CSA/2026/260108.pdf" target="_blank" rel="noopener noreferrer" class="text-sm text-[var(--color-accent)] hover:underline no-underline"> FBI/IC3 Flash Alert: MuddyWater 2026 Campaign Advisory </a> <span class="text-xs text-[var(--color-text-tertiary)] ml-2">2026-01-08</span> </li><li> <a href="https://www.cloudsek.com/blog/reborn-in-rust-muddywater-evolves-tooling-with-rustywater-implant" target="_blank" rel="noopener noreferrer" class="text-sm text-[var(--color-accent)] hover:underline no-underline"> Reborn in Rust: MuddyWater Evolves Tooling with RustyWater Implant | CloudSEK </a> <span class="text-xs text-[var(--color-text-tertiary)] ml-2">2026-01</span> </li><li> <a href="https://thehackernews.com/2026/02/muddywater-targets-mena-organizations.html" target="_blank" rel="noopener noreferrer" class="text-sm text-[var(--color-accent)] hover:underline no-underline"> MuddyWater Targets MENA Organizations with GhostFetch, CHAR, and HTTP_VIP | The Hacker News </a> <span class="text-xs text-[var(--color-text-tertiary)] ml-2">2026-02</span> </li> </ul> </section> </div> </article> </div>  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const links = document.querySelectorAll('.toc-link');
+      if (!links.length) return;
+      const sectionIds = Array.from(links).map(l => l.getAttribute('data-section'));
+
+      function updateActive() {
+        let current = sectionIds[0];
+        for (const id of sectionIds) {
+          const el = document.getElementById(id);
+          if (el && el.getBoundingClientRect().top <= 100) current = id;
+        }
+        links.forEach(l => {
+          const isActive = l.getAttribute('data-section') === current;
+          l.style.borderColor = isActive ? '#2563EB' : 'transparent';
+          l.style.color = isActive ? '#111827' : '';
+          l.style.fontWeight = isActive ? '500' : '';
+        });
+      }
+
+      window.addEventListener('scroll', updateActive, { passive: true });
+      updateActive();
+    });
+  </script>  </main> <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script> <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        if (typeof mermaid !== 'undefined') {
+          mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+              primaryColor: '#FFFFFF',
+              primaryBorderColor: '#D1D5DB',
+              primaryTextColor: '#111827',
+              lineColor: '#D1D5DB',
+              secondaryColor: '#F9FAFB',
+              tertiaryColor: '#F3F4F6',
+              fontFamily: 'Inter, system-ui, sans-serif',
+              fontSize: '13px'
+            },
+            flowchart: {
+              curve: 'basis',
+              padding: 16
+            }
+          });
+        }
+      });
+    </script> </body> </html>
